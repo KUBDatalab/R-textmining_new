@@ -194,6 +194,54 @@
 </div>
 <!--/div.accordion-flush-->
 
+<div class="accordion accordion-flush" id="accordionFlush3">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading3">
+        <a href="01TextminingwithREpisode1.html">2. Episode 1 Loading data</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush4">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading4">
+        <a href="02_Text_mining_with.html">3. Episode 2 tidytext, stopwords, and sentiment analysis</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush5">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading5">
+        <a href="03TextminingwithREpisode3.html">4. Episode 3 word frequency analysis</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush6">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading6">
+        <a href="04_Textminingextras.html">5. Episode 4 text mining extras</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
                 </div>
               </div>
             </div>
@@ -416,6 +464,855 @@ locally</li>
 </div>
 </div>
 </div>
+<!-- 
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use. 
+ -->
+</section></section><section id="aio-01TextminingwithREpisode1"><p>Content from <a href="01TextminingwithREpisode1.html">Episode 1 Loading data</a></p>
+<hr>
+<p>Last updated on 2024-05-01 |
+        
+        <a href="https://github.com/KUBDatalab/R-textmining_new/edit/main/episodes/01TextminingwithREpisode1.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<section id="r-markdown"><h2 class="section-heading">R Markdown<a class="anchor" aria-label="anchor" href="#r-markdown"></a>
+</h2>
+<hr class="half-width"></section><section id="what-is-text-mining"><h2 class="section-heading">What is text mining?<a class="anchor" aria-label="anchor" href="#what-is-text-mining"></a>
+</h2>
+<hr class="half-width">
+<p>Text mining refers to the use of digital tools to enable automatized
+analyses of text data. These analyses can enable insight into a
+collection of texts that can be difficult to spot with the naked eye.
+Furthermore, text mining tools allow the user to analyze large samples
+of texts and visualize the results</p>
+</section><section id="installing-and-loading-relevant-libraries"><h2 class="section-heading">Installing and loading relevant libraries<a class="anchor" aria-label="anchor" href="#installing-and-loading-relevant-libraries"></a>
+</h2>
+<hr class="half-width">
+<p>We need to install some libraries that can perform the various steps
+in text analysis, because the base functions of R are not enough. Then
+we need to load them</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">tidytext</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">tm</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">install.packages</span><span class="op">(</span><span class="st">"tidyverse"</span><span class="op">)</span></span>
+<span><span class="fu">install.packages</span><span class="op">(</span><span class="st">"tidytext"</span><span class="op">)</span></span>
+<span><span class="fu">install.packages</span><span class="op">(</span><span class="st">"tm"</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">tidytext</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">tm</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Documentation for each package:</p>
+<ul>
+<li><a href="https://www.tidyverse.org/packages/" class="external-link">tidyverse</a></li>
+<li><a href="https://cran.r-project.org/web/packages/tidytext/vignettes/tidytext.html" class="external-link">tidytext</a></li>
+<li><a href="https://cran.r-project.org/web/packages/tm/tm.pdf" class="external-link">tm</a></li>
+</ul></section><section id="delimiting-and-loading-dataset"><h2 class="section-heading">Delimiting and loading dataset<a class="anchor" aria-label="anchor" href="#delimiting-and-loading-dataset"></a>
+</h2>
+<hr class="half-width">
+<p>The dataset that we will load is a collection of all debates in the
+Danish Parliament (Folketinget) from fall 2009 to spring 2017. In the
+Danish Parliament, every word from every speech in the debates is
+written in down in the summary. Furthermore, all speeches are described
+by useful and thorough metadata that allow for insightful analyses. The
+dataset was originally retrieved at <a href="https://repository.clarin.dk/repository/xmlui/handle/20.500.12115/44" class="external-link uri">https://repository.clarin.dk/repository/xmlui/handle/20.500.12115/44</a>,
+and has been prepared for today’s course. We are going to work with a
+filtered dataset that contains all parliament speeches on the topic of
+China. Similarly, debates about any other country could have been
+filtered for analysis.</p>
+<p>**The steps for delimiting the dataset were the following: We read
+the dataset into RStudio and saved it as a tibble</p>
+<p>data &lt;-
+read_delim(“C:/Users/swha/Desktop/Mappe/R/Tekstanalyse/Folketinget/1 fil
+2009-2017/Folketingsreferater_2009_2017_samlet.txt”)</p>
+<p>We wanted to convert the text in two of the columns to lowercase and
+save them in the tibble. Converting to lowercase makes filtering better,
+because we can find instances where the country name, which is normally
+in uppercase in Danish, appears as part of a compound noun or compound
+name, which is a common way that nouns and names are joined together to
+form new words and names in the Danish language data<span class="math inline">\(\`Agenda title\` &lt;-
+tolower(data\)</span>`Agenda title`) data<span class="math inline">\(Text &lt;- tolower(data\)</span>Text)</p>
+<p>Now we needed to filter the data to speeches about China and save it
+as a tibble. We chose to filter on `Agenda title`, because it gives the
+a complete list of speeches about China. If we were to use the speech
+text itself, we would have missed speeches about China that did not use
+the the name China or its derivative adjectives, compound nouns and
+compound names. str_detect allows us to find instances of speeches about
+China where the name or the adjective appears either on its own or as
+part of other words</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">data_kina</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">filter</span><span class="op">(</span></span>
+<span>    <span class="fu">str_detect</span><span class="op">(</span><span class="va">`Agenda title`</span>, <span class="st">"kina"</span><span class="op">)</span> <span class="op">|</span> <span class="fu">str_detect</span><span class="op">(</span><span class="va">`Agenda title`</span>, <span class="st">"kines"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre>
+</div>
+<p>To check that all the speeches relate to China, we wanted to have a
+list of all the different `Agenda title`s in the filtered data</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">unique</span><span class="op">(</span><span class="va">data_kina</span><span class="op">$</span><span class="va">`Agenda title`</span><span class="op">)</span></span></code></pre>
+</div>
+<p>We saw that one of the `Agenda title`s had the work “maskinarbejder”
+in it. The speeches on this `Agenda title` obviously don’t relate to
+China, so we filter the speeches on this `Agenda title` away</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">data_kina</span> <span class="op">&lt;-</span> <span class="va">data_kina</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">filter</span><span class="op">(</span></span>
+<span>    <span class="op">!</span><span class="fu">str_detect</span><span class="op">(</span><span class="va">`Agenda title`</span>, <span class="st">"maskinarbejder"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> </span></code></pre>
+</div>
+<p>Now that the dataset was properly filtered to parliament speeches
+about China, we wrote it as a txt.-file, so that it can easily be loaded
+into RStudio by you</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">kina</span> <span class="op">&lt;-</span> <span class="fu">read_delim</span><span class="op">(</span><span class="st">"../data/kina.txt"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: '../data/kina.txt' does not exist in current working directory ('/home/runner/work/R-textmining_new/R-textmining_new/site/built').</code></pre>
+</div>
+<p>*To easily download the dataset there are a couple of steps. 1. Open
+an RStudio Project. Click on the blue cube to open the
+<code>.Rproj</code></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Create a working directory by using the RStudio interface by
+clicking on the “New Folder” button in the file pane (bottom right), or
+directly from R by typing at console</li>
+</ol>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">dir.create</span><span class="op">(</span><span class="st">"data"</span><span class="op">)</span></span></code></pre>
+</div>
+<ol start="3" style="list-style-type: decimal">
+<li>Download the data-file from GitHub and put it in the
+<code>data/</code> you just created. The download link is <a href="https://raw.githubusercontent.com/KUBDatalab/R-textmining/main/data/kina.txt" class="external-link uri">https://raw.githubusercontent.com/KUBDatalab/R-textmining/main/data/kina.txt</a>.
+Place the downloaded file in the <code>data/</code> you just created.
+This can be done by copying and pasting this in your terminal [picture
+of terminal needed here]</li>
+</ol>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">download.file</span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/KUBDatalab/R-textmining/main/data/kina.txt"</span>, <span class="st">"data/kina.txt"</span>, mode <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span></span></code></pre>
+</div>
+<p>The specific path we are using here is dependent on the specific
+setup. If you have followed the recommendations for structuring your
+project-folder, it should be this command:</p>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">kina</span> <span class="op">&lt;-</span> <span class="fu">read_delim</span><span class="op">(</span><span class="st">"data/kina.txt"</span><span class="op">)</span></span></code></pre>
+</div>
+<!-- 
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use. 
+ -->
+</section></section><section id="aio-02_Text_mining_with"><p>Content from <a href="02_Text_mining_with.html">Episode 2 tidytext, stopwords, and sentiment analysis</a></p>
+<hr>
+<p>Last updated on 2024-05-01 |
+        
+        <a href="https://github.com/KUBDatalab/R-textmining_new/edit/main/episodes/02_Text_mining_with.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<section id="r-markdown"><h2 class="section-heading">R Markdown<a class="anchor" aria-label="anchor" href="#r-markdown"></a>
+</h2>
+<hr class="half-width"></section><section id="loading-our-libraries-and-reading-our-data"><h2 class="section-heading">Loading our libraries and reading our data<a class="anchor" aria-label="anchor" href="#loading-our-libraries-and-reading-our-data"></a>
+</h2>
+<hr class="half-width">
+<p>Let us now load our libraries</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">tidytext</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">tm</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: '../data/kina.txt' does not exist in current working directory ('/home/runner/work/R-textmining_new/R-textmining_new/site/built').</code></pre>
+</div>
+</section><section id="understanding-our-data"><h2 class="section-heading">Understanding our data<a class="anchor" aria-label="anchor" href="#understanding-our-data"></a>
+</h2>
+<hr class="half-width">
+<p>We have now successfully loaded in our dataset. Before we start
+preparing it for analysis, let us inspect the columns to see what the
+dataset contains</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">kina</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'kina' not found</code></pre>
+</div>
+<p>We see that we have a lot of metadata, including the date of the
+speech, the start and end time of the speech, the discussed
+resolutions/law proposals and their classifications into subjects, as
+well as various personal information about the speaker. The last column
+is called <code>Text</code> and this contains the speech itself</p>
+</section><section id="introduction-to-tidytext-and-tokenization"><h2 class="section-heading">Introduction to tidytext and tokenization<a class="anchor" aria-label="anchor" href="#introduction-to-tidytext-and-tokenization"></a>
+</h2>
+<hr class="half-width">
+<p>To analyze the speeches we need to make the text tidy. Tidy text
+refers to a dataset where each text has been split up into the
+individual words that make up the speech, and in format where each row
+contains one word. <img src="fig/Tidy_text.png" alt="Tidy text example" class="figure"></p>
+<p>Splitting texts, in our case speeches, into individual words is
+called tokenization <img src="fig/Tokenization.png" alt="Tokenization of example sentence" class="figure"> Hvitfeldt &amp; Silge,
+2021</p>
+<p>Tokenization of text into individual words is necessary for text
+mining because it allows us to analyze the text closely and in detail,
+analyses which can later be visualized to understand the patterns of the
+text. Tokenization is language independent, as long as the language is
+written in an alphabet or syllabary that uses spaces between words. When
+tokenizing our text to make it tidy, the metadata that describe the
+whole speech are carried over to also describe the individual word. Thus
+we can split the text into individual words but still keep track of who
+said that word and when they did.</p>
+<p>We use the tidytext library for tokenization</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">kina_tidy</span> <span class="op">&lt;-</span> <span class="va">kina</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">unnest_tokens</span><span class="op">(</span><span class="va">word</span>, <span class="va">Text</span><span class="op">)</span> <span class="co">#tidytext tokenization</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'kina' not found</code></pre>
+</div>
+</section><section id="stopwords"><h2 class="section-heading">Stopwords<a class="anchor" aria-label="anchor" href="#stopwords"></a>
+</h2>
+<hr class="half-width">
+<p>In all natural language texts, frequent words that carry little
+meaning by themselves are distributed all across the text <img src="fig/Stopwords.png" alt="”Stopwords examples" class="figure"></p>
+<p>The frequent low-meaning words need to be removed because they do not
+add anything to our understanding of the texts and are just noise</p>
+<p>The tm library contains a list of stopwords for Danish, which we’ll
+make into a tibble. We have to specify that the list of stopwords that
+we want to call is the list for the Danish language. Note that stopword
+lists are also available for most major European languages</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">stopwords_dansk</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>word <span class="op">=</span> <span class="fu">stopwords</span><span class="op">(</span>kind <span class="op">=</span> <span class="st">"danish"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+</section><section id="sentiment-analysis"><h2 class="section-heading">Sentiment analysis<a class="anchor" aria-label="anchor" href="#sentiment-analysis"></a>
+</h2>
+<hr class="half-width">
+<p>Sentiment analysis is a method for measuring the sentiment of a text.
+To do this, it is necessary to have a list of words that have been
+assigned to a certain sentiment. This can be a simple assignation of
+words into positive and negative, it can be an assignation to one among
+a multitude of categories, and the word can have a value on a scale. In
+this course we will use the AFINN index for Danish, which assigns
+approximately 3500 words on a scale from +5 to -5. This will enable us
+to calculate and compare the overall sentiment of the various speeches.
+As a side note, AFINN index is also available in English.</p>
+<p>We need to download the AFINN Index from GitHub</p>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">download.file</span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/KUBDatalab/R-textmining/main/data/AFINN_dansk.csv"</span>, <span class="st">"data/AFINN_dansk.csv"</span>, mode <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Now we read need to read the AFINN Index into a tibble and rename the
+columns</p>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: '../data/AFINN_dansk.csv' does not exist in current working directory ('/home/runner/work/R-textmining_new/R-textmining_new/site/built').</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">AFINN_dansk</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/AFINN_dansk.csv"</span><span class="op">)</span></span></code></pre>
+</div>
+</section><section id="bringing-it-all-together-joins"><h2 class="section-heading">Bringing it all together: joins<a class="anchor" aria-label="anchor" href="#bringing-it-all-together-joins"></a>
+</h2>
+<hr class="half-width">
+<p>We have now created tibbles, each with the words appropriate for
+removal of stopwords and application of sentiment analysis respectively.
+Now we need to bring them together in the correct order, and we do this
+by using join-functions. The join functions from the tidyverse library
+allow tibbles to be joined together based on columns that have cells
+where the content is the same in both tibbles.</p>
+<p>There are fundamentally 2 types of joins: * Mutating joins (which add
+columns) * Filtering joins (which filter away rows)</p>
+<p>Mutating joins work by adding new columns to the tibble. We will use
+left_join, which is the most common of the mutating joins <img src="fig/Venn_left_join.jpg" alt="”left_join AFINN Index with tidy text" class="figure"> The left_join joins all
+AFINN sentiment values to those rows that contain a word that is in the
+AFINN Index and adds it as a new column to the tibble. In the new
+column, the rows that contain words that don’t appear in the AFINN Index
+have NA in their cell</p>
+<p>Filtering joins work by filtering away some rows in the tibble. We
+will use the anti_join, which removes those rows that contain a word
+that is also in the stopword list <img src="fig/Venn_anti_join.jpg" alt="”anti_join stopwords with tidy text" class="figure"></p>
+<p>For more info on joins see <a href="https://r4ds.had.co.nz/relational-data.html" class="external-link">R for Data Science
+section section 13: Relational data</a></p>
+<p>We will use the anti_join first, beause we need to filter away
+stopwords before we analyse the text with sentiment analysis</p>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">kina_tidy_2</span> <span class="op">&lt;-</span> <span class="va">kina_tidy</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">anti_join</span><span class="op">(</span><span class="va">stopwords_dansk</span>, by <span class="op">=</span> <span class="st">"word"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co">#stopwords in Danish</span></span>
+<span>  <span class="fu">left_join</span><span class="op">(</span><span class="va">AFINN_dansk</span>, by <span class="op">=</span> <span class="st">"word"</span><span class="op">)</span> <span class="co">#left join with AFINN Index in Danish</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'kina_tidy' not found</code></pre>
+</div>
+</section><section id="analyzing-the-sentiment-of-parties"><h2 class="section-heading">Analyzing the sentiment of parties<a class="anchor" aria-label="anchor" href="#analyzing-the-sentiment-of-parties"></a>
+</h2>
+<hr class="half-width">
+<p>We would like to measure the sentiment of each party when giving
+speeches on the topic of China</p>
+<p>First we need to calculate the mean sentiment value for each party.
+We save it as an object so that we can easily recall it for
+visualization</p>
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">kina_sentiment_value</span> <span class="op">&lt;-</span> <span class="va">kina_tidy_2</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">Role</span> <span class="op">!=</span> <span class="st">"formand"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">Party</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">summarize</span><span class="op">(</span></span>
+<span>    mean_sentiment_value <span class="op">=</span> <span class="fu">mean</span><span class="op">(</span><span class="va">sentiment_value</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'kina_tidy_2' not found</code></pre>
+</div>
+<p>Now we want to visualize each party’s mean sentiment value according
+to the AFINN-Index</p>
+<div class="codewrapper sourceCode" id="cb15">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">kina_sentiment_value</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Party</span>, y <span class="op">=</span> <span class="va">mean_sentiment_value</span>, fill <span class="op">=</span> <span class="va">Party</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>x<span class="op">=</span> <span class="st">"Party"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'kina_sentiment_value' not found</code></pre>
+</div>
+</section><section id="analyzing-the-sentiment-of-rød-and-blå-blok"><h2 class="section-heading">Analyzing the sentiment of rød and blå blok<a class="anchor" aria-label="anchor" href="#analyzing-the-sentiment-of-r%C3%B8d-and-bl%C3%A5-blok"></a>
+</h2>
+<hr class="half-width">
+<p>We would also like to analyze the sentiment of rød and blå blok as a
+whole respectively. To do this, we need to add a column to each row that
+specifies whether the word comes from a member of a party in rød blok or
+blå blok. We must therefore first define which parties make up rød and
+blå blok and put that in a tibble, then bind the two tibbles into one
+tibble, and then make a left_join to the rows in our tidy text</p>
+<div class="codewrapper sourceCode" id="cb17">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">roed_blok</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>Party <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"ALT"</span>, <span class="st">"EL"</span>, <span class="st">"SF"</span>, <span class="st">"S"</span>, <span class="st">"RV"</span><span class="op">)</span>, Blok <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"roed_blok"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">blaa_blok</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>Party <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"V"</span>, <span class="st">"KF"</span>, <span class="st">"LA"</span>, <span class="st">"DF"</span><span class="op">)</span>, Blok <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"blaa_blok"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">blok</span> <span class="op">&lt;-</span> <span class="fu">bind_rows</span><span class="op">(</span><span class="va">roed_blok</span>, <span class="va">blaa_blok</span><span class="op">)</span></span>
+<span><span class="va">kina_tidy_blokke</span> <span class="op">&lt;-</span> <span class="va">kina_sentiment_value</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">left_join</span><span class="op">(</span><span class="va">blok</span>, by <span class="op">=</span> <span class="st">"Party"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'kina_sentiment_value' not found</code></pre>
+</div>
+<p>Now we would like to do the same analysis of mean sentiment value,
+this time for each blok. We also want to specify that the column for
+roed_bloek should be red and the column for blaa_blok should be blue</p>
+<div class="codewrapper sourceCode" id="cb19">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">kina_blokke_sentiment_value</span> <span class="op">&lt;-</span> <span class="va">kina_tidy_blokke</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">Blok</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">summarize</span><span class="op">(</span></span>
+<span>    mean_sentiment_value <span class="op">=</span> <span class="fu">mean</span><span class="op">(</span><span class="va">mean_sentiment_value</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'kina_tidy_blokke' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb21">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">kina_blokke_sentiment_value</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Blok</span>, y <span class="op">=</span> <span class="va">mean_sentiment_value</span>, fill <span class="op">=</span> <span class="va">Blok</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_fill_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>x<span class="op">=</span> <span class="st">"Blok"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'kina_blokke_sentiment_value' not found</code></pre>
+</div>
+<!-- 
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use. 
+ -->
+</section></section><section id="aio-03TextminingwithREpisode3"><p>Content from <a href="03TextminingwithREpisode3.html">Episode 3 word frequency analysis</a></p>
+<hr>
+<p>Last updated on 2024-05-01 |
+        
+        <a href="https://github.com/KUBDatalab/R-textmining_new/edit/main/episodes/03TextminingwithREpisode3.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<section id="r-markdown"><h2 class="section-heading">R Markdown<a class="anchor" aria-label="anchor" href="#r-markdown"></a>
+</h2>
+<hr class="half-width">
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">tidytext</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">tm</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: '../data/kina.txt' does not exist in current working directory ('/home/runner/work/R-textmining_new/R-textmining_new/site/built').</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: '../data/AFINN_dansk.csv' does not exist in current working directory ('/home/runner/work/R-textmining_new/R-textmining_new/site/built').</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'kina' not found</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'kina_tidy' not found</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'kina_tidy_2' not found</code></pre>
+</div>
+</section><section id="word-frequency"><h2 class="section-heading">Word frequency<a class="anchor" aria-label="anchor" href="#word-frequency"></a>
+</h2>
+<hr class="half-width">
+<p>Now that we have seen the average sentiment of the parties, we want
+to get a deeper understanding of what they talk about when discussing
+China. We can calculate the most frequent words that each party uses,
+and then visualize that to get an impression of what they talk about
+when discussing China.</p>
+<p>First we calculate the 10 most frequent words that each party
+says</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">kina_top_10_ord</span> <span class="op">&lt;-</span> <span class="va">kina_tidy_blokke</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">Role</span> <span class="op">!=</span> <span class="st">"formand"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">Party</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">count</span><span class="op">(</span><span class="va">word</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">top_n</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">ungroup</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>word <span class="op">=</span> <span class="fu">reorder_within</span><span class="op">(</span><span class="va">word</span>, <span class="va">n</span>, <span class="va">Party</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'kina_tidy_blokke' not found</code></pre>
+</div>
+<p>Now we want to visualize the result</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">kina_top_10_ord</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">n</span>, <span class="va">word</span>, fill <span class="op">=</span> <span class="va">Party</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">Party</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_y_reordered</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Word occurrences"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'kina_top_10_ord' not found</code></pre>
+</div>
+<p>A more extensive stopword list for Danish is the ISO stopword list.
+We will use it know, so lets download it from the repository. Then we
+save it as an object. Then we make it into a tibble to prepare it for
+<code>anti_join</code> with our dataset</p>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">download.file</span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/KUBDatalab/R-textmining/main/data/iso_stopwords.csv"</span>, <span class="st">"data/iso_stopwords.csv"</span>, mode <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: '../data/iso_stopwords.csv' does not exist in current working directory ('/home/runner/work/R-textmining_new/R-textmining_new/site/built').</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">iso_stopwords</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/iso_stopwords.csv"</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Let us now apply it to the dataset by <code>anti_join</code></p>
+<div class="codewrapper sourceCode" id="cb14">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">kina_top_10_ord_2</span> <span class="op">&lt;-</span> <span class="va">kina_tidy_blokke</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">anti_join</span><span class="op">(</span><span class="va">iso_stopwords</span>, by <span class="op">=</span> <span class="st">"word"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'kina_tidy_blokke' not found</code></pre>
+</div>
+<p>Unfortunately for us, most of the most common words are words that
+act like stopwords, carrying no meaning in themselves. To get around
+this, we can create our own custom list of stopwords as a tibble, and
+then <code>anti_join</code> it with the dataset, just like we did for
+the already existing stopword lists.</p>
+<p>First we look at the top words to find the stopwords for our custom
+stopword list. Here I have printed 10, but I have looked at over 70</p>
+<div class="codewrapper sourceCode" id="cb16">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">kina_top_10_ord_2</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">count</span><span class="op">(</span><span class="va">word</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">top_n</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="va">tbl_df</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">print</span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'kina_top_10_ord_2' not found</code></pre>
+</div>
+<p>Based on this, we select the words that we consider stopwords and
+make them into a tibble. We also want to include among our stopwords the
+word Danmark and its genitive case and derivative adjectives, because
+Denmark of course is frequently named in a Danish parliamentary debate
+and adds little to our analysis and understanding. Let’s also remove the
+name China, its genitive case and derivative adjectives, because we know
+that the debate is about China. Let’s also remove words that state the
+title or role of a member of the parliament. Let’s also remove the words
+spørgsmål and møder, as it relates internal questions and meetings among
+the members of parliament. Let’s also remove the words about
+Folketingets Præsidium, which do not pertain to the content of the
+debate. Upon later examinations some more names have also been added to
+the custom stopword list</p>
+<div class="codewrapper sourceCode" id="cb18">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">custom_stopwords</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>word <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"så"</span>, <span class="st">"kan"</span>, <span class="st">"hr"</span>, <span class="st">"sige"</span>, <span class="st">"synes"</span>, <span class="st">"ved"</span>, <span class="st">"altså"</span>, <span class="st">"søren"</span>, <span class="st">"tror"</span>, </span>
+<span>                                    <span class="st">"få"</span>, <span class="st">"bare"</span>, <span class="st">"derfor"</span>, <span class="st">"godt"</span>, <span class="st">"andre"</span>, <span class="st">"må"</span>, <span class="st">"espersen"</span>, <span class="st">"mener"</span>, <span class="st">"gøre"</span>, <span class="st">"helt"</span>, <span class="st">"dag"</span>, </span>
+<span>                                    <span class="st">"faktisk"</span>, <span class="st">"folkeparti"</span>, <span class="st">"gerne"</span>, <span class="st">"side"</span>, <span class="st">"gør"</span>, <span class="st">"nogen"</span>, <span class="st">"fordi"</span>, <span class="st">"hvordan"</span>, <span class="st">"tak"</span>,</span>
+<span>                                    <span class="st">"måde"</span>, <span class="st">"set"</span>, <span class="st">"siger"</span>, <span class="st">"andet"</span>, <span class="st">"sagt"</span>, <span class="st">"år"</span>, <span class="st">"lige"</span>, <span class="st">"står"</span>, <span class="st">"tage"</span>, <span class="st">"nemlig"</span>, <span class="st">"lidt"</span>,</span>
+<span>                                    <span class="st">"sag"</span>, <span class="st">"går"</span>, <span class="st">"kommer"</span>, <span class="st">"nok"</span>, <span class="st">"danmark"</span>, <span class="st">"danmarks"</span>, <span class="st">"dansk"</span>, <span class="st">"danske"</span>, <span class="st">"danskt"</span>, </span>
+<span>                                    <span class="st">"kina"</span>, <span class="st">"kinas"</span>, <span class="st">"kinesisk"</span>, <span class="st">"kinesiske"</span>, <span class="st">"kinesiskt"</span>, <span class="st">"kineser"</span>, <span class="st">"kineseren"</span>, </span>
+<span>                                    <span class="st">"kinesere"</span>, <span class="st">"kineserne"</span>, <span class="st">"ordfører"</span>, <span class="st">"ordføreren"</span>, <span class="st">"ordførerens"</span>, <span class="st">"ordførere"</span>, <span class="st">"ordførerne"</span>, </span>
+<span>                                    <span class="st">"spørgsmål"</span>, <span class="st">"møder"</span>, <span class="st">"holger"</span>, <span class="st">"k"</span>, <span class="st">"nielsen"</span>, <span class="st">"regering"</span>, <span class="st">"regeringen"</span>, <span class="st">"regeringens"</span>, </span>
+<span>                                    <span class="st">"folketinget"</span>, <span class="st">"folketingets"</span>, <span class="st">"måske"</span>, <span class="st">"forslag"</span>, <span class="st">"egentlig"</span>, <span class="st">"rigtig"</span>, <span class="st">"rigtigt"</span>, <span class="st">"rigtige"</span>, </span>
+<span>                                    <span class="st">"hvert"</span>, <span class="st">"bør"</span>, <span class="st">"grund"</span>, <span class="st">"vigtig"</span>, <span class="st">"vigtigt"</span>, <span class="st">"vigtige"</span>, <span class="st">"ting"</span>, <span class="st">"ønsker"</span>, <span class="st">"fru"</span>, <span class="st">"hr"</span>, </span>
+<span>                                    <span class="st">"selvfølgelig"</span>, <span class="st">"gange"</span>, <span class="st">"præcis"</span>, <span class="st">"sagde"</span>, <span class="st">"hele"</span>, <span class="st">"fald"</span>, <span class="st">"enhedslisten"</span>, <span class="st">"sidste"</span>, </span>
+<span>                                    <span class="st">"forstå"</span>, <span class="st">"betyder"</span>, <span class="st">"alliances"</span>, <span class="st">"fortsat"</span>, <span class="st">"venstre"</span>, <span class="st">"holde"</span>, <span class="st">"præsidium"</span>, <span class="st">"baseret"</span>,</span>
+<span>                                    <span class="st">"lande"</span>, <span class="st">"land"</span>, <span class="st">"gjorde"</span>, <span class="st">"pind"</span>, <span class="st">"simpelt"</span>, <span class="st">"frem"</span>, <span class="st">"præsidiet"</span>, <span class="st">"præsidium"</span>, </span>
+<span>                                    <span class="st">"dokument"</span>, <span class="st">"tale"</span>, <span class="st">"hen"</span>, <span class="st">"o.k"</span>, <span class="st">"alverden"</span>, <span class="st">"angiveligt"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<p>We then do an <code>anti_join</code> of our custom stopword list to
+our tidy text</p>
+<div class="codewrapper sourceCode" id="cb19">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">kina_top_10_ord_3</span> <span class="op">&lt;-</span> <span class="va">kina_top_10_ord_2</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">anti_join</span><span class="op">(</span><span class="va">custom_stopwords</span>, by <span class="op">=</span> <span class="st">"word"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'kina_top_10_ord_2' not found</code></pre>
+</div>
+<p>Let’s now calculate the top 10 words from each party and save it as
+an object</p>
+<div class="codewrapper sourceCode" id="cb21">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">kina_top_10_ord_4</span> <span class="op">&lt;-</span> <span class="va">kina_top_10_ord_3</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">Role</span> <span class="op">!=</span> <span class="st">"formand"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">Party</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">count</span><span class="op">(</span><span class="va">word</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">top_n</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">ungroup</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>word <span class="op">=</span> <span class="fu">reorder_within</span><span class="op">(</span><span class="va">word</span>, <span class="va">n</span>, <span class="va">Party</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'kina_top_10_ord_3' not found</code></pre>
+</div>
+<p>Let us now plot the result</p>
+<div class="codewrapper sourceCode" id="cb23">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">kina_top_10_ord_4</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">n</span>, <span class="va">word</span>, fill <span class="op">=</span> <span class="va">Party</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">Party</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_y_reordered</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Word occurrences"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'kina_top_10_ord_4' not found</code></pre>
+</div>
+</section><section id="tf_idf"><h2 class="section-heading">tf_idf<a class="anchor" aria-label="anchor" href="#tf_idf"></a>
+</h2>
+<hr class="half-width">
+<p>We see that many words co-occur among the parties. How can we make a
+plot of what each party talks about that the others don’t? We can use
+the tf_idf calculation. Briefly, tf_idf in this case looks at the words
+that occur among each party, and gives a high value to those that
+frequently occur in one party but rarely occur among the other parties.
+This will give us a sense of what each party emphasizes in their
+speeches about China</p>
+<p>First we need to calculate the tf_idf of each word in our tidy
+text</p>
+<div class="codewrapper sourceCode" id="cb25">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">kina_tidy_tf_idf</span> <span class="op">&lt;-</span> <span class="va">kina_top_10_ord_3</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">Role</span> <span class="op">!=</span> <span class="st">"formand"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">count</span><span class="op">(</span><span class="va">Party</span>, <span class="va">word</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">bind_tf_idf</span><span class="op">(</span><span class="va">word</span>, <span class="va">Party</span>, <span class="va">n</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">arrange</span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">tf_idf</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'kina_top_10_ord_3' not found</code></pre>
+</div>
+<p>Now we want to select each party’s 10 words that have the highest
+tf_idf</p>
+<div class="codewrapper sourceCode" id="cb27">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">kina_tidy_tf_idf_top_10</span> <span class="op">&lt;-</span> <span class="va">kina_tidy_tf_idf</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">Party</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">top_n</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">ungroup</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>word <span class="op">=</span> <span class="fu">reorder_within</span><span class="op">(</span><span class="va">word</span>, <span class="va">tf_idf</span>, <span class="va">Party</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'kina_tidy_tf_idf' not found</code></pre>
+</div>
+<p>Now let’s make our plot.</p>
+<div class="codewrapper sourceCode" id="cb29">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">kina_tidy_tf_idf_top_10</span> <span class="op">%&gt;%</span>  </span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">tf_idf</span>, <span class="va">word</span>, fill <span class="op">=</span> <span class="va">Party</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">Party</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_y_reordered</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"tf_idf"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'kina_tidy_tf_idf_top_10' not found</code></pre>
+</div>
+<!-- 
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use. 
+ -->
+</section></section><section id="aio-04_Textminingextras"><p>Content from <a href="04_Textminingextras.html">Episode 4 text mining extras</a></p>
+<hr>
+<p>Last updated on 2024-05-01 |
+        
+        <a href="https://github.com/KUBDatalab/R-textmining_new/edit/main/episodes/04_Textminingextras.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<section id="stopwords-for-other-languages"><h2 class="section-heading">Stopwords for other languages<a class="anchor" aria-label="anchor" href="#stopwords-for-other-languages"></a>
+</h2>
+<hr class="half-width">
+<p>Stopword lists are available for a range of European languages via
+the tm library. See documentation on <a href="https://cran.r-project.org/web/packages/tm/tm.pdf%20p.%2038" class="external-link">https://cran.r-project.org/web/packages/tm/tm.pdf
+p. 38</a></p>
+<p>To call the stopword list for a certain language and make it a tibble
+to easily <code>anti_join</code> with your tidy text run the following
+code and insert the name of the language if a stopword list exists for
+it</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">stopwords_your_chosen_language</span> <span class="op">&lt;-</span> <span class="fu">as_tibble</span><span class="op">(</span><span class="fu">stopwords</span><span class="op">(</span>kind <span class="op">=</span> <span class="st">"yourchosenlanguage"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+</section><section id="stemming-as-natural-language-processing"><h2 class="section-heading">Stemming as Natural Language Processing<a class="anchor" aria-label="anchor" href="#stemming-as-natural-language-processing"></a>
+</h2>
+<hr class="half-width">
+<p>One data preparation technology that we didn’t use in this course is
+stemming. Stemming takes the inflectional morphological endings
+typically found at the end of words in Indo-European and Uralic
+languages and removes them, so that you don’t need to put all potential
+morphological endings in a stopword list to catch all instances of a
+word. This is especially useful in languages with lots of verb
+conjugations and noun declensions like the Romance languages and the
+Slavic languages. BE AWARE that many Danish and English sentiment
+indexes don’t work on stemmed words but take the limited morphological
+variation in these languages into account. As a rule of thumb, if you
+want to do sentiment analysis for a Danish or English text, then you are
+best of with not using stemming</p>
+<p>It is possible to stem in a variety of European languages using the
+Porter-stemmer via the library SnowballC. Start by getting of list of
+which languages the stemmer can handle</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">install.packages</span><span class="op">(</span><span class="st">"SnowballC"</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">SnowballC</span><span class="op">)</span></span>
+<span><span class="fu">getStemLanguages</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Use stemming on the column with text in your tibble</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tibble</span><span class="op">$</span><span class="va">stemmed_text</span> <span class="op">&lt;-</span> <span class="fu">wordStem</span><span class="op">(</span><span class="va">tibble</span><span class="op">$</span><span class="va">column_with_text</span>, language <span class="op">=</span> <span class="st">"name of the language"</span><span class="op">)</span></span></code></pre>
+</div>
+</section><section id="how-to-download-the-full-dataset"><h2 class="section-heading">How to download the full dataset<a class="anchor" aria-label="anchor" href="#how-to-download-the-full-dataset"></a>
+</h2>
+<hr class="half-width">
+<p>Go to <a href="https://repository.clarin.dk/repository/xmlui/handle/20.500.12115/44" class="external-link">https://repository.clarin.dk/repository/xmlui/handle/20.500.12115/44</a>
+and click the blue button that says: Download all files in item. This
+will download all approximately 860 files in Zip folder. The Zip folder
+contains zip folders for each year in the dataset, and these zip folders
+contain the parliament speeches including the metadata that describe
+them as .txt files. You need to create a new folder somewhere outside
+the zip folder environment. Now you must copy-paste all .txt files to
+that new folder. You can go into each zip-folder, press Ctrl+a to mark
+all files, and then press Ctrl+c to copy them. Go to the new folder and
+press Ctrl+v</p>
+<p>To import the files into R as one tibble, you must first set the
+working directory to your new folder. Then run the following code:</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu">dir</span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"*.txt"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">files</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">map</span><span class="op">(</span><span class="va">read_delim</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">reduce</span><span class="op">(</span><span class="va">rbind</span><span class="op">)</span></span></code></pre>
+</div>
+<p>This may take up to 10 minutes. Once you have read all the files in
+as one tibble, you want to make it into one new file, so that you can
+quickly load the whole dataset in next time. Run the following code to
+write the file but insert the place on the C drive via the
+tabulator-function and finish the string with the name of your new file
+and put .txt after the filename:</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">write_delim</span><span class="op">(</span><span class="va">data</span>, <span class="st">"C:/Users/yourusername/Desktop/Folder/Folketinget/filename.txt"</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Now you can quickly load it in next time by using
+<code>read_delim</code>. Use <code>filter</code> to filter your dataset
+however you like it. For more info on the <code>filter</code> function,
+see <a href="https://r4ds.had.co.nz/transform.html" class="external-link">https://r4ds.had.co.nz/transform.html</a>
+section 2</p>
+</section><section id="reading-other-types-of-files"><h2 class="section-heading">Reading other types of files<a class="anchor" aria-label="anchor" href="#reading-other-types-of-files"></a>
+</h2>
+<hr class="half-width">
+<p>You can also use <code>read_csv</code> to read .csv files in the same
+manner that you read .txt files</p>
+</section><section id="recommended-materials"><h2 class="section-heading">Recommended materials<a class="anchor" aria-label="anchor" href="#recommended-materials"></a>
+</h2>
+<hr class="half-width">
+<p>I highly recommend the book Text Mining with R: A Tidy Approach,
+which is openly available at <a href="https://www.tidytextmining.com/" class="external-link">https://www.tidytextmining.com/</a>
+There you can learn more advanced analyses as well as see the
+application of this course’s methods to different datasets</p>
+</section><section id="references"><h2 class="section-heading">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<hr class="half-width">
+<p>Hvitfeldt, E., &amp; Silge, J. (2021). Supervised Machine Learning
+for Text Analysis in R (1st ed.). Chapman and Hall/CRC. <a href="https://doi.org/10.1201/9781003093459" class="external-link uri">https://doi.org/10.1201/9781003093459</a></p>
+<p>David Robinson, &amp; Julia Silge. (2017). Text Mining with R.
+O’Reilly Media, Inc.</p>
 <!-- 
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 

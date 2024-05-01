@@ -194,6 +194,54 @@
 </div>
 <!--/div.accordion-flush-->
 
+<div class="accordion accordion-flush" id="accordionFlush3">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading3">
+        <a href="01TextminingwithREpisode1.html">2. Episode 1 Loading data</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush4">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading4">
+        <a href="02_Text_mining_with.html">3. Episode 2 tidytext, stopwords, and sentiment analysis</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush5">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading5">
+        <a href="03TextminingwithREpisode3.html">4. Episode 3 word frequency analysis</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush6">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading6">
+        <a href="04_Textminingextras.html">5. Episode 4 text mining extras</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
                 </div>
               </div>
             </div>
@@ -258,7 +306,44 @@ Sun arise each and every morning
 <h3 id="introduction-figure-2">Figure 2</h3>
 <p aria-hidden="true">Image 1 of 1: ‘Blue Carpentries hex person logo with no text.’</p>
 <figure><img src="https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg" alt="Blue Carpentries hex person logo with no text." class="figure mx-auto d-block"><div class="figcaption">You belong in The Carpentries!</div>
-</figure><hr></section>
+</figure><hr></section><section id="01TextminingwithREpisode1"><h2 class="section-heading"><a href="01TextminingwithREpisode1.html">Episode 1 Loading data</a></h2>
+<hr class="half-width"></section><section id="02_Text_mining_with"><h2 class="section-heading"><a href="02_Text_mining_with.html">Episode 2 tidytext, stopwords, and sentiment analysis</a></h2>
+<hr class="half-width">
+<h3 id="02_Text_mining_with-figure-1">Figure 1</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Tidy text example’</p>
+<p>To analyze the speeches we need to make the text tidy. Tidy text
+refers to a dataset where each text has been split up into the
+individual words that make up the speech, and in format where each row
+contains one word. <img src="fig/Tidy_text.png" alt="Tidy text example" class="figure"></p>
+<hr>
+<h3 id="02_Text_mining_with-figure-2">Figure 2</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Tokenization of example sentence’</p>
+<p>Splitting texts, in our case speeches, into individual words is
+called tokenization <img src="fig/Tokenization.png" alt="Tokenization of example sentence" class="figure"> Hvitfeldt &amp; Silge,
+2021</p>
+<hr>
+<h3 id="02_Text_mining_with-figure-3">Figure 3</h3>
+<p aria-hidden="true">Image 1 of 1: ‘”Stopwords examples’</p>
+<p>In all natural language texts, frequent words that carry little
+meaning by themselves are distributed all across the text <img src="fig/Stopwords.png" alt="”Stopwords examples" class="figure"></p>
+<hr>
+<h3 id="02_Text_mining_with-figure-4">Figure 4</h3>
+<p aria-hidden="true">Image 1 of 1: ‘”left_join AFINN Index with tidy text’</p>
+<p>Mutating joins work by adding new columns to the tibble. We will use
+left_join, which is the most common of the mutating joins <img src="fig/Venn_left_join.jpg" alt="”left_join AFINN Index with tidy text" class="figure"> The left_join joins all
+AFINN sentiment values to those rows that contain a word that is in the
+AFINN Index and adds it as a new column to the tibble. In the new
+column, the rows that contain words that don’t appear in the AFINN Index
+have NA in their cell</p>
+<hr>
+<h3 id="02_Text_mining_with-figure-5">Figure 5</h3>
+<p aria-hidden="true">Image 1 of 1: ‘”anti_join stopwords with tidy text’</p>
+<p>Filtering joins work by filtering away some rows in the tibble. We
+will use the anti_join, which removes those rows that contain a word
+that is also in the stopword list <img src="fig/Venn_anti_join.jpg" alt="”anti_join stopwords with tidy text" class="figure"></p>
+<hr></section><section id="03TextminingwithREpisode3"><h2 class="section-heading"><a href="03TextminingwithREpisode3.html">Episode 3 word frequency analysis</a></h2>
+<hr class="half-width"></section><section id="04_Textminingextras"><h2 class="section-heading"><a href="04_Textminingextras.html">Episode 4 text mining extras</a></h2>
+<hr class="half-width"></section>
 </div>
     </main>
 </div>
