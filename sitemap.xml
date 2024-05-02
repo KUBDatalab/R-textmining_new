@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://KUBDatalab.github.io/R-textmining_new/01-TextminingwithR.html</loc>
+  </url>
+  <url>
     <loc>https://KUBDatalab.github.io/R-textmining_new/01TextminingwithREpisode1.html</loc>
+  </url>
+  <url>
+    <loc>https://KUBDatalab.github.io/R-textmining_new/02-Text_mining_with.html</loc>
   </url>
   <url>
     <loc>https://KUBDatalab.github.io/R-textmining_new/02_Text_mining_with.html</loc>
   </url>
   <url>
+    <loc>https://KUBDatalab.github.io/R-textmining_new/03-TextminingwithR.html</loc>
+  </url>
+  <url>
     <loc>https://KUBDatalab.github.io/R-textmining_new/03TextminingwithREpisode3.html</loc>
+  </url>
+  <url>
+    <loc>https://KUBDatalab.github.io/R-textmining_new/04-Textminingextras.html</loc>
   </url>
   <url>
     <loc>https://KUBDatalab.github.io/R-textmining_new/04_Textminingextras.html</loc>
@@ -31,13 +43,25 @@
     <loc>https://KUBDatalab.github.io/R-textmining_new/index.html</loc>
   </url>
   <url>
+    <loc>https://KUBDatalab.github.io/R-textmining_new/instructor/01-TextminingwithR.html</loc>
+  </url>
+  <url>
     <loc>https://KUBDatalab.github.io/R-textmining_new/instructor/01TextminingwithREpisode1.html</loc>
+  </url>
+  <url>
+    <loc>https://KUBDatalab.github.io/R-textmining_new/instructor/02-Text_mining_with.html</loc>
   </url>
   <url>
     <loc>https://KUBDatalab.github.io/R-textmining_new/instructor/02_Text_mining_with.html</loc>
   </url>
   <url>
+    <loc>https://KUBDatalab.github.io/R-textmining_new/instructor/03-TextminingwithR.html</loc>
+  </url>
+  <url>
     <loc>https://KUBDatalab.github.io/R-textmining_new/instructor/03TextminingwithREpisode3.html</loc>
+  </url>
+  <url>
+    <loc>https://KUBDatalab.github.io/R-textmining_new/instructor/04-Textminingextras.html</loc>
   </url>
   <url>
     <loc>https://KUBDatalab.github.io/R-textmining_new/instructor/04_Textminingextras.html</loc>
