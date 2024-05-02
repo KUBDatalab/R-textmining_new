@@ -1,15 +1,21 @@
 ---
-title: "Episode 4 text mining extras"
+title: "Text mining extras"
 teaching: 0
 exercises: 0
-questions:
-- "More resources"
-objectives:
-- "Learning about extra tools that can aid your text mining journey"
-keypoints:
-- "Stemming can be useful for Natural Language Processing; Stopword lists are available for many languages"
 ---
 
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- "More resources"
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- "Learning about extra tools that can aid your text mining journey"
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 
@@ -78,3 +84,8 @@ Hvitfeldt, E., & Silge, J. (2021). Supervised Machine Learning for Text Analysis
 David Robinson, & Julia Silge. (2017). Text Mining with R. O’Reilly Media, Inc.
 
 
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- "Stemming can be useful for Natural Language Processing; Stopword lists are available for many languages"
+
+::::::::::::::::::::::::::::::::::::::::::::::::

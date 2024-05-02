@@ -1,16 +1,22 @@
 ---
-title: "Episode 3 word frequency analysis"
+title: "Word frequency analysis"
 teaching: 0
 exercises: 0
-questions:
-- "How can we find the most frequent terms from each party?"
-objectives:
-- "Learning how to analyze term frequency and visualize it"
-keypoints:
-- "Custom stopword list may be necessary depending on the context"
 ---
 
 
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- "How can we find the most frequent terms from each party?"
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- "Learning how to analyze term frequency and visualize it"
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 
@@ -27,10 +33,6 @@ library(tm)
 
 ```error
 Error: '../data/kina.txt' does not exist in current working directory ('/home/runner/work/R-textmining_new/R-textmining_new/site/built').
-```
-
-```error
-Error: '../data/AFINN_dansk.csv' does not exist in current working directory ('/home/runner/work/R-textmining_new/R-textmining_new/site/built').
 ```
 
 ```error
@@ -89,9 +91,6 @@ download.file("https://raw.githubusercontent.com/KUBDatalab/R-textmining/main/da
 ```
 
 
-```error
-Error: '../data/iso_stopwords.csv' does not exist in current working directory ('/home/runner/work/R-textmining_new/R-textmining_new/site/built').
-```
 
 
 ```r
@@ -246,3 +245,9 @@ kina_tidy_tf_idf_top_10 %>%
 Error in eval(expr, envir, enclos): object 'kina_tidy_tf_idf_top_10' not found
 ```
 
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- "Custom stopword list may be necessary depending on the context"
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::

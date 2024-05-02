@@ -1,21 +1,22 @@
 ---
-title: "Episode 2 tidytext, stopwords, and sentiment analysis"
+title: "Tidytext, stopwords, and sentiment analysis"
 teaching: 0
 exercises: 0
-questions:
-- "How do we prepare text for analysis and measure the sentiment of the text?"
-objectives:
-- "Using specific packages to perform text preparation and sentiment analysis"
-keypoints:
-- "All natural language texts must be prepared for analysis"
+
 ---
 
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- "How do we prepare text for analysis and measure the sentiment of the text?"
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- "Using specific packages to perform text preparation and sentiment analysis"
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-
-
-
-## R Markdown
 ## Loading our libraries and reading our data
 Let us now load our libraries
 
@@ -27,9 +28,6 @@ library(tm)
 
 
 
-```error
-Error: '../data/kina.txt' does not exist in current working directory ('/home/runner/work/R-textmining_new/R-textmining_new/site/built').
-```
 
 ## Understanding our data
 
@@ -39,8 +37,19 @@ We have now successfully loaded in our dataset. Before we start preparing it for
 head(kina)
 ```
 
-```error
-Error in eval(expr, envir, enclos): object 'kina' not found
+```output
+# A tibble: 6 × 19
+  ID            Date       `Start time` `End time`  Time `Agenda item` `Case no`
+  <chr>         <date>     <time>       <time>     <dbl> <chr>             <dbl>
+1 201001121437… 2010-01-12 14:37:05     14:37:25      20 2010-01-12-7         61
+2 201001121437… 2010-01-12 14:37:25     14:47:59     634 2010-01-12-7         61
+3 201001121447… 2010-01-12 14:47:59     14:48:05       6 2010-01-12-7         61
+4 201001121448… 2010-01-12 14:48:05     14:49:01      56 2010-01-12-7         61
+5 201001121449… 2010-01-12 14:49:01     14:49:03       2 2010-01-12-7         61
+6 201001121449… 2010-01-12 14:49:03     14:49:47      44 2010-01-12-7         61
+# ℹ 12 more variables: `Case type` <chr>, `Agenda title` <chr>,
+#   `Subject 1` <chr>, `Subject 2` <chr>, Name <chr>, Gender <chr>,
+#   Party <chr>, Role <chr>, Title <chr>, Birth <date>, Age <dbl>, Text <chr>
 ```
 
 We see that we have a lot of metadata, including the date of the speech, the start and end time of the speech, the discussed resolutions/law proposals and their classifications into subjects, as well as various personal information about the speaker. The last column is called `Text` and this contains the speech itself
@@ -61,10 +70,6 @@ We use the tidytext library for tokenization
 ```r
 kina_tidy <- kina %>% 
   unnest_tokens(word, Text) #tidytext tokenization
-```
-
-```error
-Error in eval(expr, envir, enclos): object 'kina' not found
 ```
 
 
@@ -94,9 +99,6 @@ download.file("https://raw.githubusercontent.com/KUBDatalab/R-textmining/main/da
 Now we read need to read the AFINN Index into a tibble and rename the columns
 
 
-```error
-Error: '../data/AFINN_dansk.csv' does not exist in current working directory ('/home/runner/work/R-textmining_new/R-textmining_new/site/built').
-```
 
 
 
@@ -129,10 +131,6 @@ kina_tidy_2 <- kina_tidy %>%
   left_join(AFINN_dansk, by = "word") #left join with AFINN Index in Danish
 ```
 
-```error
-Error in eval(expr, envir, enclos): object 'kina_tidy' not found
-```
-
 ## Analyzing the sentiment of parties
 We would like to measure the sentiment of each party when giving speeches on the topic of China
 
@@ -148,10 +146,6 @@ kina_sentiment_value <- kina_tidy_2 %>%
   )
 ```
 
-```error
-Error in eval(expr, envir, enclos): object 'kina_tidy_2' not found
-```
-
 Now we want to visualize each party's mean sentiment value according to the AFINN-Index
 
 
@@ -162,9 +156,7 @@ kina_sentiment_value %>%
   labs(x= "Party")
 ```
 
-```error
-Error in eval(expr, envir, enclos): object 'kina_sentiment_value' not found
-```
+<img src="fig/02-Text_mining_with-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" />
 
 ## Analyzing the sentiment of rød and blå blok
 We would also like to analyze the sentiment of rød and blå blok as a whole respectively. To do this, we need to add a column to each row that specifies whether the word comes from a member of a party in rød blok or blå blok. We must therefore first define which parties make up rød and blå blok and put that in a tibble, then bind the two tibbles into one tibble, and then make a left_join to the rows in our tidy text
@@ -178,10 +170,6 @@ kina_tidy_blokke <- kina_sentiment_value %>%
   left_join(blok, by = "Party")
 ```
 
-```error
-Error in eval(expr, envir, enclos): object 'kina_sentiment_value' not found
-```
-
 Now we would like to do the same analysis of mean sentiment value, this time for each blok. We also want to specify that the column for roed_bloek should be red and the column for blaa_blok should be blue
 
 
@@ -191,10 +179,6 @@ kina_blokke_sentiment_value <- kina_tidy_blokke %>%
   summarize(
     mean_sentiment_value = mean(mean_sentiment_value, na.rm=TRUE)
   )
-```
-
-```error
-Error in eval(expr, envir, enclos): object 'kina_tidy_blokke' not found
 ```
 
 
@@ -207,7 +191,10 @@ kina_blokke_sentiment_value %>%
   labs(x= "Blok")
 ```
 
-```error
-Error in eval(expr, envir, enclos): object 'kina_blokke_sentiment_value' not found
-```
+<img src="fig/02-Text_mining_with-rendered-unnamed-chunk-14-1.png" style="display: block; margin: auto;" />
 
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- "All natural language texts must be prepared for analysis"
+
+::::::::::::::::::::::::::::::::::::::::::::::::

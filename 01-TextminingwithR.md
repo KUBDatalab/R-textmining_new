@@ -1,15 +1,24 @@
 ---
-title: "Episode 1 Loading data"
+title: "Loading data"
 teaching: 0
 exercises: 0
 questions:
-- "What is text mining and how do we load in the dataset?"
+
 objectives:
-- "To be introduced to text mining and loading in text data"
+
 keypoints:
-- "Packages must be installed and loaded in, and dataset must be loaded in by typing commands"
 ---
 
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- "What is text mining and how do we load in the dataset?"
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- "To be introduced to text mining and loading in text data"
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 
@@ -95,11 +104,7 @@ Now that the dataset was properly filtered to parliament speeches about China, w
 ```r
 library(tidyverse)
 
-kina <- read_delim("../data/kina.txt")
-```
-
-```error
-Error: '../data/kina.txt' does not exist in current working directory ('/home/runner/work/R-textmining_new/R-textmining_new/site/built').
+kina <- read_delim("data/kina.txt")
 ```
 
 *To easily download the dataset there are a couple of steps.
@@ -129,3 +134,8 @@ kina <- read_delim("data/kina.txt")
 ```
 
 
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- "Packages must be installed and loaded in, and dataset must be loaded in by typing commands"
+
+::::::::::::::::::::::::::::::::::::::::::::::::
