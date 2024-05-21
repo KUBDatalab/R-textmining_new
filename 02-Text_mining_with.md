@@ -20,7 +20,7 @@ exercises: 0
 ## Loading our libraries and reading our data
 Let us now load our libraries
 
-```r
+``` r
 library(tidyverse)
 library(tidytext)
 library(tm)
@@ -33,11 +33,11 @@ library(tm)
 
 We have now successfully loaded in our dataset. Before we start preparing it for analysis, let us inspect the columns to see what the dataset contains
 
-```r
+``` r
 head(kina)
 ```
 
-```output
+``` output
 # A tibble: 6 × 19
   ID            Date       `Start time` `End time`  Time `Agenda item` `Case no`
   <chr>         <date>     <time>       <time>     <dbl> <chr>             <dbl>
@@ -67,7 +67,7 @@ We use the tidytext library for tokenization
 
 
 
-```r
+``` r
 kina_tidy <- kina %>% 
   unnest_tokens(word, Text) #tidytext tokenization
 ```
@@ -81,7 +81,7 @@ The frequent low-meaning words need to be removed because they do not add anythi
 The tm library contains a list of stopwords for Danish, which we'll make into a tibble. We have to specify that the list of stopwords that we want to call is the list for the Danish language. Note that stopword lists are also available for most major European languages
 
 
-```r
+``` r
 stopwords_dansk <- tibble(word = stopwords(kind = "danish"))
 ```
 
@@ -92,7 +92,7 @@ Sentiment analysis is a method for measuring the sentiment of a text. To do this
 We need to download the AFINN Index from GitHub
 
 
-```r
+``` r
 download.file("https://raw.githubusercontent.com/KUBDatalab/R-textmining/main/data/AFINN_dansk.csv", "data/AFINN_dansk.csv", mode = "wb")
 ```
 
@@ -102,7 +102,7 @@ Now we read need to read the AFINN Index into a tibble and rename the columns
 
 
 
-```r
+``` r
 AFINN_dansk <- read_csv("data/AFINN_dansk.csv")
 ```
 
@@ -125,7 +125,7 @@ For more info on joins see [R for Data Science section section 13: Relational da
 We will use the anti_join first, beause we need to filter away stopwords before we analyse the text with sentiment analysis
 
 
-```r
+``` r
 kina_tidy_2 <- kina_tidy %>% 
   anti_join(stopwords_dansk, by = "word") %>% #stopwords in Danish
   left_join(AFINN_dansk, by = "word") #left join with AFINN Index in Danish
@@ -137,7 +137,7 @@ We would like to measure the sentiment of each party when giving speeches on the
 First we need to calculate the mean sentiment value for each party. We save it as an object so that we can easily recall it for visualization
 
 
-```r
+``` r
 kina_sentiment_value <- kina_tidy_2 %>% 
   filter(Role != "formand") %>% 
   group_by(Party) %>% 
@@ -149,7 +149,7 @@ kina_sentiment_value <- kina_tidy_2 %>%
 Now we want to visualize each party's mean sentiment value according to the AFINN-Index
 
 
-```r
+``` r
 kina_sentiment_value %>% 
   ggplot(aes(x = Party, y = mean_sentiment_value, fill = Party)) + 
   geom_col() +
@@ -162,7 +162,7 @@ kina_sentiment_value %>%
 We would also like to analyze the sentiment of rød and blå blok as a whole respectively. To do this, we need to add a column to each row that specifies whether the word comes from a member of a party in rød blok or blå blok. We must therefore first define which parties make up rød and blå blok and put that in a tibble, then bind the two tibbles into one tibble, and then make a left_join to the rows in our tidy text
 
 
-```r
+``` r
 roed_blok <- tibble(Party = c("ALT", "EL", "SF", "S", "RV"), Blok = c("roed_blok"))
 blaa_blok <- tibble(Party = c("V", "KF", "LA", "DF"), Blok = c("blaa_blok"))
 blok <- bind_rows(roed_blok, blaa_blok)
@@ -173,7 +173,7 @@ kina_tidy_blokke <- kina_sentiment_value %>%
 Now we would like to do the same analysis of mean sentiment value, this time for each blok. We also want to specify that the column for roed_bloek should be red and the column for blaa_blok should be blue
 
 
-```r
+``` r
 kina_blokke_sentiment_value <- kina_tidy_blokke %>% 
   group_by(Blok) %>% 
   summarize(
@@ -183,7 +183,7 @@ kina_blokke_sentiment_value <- kina_tidy_blokke %>%
 
 
 
-```r
+``` r
 kina_blokke_sentiment_value %>% 
   ggplot(aes(x = Blok, y = mean_sentiment_value, fill = Blok)) + 
   geom_col() +

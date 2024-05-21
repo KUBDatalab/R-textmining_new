@@ -23,7 +23,7 @@ exercises: 0
 ## R Markdown
 
 
-```r
+``` r
 library(tidyverse)
 library(tidytext)
 library(tm)
@@ -31,19 +31,19 @@ library(tm)
 
 
 
-```error
+``` error
 Error: '../data/kina.txt' does not exist in current working directory ('/home/runner/work/R-textmining_new/R-textmining_new/site/built').
 ```
 
-```error
+``` error
 Error in eval(expr, envir, enclos): object 'kina' not found
 ```
 
-```error
+``` error
 Error in eval(expr, envir, enclos): object 'kina_tidy' not found
 ```
 
-```error
+``` error
 Error in eval(expr, envir, enclos): object 'kina_tidy_2' not found
 ```
 
@@ -53,7 +53,7 @@ Now that we have seen the average sentiment of the parties, we want to get a dee
 First we calculate the 10 most frequent words that each party says
 
 
-```r
+``` r
 kina_top_10_ord <- kina_tidy_blokke %>% 
   filter(Role != "formand") %>% 
   group_by(Party) %>% 
@@ -63,14 +63,14 @@ kina_top_10_ord <- kina_tidy_blokke %>%
   mutate(word = reorder_within(word, n, Party))
 ```
 
-```error
+``` error
 Error in eval(expr, envir, enclos): object 'kina_tidy_blokke' not found
 ```
 
 Now we want to visualize the result
 
 
-```r
+``` r
 kina_top_10_ord %>% 
   ggplot(aes(n, word, fill = Party)) +
   geom_col() + 
@@ -79,21 +79,21 @@ kina_top_10_ord %>%
   labs(x = "Word occurrences")
 ```
 
-```error
+``` error
 Error in eval(expr, envir, enclos): object 'kina_top_10_ord' not found
 ```
 
 A  more extensive stopword list for Danish is the ISO stopword list. We will use it know, so lets download it from the repository. Then we save it as an object. Then we make it into a tibble to prepare it for `anti_join` with our dataset
 
 
-```r
+``` r
 download.file("https://raw.githubusercontent.com/KUBDatalab/R-textmining/main/data/iso_stopwords.csv", "data/iso_stopwords.csv", mode = "wb")
 ```
 
 
 
 
-```r
+``` r
 iso_stopwords <- read_csv("data/iso_stopwords.csv")
 ```
 
@@ -101,12 +101,12 @@ iso_stopwords <- read_csv("data/iso_stopwords.csv")
 Let us now apply it to the dataset by `anti_join`
 
 
-```r
+``` r
 kina_top_10_ord_2 <- kina_tidy_blokke %>% 
   anti_join(iso_stopwords, by = "word")
 ```
 
-```error
+``` error
 Error in eval(expr, envir, enclos): object 'kina_tidy_blokke' not found
 ```
 
@@ -116,7 +116,7 @@ Unfortunately for us, most of the most common words are words that act like stop
 First we look at the top words to find the stopwords for our custom stopword list. Here I have printed 10, but I have looked at over 70
 
 
-```r
+``` r
 kina_top_10_ord_2 %>% 
   count(word, sort = TRUE) %>% 
   top_n(10) %>% 
@@ -124,7 +124,7 @@ kina_top_10_ord_2 %>%
   print(n=10)
 ```
 
-```error
+``` error
 Error in eval(expr, envir, enclos): object 'kina_top_10_ord_2' not found
 ```
 
@@ -133,7 +133,7 @@ Based on this, we select the words that we consider stopwords and make them into
 
 
 
-```r
+``` r
 custom_stopwords <- tibble(word = c("så", "kan", "hr", "sige", "synes", "ved", "altså", "søren", "tror", 
                                     "få", "bare", "derfor", "godt", "andre", "må", "espersen", "mener", "gøre", "helt", "dag", 
                                     "faktisk", "folkeparti", "gerne", "side", "gør", "nogen", "fordi", "hvordan", "tak",
@@ -153,19 +153,19 @@ custom_stopwords <- tibble(word = c("så", "kan", "hr", "sige", "synes", "ved", 
 We then do an `anti_join` of our custom stopword list to our tidy text
 
 
-```r
+``` r
 kina_top_10_ord_3 <- kina_top_10_ord_2 %>% 
   anti_join(custom_stopwords, by = "word")
 ```
 
-```error
+``` error
 Error in eval(expr, envir, enclos): object 'kina_top_10_ord_2' not found
 ```
 
 Let's now calculate the top 10 words from each party and save it as an object
 
 
-```r
+``` r
 kina_top_10_ord_4 <- kina_top_10_ord_3 %>% 
   filter(Role != "formand") %>% 
   group_by(Party) %>% 
@@ -175,14 +175,14 @@ kina_top_10_ord_4 <- kina_top_10_ord_3 %>%
   mutate(word = reorder_within(word, n, Party))
 ```
 
-```error
+``` error
 Error in eval(expr, envir, enclos): object 'kina_top_10_ord_3' not found
 ```
 
 Let us now plot the result
 
 
-```r
+``` r
 kina_top_10_ord_4 %>% 
   ggplot(aes(n, word, fill = Party)) +
   geom_col() + 
@@ -191,7 +191,7 @@ kina_top_10_ord_4 %>%
   labs(x = "Word occurrences")
 ```
 
-```error
+``` error
 Error in eval(expr, envir, enclos): object 'kina_top_10_ord_4' not found
 ```
 
@@ -201,7 +201,7 @@ We can use the tf_idf calculation. Briefly, tf_idf in this case looks at the wor
 
 First we need to calculate the tf_idf of each word in our tidy text
 
-```r
+``` r
 kina_tidy_tf_idf <- kina_top_10_ord_3 %>% 
   filter(Role != "formand") %>% 
   count(Party, word, sort = TRUE) %>% 
@@ -209,14 +209,14 @@ kina_tidy_tf_idf <- kina_top_10_ord_3 %>%
   arrange(desc(tf_idf))
 ```
 
-```error
+``` error
 Error in eval(expr, envir, enclos): object 'kina_top_10_ord_3' not found
 ```
 
 Now we want to select each party's 10 words that have the highest tf_idf
 
 
-```r
+``` r
 kina_tidy_tf_idf_top_10 <- kina_tidy_tf_idf %>% 
   group_by(Party) %>% 
   top_n(10) %>% 
@@ -224,7 +224,7 @@ kina_tidy_tf_idf_top_10 <- kina_tidy_tf_idf %>%
   mutate(word = reorder_within(word, tf_idf, Party))
 ```
 
-```error
+``` error
 Error in eval(expr, envir, enclos): object 'kina_tidy_tf_idf' not found
 ```
 
@@ -232,7 +232,7 @@ Error in eval(expr, envir, enclos): object 'kina_tidy_tf_idf' not found
 Now let's make our plot.
 
 
-```r
+``` r
 kina_tidy_tf_idf_top_10 %>%  
   ggplot(aes(tf_idf, word, fill = Party)) +
   geom_col() +
@@ -241,7 +241,7 @@ kina_tidy_tf_idf_top_10 %>%
   labs(x = "tf_idf")
 ```
 
-```error
+``` error
 Error in eval(expr, envir, enclos): object 'kina_tidy_tf_idf_top_10' not found
 ```
 

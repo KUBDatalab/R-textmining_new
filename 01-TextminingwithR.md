@@ -31,7 +31,7 @@ Text mining refers to the use of digital tools to enable automatized analyses of
 We need to install some libraries that can perform the various steps in text analysis, because the base functions of R are not enough. Then we need to load them
 
 
-```r
+``` r
 library(tidyverse)
 library(tidytext)
 library(tm)
@@ -39,7 +39,7 @@ library(tm)
 
 
 
-```r
+``` r
 install.packages("tidyverse")
 install.packages("tidytext")
 install.packages("tm")
@@ -70,7 +70,7 @@ data$Text <- tolower(data$Text)
 Now we needed to filter the data to speeches about China and save it as a tibble. We chose to filter on \`Agenda title\`, because it gives the a complete list of speeches about China. If we were to use the speech text itself, we would have missed speeches about China that did not use the the name China or its derivative adjectives, compound nouns and compound names. str_detect allows us to find instances of speeches about China where the name or the adjective appears either on its own  or as part of other words
 
 
-```r
+``` r
 data_kina <- data %>% 
   filter(
     str_detect(`Agenda title`, "kina") | str_detect(`Agenda title`, "kines")
@@ -81,7 +81,7 @@ data_kina <- data %>%
 
 To check that all the speeches relate to China, we wanted to have a list of all the different \`Agenda title\`s in the filtered data
 
-```r
+``` r
 unique(data_kina$`Agenda title`)
 ```
 
@@ -90,7 +90,7 @@ unique(data_kina$`Agenda title`)
 We saw that one of the \`Agenda title\`s had the work "maskinarbejder" in it. The speeches on this \`Agenda title\` obviously don't relate to China, so we filter the speeches on this \`Agenda title\` away
 
 
-```r
+``` r
 data_kina <- data_kina %>% 
   filter(
     !str_detect(`Agenda title`, "maskinarbejder")
@@ -101,7 +101,7 @@ data_kina <- data_kina %>%
 Now that the dataset was properly filtered to parliament speeches about China, we wrote it as a txt.-file, so that it can easily be loaded into RStudio by you
 
 
-```r
+``` r
 library(tidyverse)
 
 kina <- read_delim("data/kina.txt")
@@ -112,13 +112,13 @@ kina <- read_delim("data/kina.txt")
 
 2. Create a working directory by using the RStudio interface by clicking on the "New Folder" button in the file pane (bottom right), or directly from R by typing at console
 
-```r
+``` r
 dir.create("data")
 ```
 
 3. Download the data-file from GitHub and put it in the `data/` you just created. The download link is https://raw.githubusercontent.com/KUBDatalab/R-textmining/main/data/kina.txt. Place the downloaded file in the `data/` you just created. This can be done by copying and pasting this in your terminal [picture of terminal needed here] 
 
-```r
+``` r
 download.file("https://raw.githubusercontent.com/KUBDatalab/R-textmining/main/data/kina.txt", "data/kina.txt", mode = "wb")
 ```
 
@@ -127,7 +127,7 @@ followed the recommendations for structuring your project-folder, it should be
 this command:
 
 
-```r
+``` r
 library(tidyverse)
 
 kina <- read_delim("data/kina.txt")

@@ -24,7 +24,7 @@ Stopword lists are available for a range of European languages via the tm librar
 
 To call the stopword list for a certain language and make it a tibble to easily `anti_join` with your tidy text run the following code and insert the name of the language if a stopword list exists for it
 
-```r
+``` r
 stopwords_your_chosen_language <- as_tibble(stopwords(kind = "yourchosenlanguage"))
 ```
 
@@ -34,7 +34,7 @@ One data preparation technology that we didn't use in this course is stemming. S
 It is possible to stem in a variety of European languages using the Porter-stemmer via the library SnowballC. 
 Start by getting of list of which languages the stemmer can handle
 
-```r
+``` r
 install.packages("SnowballC")
 library(SnowballC)
 getStemLanguages()
@@ -42,7 +42,7 @@ getStemLanguages()
 
 Use stemming on the column with text in your tibble
 
-```r
+``` r
 tibble$stemmed_text <- wordStem(tibble$column_with_text, language = "name of the language")
 ```
 
@@ -55,7 +55,7 @@ Now you must copy-paste all .txt files to that new folder. You can go into each 
 
 To import the files into R as one tibble, you must first set the working directory to your new folder. Then run the following code:
 
-```r
+``` r
 files <- dir(pattern = "*.txt")
 
 data <- files %>% 
@@ -65,7 +65,7 @@ data <- files %>%
 
 This may take up to 10 minutes. Once you have read all the files in as one tibble, you want to make it into one new file, so that you can quickly load the whole dataset in next time. Run the following code to write the file but insert the place on the C drive via the tabulator-function and finish the string with the name of your new file and put .txt after the filename:
 
-```r
+``` r
 write_delim(data, "C:/Users/yourusername/Desktop/Folder/Folketinget/filename.txt")
 ```
 
