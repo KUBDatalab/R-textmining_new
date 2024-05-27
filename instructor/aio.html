@@ -300,7 +300,7 @@
         
 <section id="aio-introduction"><p>Content from <a href="introduction.html">introduction</a></p>
 <hr>
-<p>Last updated on 2024-05-21 |
+<p>Last updated on 2024-05-27 |
         
         <a href="https://github.com/KUBDatalab/R-textmining_new/edit/main/episodes/introduction.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
@@ -363,7 +363,7 @@ reinforce the objectives.</li>
   <h3 class="accordion-header" id="headingInstructor1">
 <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>Instructor Note</h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>Inline instructor notes can help inform instructors of timing
 challenges associated with the lessons. They appear in the “Instructor
@@ -395,7 +395,7 @@ View”</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Output</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -424,7 +424,7 @@ challenge blocks?<a class="anchor" aria-label="anchor" href="#challenge-2-how-do
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>You can add a line with at least three colons and a
 <code>solution</code> tag.</p>
@@ -488,7 +488,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-01-TextminingwithR"><p>Content from <a href="01-TextminingwithR.html">Loading data</a></p>
 <hr>
-<p>Last updated on 2024-05-21 |
+<p>Last updated on 2024-05-27 |
         
         <a href="https://github.com/KUBDatalab/R-textmining_new/edit/main/episodes/01-TextminingwithR.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 0 minutes</p>
@@ -503,7 +503,8 @@ any links that you are not going to use.
 <div class="inner">
 <h3 class="card-title">Questions</h3>
 <ul>
-<li>“What is text mining and how do we load in the dataset?”</li>
+<li>“What is text mining?”</li>
+<li>“How do we load in the dataset?”</li>
 </ul>
 </div>
 </div>
@@ -513,23 +514,22 @@ any links that you are not going to use.
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul>
-<li>“To be introduced to text mining and loading in text data”</li>
+<li>“Be introduced to text mining”</li>
+<li>“Be introduced to loading in text data”</li>
 </ul>
 </div>
 </div>
 </div>
 </div>
 </div>
-<section id="r-markdown"><h2 class="section-heading">R Markdown<a class="anchor" aria-label="anchor" href="#r-markdown"></a>
-</h2>
-<hr class="half-width"></section><section id="what-is-text-mining"><h2 class="section-heading">What is text mining?<a class="anchor" aria-label="anchor" href="#what-is-text-mining"></a>
+<section id="what-is-text-mining"><h2 class="section-heading">What is text mining?<a class="anchor" aria-label="anchor" href="#what-is-text-mining"></a>
 </h2>
 <hr class="half-width">
 <p>Text mining refers to the use of digital tools to enable automatized
 analyses of text data. These analyses can enable insight into a
 collection of texts that can be difficult to spot with the naked eye.
 Furthermore, text mining tools allow the user to analyze large samples
-of texts and visualize the results</p>
+of texts and visualize the results.</p>
 </section><section id="installing-and-loading-relevant-libraries"><h2 class="section-heading">Installing and loading relevant libraries<a class="anchor" aria-label="anchor" href="#installing-and-loading-relevant-libraries"></a>
 </h2>
 <hr class="half-width">
@@ -563,16 +563,10 @@ we need to load them</p>
 </ul></section><section id="delimiting-and-loading-dataset"><h2 class="section-heading">Delimiting and loading dataset<a class="anchor" aria-label="anchor" href="#delimiting-and-loading-dataset"></a>
 </h2>
 <hr class="half-width">
-<p>The dataset that we will load is a collection of all debates in the
-Danish Parliament (Folketinget) from fall 2009 to spring 2017. In the
-Danish Parliament, every word from every speech in the debates is
-written in down in the summary. Furthermore, all speeches are described
-by useful and thorough metadata that allow for insightful analyses. The
-dataset was originally retrieved at <a href="https://repository.clarin.dk/repository/xmlui/handle/20.500.12115/44" class="external-link uri">https://repository.clarin.dk/repository/xmlui/handle/20.500.12115/44</a>,
-and has been prepared for today’s course. We are going to work with a
-filtered dataset that contains all parliament speeches on the topic of
-China. Similarly, debates about any other country could have been
-filtered for analysis.</p>
+<p>The dataset that we will load is a collection of articles from The
+Guardian - BESKRIVELSE AF DATASET…..<br>
+The dataset was originally retrieved at (LINK TIL Guardian), and has
+been prepared for today’s course. HOW</p>
 <p>**The steps for delimiting the dataset were the following: We read
 the dataset into RStudio and saved it as a tibble</p>
 <p>data &lt;-
@@ -692,7 +686,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-02-Text_mining_with"><p>Content from <a href="02-Text_mining_with.html">Tidytext, stopwords, and sentiment analysis</a></p>
 <hr>
-<p>Last updated on 2024-05-21 |
+<p>Last updated on 2024-05-27 |
         
         <a href="https://github.com/KUBDatalab/R-textmining_new/edit/main/episodes/02-Text_mining_with.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 0 minutes</p>
@@ -966,7 +960,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-03-TextminingwithR"><p>Content from <a href="03-TextminingwithR.html">Word frequency analysis</a></p>
 <hr>
-<p>Last updated on 2024-05-21 |
+<p>Last updated on 2024-05-27 |
         
         <a href="https://github.com/KUBDatalab/R-textmining_new/edit/main/episodes/03-TextminingwithR.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 0 minutes</p>
@@ -1288,7 +1282,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-04-Textminingextras"><p>Content from <a href="04-Textminingextras.html">Text mining extras</a></p>
 <hr>
-<p>Last updated on 2024-05-21 |
+<p>Last updated on 2024-05-27 |
         
         <a href="https://github.com/KUBDatalab/R-textmining_new/edit/main/episodes/04-Textminingextras.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 0 minutes</p>
@@ -1498,8 +1492,8 @@ any links that you are not going to use.
   "url": "https://KUBDatalab.github.io/R-textmining_new/instructor/aio.html",
   "identifier": "https://KUBDatalab.github.io/R-textmining_new/instructor/aio.html",
   "dateCreated": "2024-05-01",
-  "dateModified": "2024-05-21",
-  "datePublished": "2024-05-21"
+  "dateModified": "2024-05-27",
+  "datePublished": "2024-05-27"
 }
 
   </script><script>
