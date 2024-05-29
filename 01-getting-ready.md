@@ -11,7 +11,7 @@ keypoints:
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- "What is text mining?"
+
 - "How do we load in the dataset?"
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
