@@ -94,6 +94,7 @@
           </button>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 <hr>
+<li><a class="dropdown-item" href="Gettingdata.html">How did we get the data?</a></li>
 <li><a class="dropdown-item" href="reference.html">Reference</a></li>
           </ul>
 </li>
@@ -186,7 +187,7 @@
 <div class="accordion accordion-flush" id="accordionFlush2">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading2">
-        <a href="introduction.html">1. introduction</a>
+        <a href="00-introduction.html">1. introduction</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -198,7 +199,7 @@
 <div class="accordion accordion-flush" id="accordionFlush3">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading3">
-        <a href="01-TextminingwithR.html">2. Loading data</a>
+        <a href="01-getting-ready.html">2. Loading data</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -210,7 +211,7 @@
 <div class="accordion accordion-flush" id="accordionFlush4">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading4">
-        <a href="02-Text_mining_with.html">3. Tidytext, stopwords, and sentiment analysis</a>
+        <a href="02-preparing-data.html">3. Tidytext, stopwords, and sentiment analysis</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -222,7 +223,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="03-TextminingwithR.html">4. Word frequency analysis</a>
+        <a href="03-frequency-analysis.html">4. Word frequency analysis</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -234,7 +235,31 @@
 <div class="accordion accordion-flush" id="accordionFlush6">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading6">
-        <a href="04-Textminingextras.html">5. Text mining extras</a>
+        <a href="04-sentiment.html">5. Text mining extras</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush7">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading7">
+        <a href="05-stemming-and-more.html">6. frekvensanalyse</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush8">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading8">
+        <a href="06-whats-next.html">7. whats_next</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -268,6 +293,7 @@
                         <a href="../instructor/images.html">Extract All Images</a>
                       </li>
                       <hr>
+<li><a class="dropdown-item" href="Gettingdata.html">How did we get the data?</a></li>
 <li><a class="dropdown-item" href="reference.html">Reference</a></li>
                     </ul>
 </div>
@@ -298,38 +324,29 @@
     <main id="main-content" class="main-content"><div class="container lesson-content">
         
         
-<section id="introduction"><h2 class="section-heading"><a href="introduction.html">introduction</a></h2>
+<section id="00-introduction"><h2 class="section-heading"><a href="00-introduction.html">introduction</a></h2>
+<hr class="half-width"></section><section id="01-getting-ready"><h2 class="section-heading"><a href="01-getting-ready.html">Loading data</a></h2>
+<hr class="half-width"></section><section id="02-preparing-data"><h2 class="section-heading"><a href="02-preparing-data.html">Tidytext, stopwords, and sentiment analysis</a></h2>
 <hr class="half-width">
-<h3 id="introduction-figure-1">Figure 1</h3>
-<p aria-hidden="true">Image 1 of 1: ‘pie chart illusion of a pyramid’</p>
-<figure style="text-align: center"><img src="../fig/introduction-rendered-pyramid-1.png" alt="pie chart illusion of a pyramid" class="figure mx-auto d-block"><figcaption>
-Sun arise each and every morning
-</figcaption></figure><hr>
-<h3 id="introduction-figure-2">Figure 2</h3>
-<p aria-hidden="true">Image 1 of 1: ‘Blue Carpentries hex person logo with no text.’</p>
-<figure><img src="https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg" alt="Blue Carpentries hex person logo with no text." class="figure mx-auto d-block"><div class="figcaption">You belong in The Carpentries!</div>
-</figure><hr></section><section id="01-TextminingwithR"><h2 class="section-heading"><a href="01-TextminingwithR.html">Loading data</a></h2>
-<hr class="half-width"></section><section id="02-Text_mining_with"><h2 class="section-heading"><a href="02-Text_mining_with.html">Tidytext, stopwords, and sentiment analysis</a></h2>
-<hr class="half-width">
-<h3 id="02-Text_mining_with-figure-1">Figure 1</h3>
+<h3 id="02-preparing-data-figure-1">Figure 1</h3>
 <p aria-hidden="true">Image 1 of 1: ‘Tidy text example’</p>
 <p>To analyze the speeches we need to make the text tidy. Tidy text
 refers to a dataset where each text has been split up into the
 individual words that make up the speech, and in format where each row
 contains one word. <img src="../fig/Tidy_text.png" alt="Tidy text example" class="figure"></p>
 <hr>
-<h3 id="02-Text_mining_with-figure-2">Figure 2</h3>
+<h3 id="02-preparing-data-figure-2">Figure 2</h3>
 <p aria-hidden="true">Image 1 of 1: ‘Tokenization of example sentence’</p>
 <p>Splitting texts, in our case speeches, into individual words is
 called tokenization <img src="../fig/Tokenization.png" alt="Tokenization of example sentence" class="figure"> Hvitfeldt &amp; Silge,
 2021</p>
 <hr>
-<h3 id="02-Text_mining_with-figure-3">Figure 3</h3>
+<h3 id="02-preparing-data-figure-3">Figure 3</h3>
 <p aria-hidden="true">Image 1 of 1: ‘”Stopwords examples’</p>
 <p>In all natural language texts, frequent words that carry little
 meaning by themselves are distributed all across the text <img src="../fig/Stopwords.png" alt="”Stopwords examples" class="figure"></p>
 <hr>
-<h3 id="02-Text_mining_with-figure-4">Figure 4</h3>
+<h3 id="02-preparing-data-figure-4">Figure 4</h3>
 <p aria-hidden="true">Image 1 of 1: ‘”left_join AFINN Index with tidy text’</p>
 <p>Mutating joins work by adding new columns to the tibble. We will use
 left_join, which is the most common of the mutating joins <img src="../fig/Venn_left_join.jpg" alt="”left_join AFINN Index with tidy text" class="figure"> The left_join joins all
@@ -338,18 +355,38 @@ AFINN Index and adds it as a new column to the tibble. In the new
 column, the rows that contain words that don’t appear in the AFINN Index
 have NA in their cell</p>
 <hr>
-<h3 id="02-Text_mining_with-figure-5">Figure 5</h3>
+<h3 id="02-preparing-data-figure-5">Figure 5</h3>
 <p aria-hidden="true">Image 1 of 1: ‘”anti_join stopwords with tidy text’</p>
 <p>Filtering joins work by filtering away some rows in the tibble. We
 will use the anti_join, which removes those rows that contain a word
 that is also in the stopword list <img src="../fig/Venn_anti_join.jpg" alt="”anti_join stopwords with tidy text" class="figure"></p>
 <hr>
-<h3 id="02-Text_mining_with-figure-6">Figure 6</h3>
-<figure><img src="../fig/02-Text_mining_with-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
-<h3 id="02-Text_mining_with-figure-7">Figure 7</h3>
-<figure><img src="../fig/02-Text_mining_with-rendered-unnamed-chunk-14-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr></section><section id="03-TextminingwithR"><h2 class="section-heading"><a href="03-TextminingwithR.html">Word frequency analysis</a></h2>
-<hr class="half-width"></section><section id="04-Textminingextras"><h2 class="section-heading"><a href="04-Textminingextras.html">Text mining extras</a></h2>
-<hr class="half-width"></section>
+<h3 id="02-preparing-data-figure-6">Figure 6</h3>
+<figure><img src="../fig/02-preparing-data-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<h3 id="02-preparing-data-figure-7">Figure 7</h3>
+<figure><img src="../fig/02-preparing-data-rendered-unnamed-chunk-14-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr></section><section id="03-frequency-analysis"><h2 class="section-heading"><a href="03-frequency-analysis.html">Word frequency analysis</a></h2>
+<hr class="half-width"></section><section id="04-sentiment"><h2 class="section-heading"><a href="04-sentiment.html">Text mining extras</a></h2>
+<hr class="half-width"></section><section id="05-stemming-and-more"><h2 class="section-heading"><a href="05-stemming-and-more.html">frekvensanalyse</a></h2>
+<hr class="half-width">
+<h3 id="05-stemming-and-more-figure-1">Figure 1</h3>
+<p aria-hidden="true">Image 1 of 1: ‘pie chart illusion of a pyramid’</p>
+<figure style="text-align: center"><img src="../fig/05-stemming-and-more-rendered-pyramid-1.png" alt="pie chart illusion of a pyramid" class="figure mx-auto d-block"><figcaption>
+Sun arise each and every morning
+</figcaption></figure><hr>
+<h3 id="05-stemming-and-more-figure-2">Figure 2</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Blue Carpentries hex person logo with no text.’</p>
+<figure><img src="https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg" alt="Blue Carpentries hex person logo with no text." class="figure mx-auto d-block"><div class="figcaption">You belong in The Carpentries!</div>
+</figure><hr></section><section id="06-whats-next"><h2 class="section-heading"><a href="06-whats-next.html">whats_next</a></h2>
+<hr class="half-width">
+<h3 id="06-whats-next-figure-1">Figure 1</h3>
+<p aria-hidden="true">Image 1 of 1: ‘pie chart illusion of a pyramid’</p>
+<figure style="text-align: center"><img src="../fig/06-whats-next-rendered-pyramid-1.png" alt="pie chart illusion of a pyramid" class="figure mx-auto d-block"><figcaption>
+Sun arise each and every morning
+</figcaption></figure><hr>
+<h3 id="06-whats-next-figure-2">Figure 2</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Blue Carpentries hex person logo with no text.’</p>
+<figure><img src="https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg" alt="Blue Carpentries hex person logo with no text." class="figure mx-auto d-block"><div class="figcaption">You belong in The Carpentries!</div>
+</figure><hr></section>
 </div>
     </main>
 </div>
@@ -397,8 +434,8 @@ that is also in the stopword list <img src="../fig/Venn_anti_join.jpg" alt="”a
   "url": "https://KUBDatalab.github.io/R-textmining_new/instructor/images.html",
   "identifier": "https://KUBDatalab.github.io/R-textmining_new/instructor/images.html",
   "dateCreated": "2024-05-01",
-  "dateModified": "2024-05-28",
-  "datePublished": "2024-05-28"
+  "dateModified": "2024-05-29",
+  "datePublished": "2024-05-29"
 }
 
   </script><script>
