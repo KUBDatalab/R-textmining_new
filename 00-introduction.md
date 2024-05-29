@@ -1,31 +1,27 @@
 ---
-title: 'introduction'
-teaching: 10
-exercises: 2
+title: 'Introduction'
+teaching: 0
+exercises: 0
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How do you write a lesson using R Markdown and `{sandpaper}`?
+- What is textmining?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to use markdown with the new lesson template
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+- Explain what textmining
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Introduction
-
+## What is text mining?
+Text mining refers to the use of digital tools to enable automatized analyses of text data. These analyses can enable insight into a collection of texts that can be difficult to spot with the naked eye. Furthermore, text mining tools allow the user to analyze large samples of texts and visualize the results.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+- Know what textmining is
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
