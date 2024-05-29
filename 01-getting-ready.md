@@ -27,6 +27,7 @@ keypoints:
 
 ## What is text mining?
 Text mining refers to the use of digital tools to enable automatized analyses of text data. These analyses can enable insight into a collection of texts that can be difficult to spot with the naked eye. Furthermore, text mining tools allow the user to analyze large samples of texts and visualize the results.
+[dette skal flyttes til introduction.Rmd]
 
 ## Installing and loading relevant libraries
 We need to install some libraries that can perform the various steps in text analysis, because the base functions of R are not enough. Then we need to load them

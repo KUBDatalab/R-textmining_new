@@ -156,7 +156,7 @@ kina_sentiment_value %>%
   labs(x= "Party")
 ```
 
-<img src="fig/02-Text_mining_with-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" />
+<img src="fig/02-preparing-data-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" />
 
 ## Analyzing the sentiment of rød and blå blok
 We would also like to analyze the sentiment of rød and blå blok as a whole respectively. To do this, we need to add a column to each row that specifies whether the word comes from a member of a party in rød blok or blå blok. We must therefore first define which parties make up rød and blå blok and put that in a tibble, then bind the two tibbles into one tibble, and then make a left_join to the rows in our tidy text
@@ -191,7 +191,7 @@ kina_blokke_sentiment_value %>%
   labs(x= "Blok")
 ```
 
-<img src="fig/02-Text_mining_with-rendered-unnamed-chunk-14-1.png" style="display: block; margin: auto;" />
+<img src="fig/02-preparing-data-rendered-unnamed-chunk-14-1.png" style="display: block; margin: auto;" />
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
