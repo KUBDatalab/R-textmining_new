@@ -324,7 +324,7 @@
         
 <section id="aio-00-introduction"><p>Content from <a href="00-introduction.html">Introduction</a></p>
 <hr>
-<p>Last updated on 2024-06-04 |
+<p>Last updated on 2024-06-06 |
         
         <a href="https://github.com/KUBDatalab/R-textmining_new/edit/main/episodes/00-introduction.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -338,7 +338,9 @@
 <div class="inner">
 <h3 class="card-title">Questions</h3>
 <ul>
-<li>What is textmining?</li>
+<li>What is text mining?</li>
+<li>What is tidy text?</li>
+<li>What is stop words?</li>
 </ul>
 </div>
 </div>
@@ -348,7 +350,9 @@
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul>
-<li>Explain what textmining</li>
+<li>Explain what text mining is</li>
+<li>Explain what tidy text is</li>
+<li>Explain what stop words is</li>
 </ul>
 </div>
 </div>
@@ -358,11 +362,94 @@
 <section id="what-is-text-mining"><h2 class="section-heading">What is text mining?<a class="anchor" aria-label="anchor" href="#what-is-text-mining"></a>
 </h2>
 <hr class="half-width">
-<p>Text mining refers to the use of digital tools to enable automatized
-analyses of text data. These analyses can enable insight into a
-collection of texts that can be difficult to spot with the naked eye.
-Furthermore, text mining tools allow the user to analyze large samples
-of texts and visualize the results.</p>
+<p>Text mining is the process of extracting useful information and
+knowledge from unstructured text. These analyses can enable insight into
+a collection of text that can be difficult to spot with the naked
+eye.</p>
+<p>Text mining tools allow the user to analyze large samples of texts
+and visualize the results.</p>
+</section><section id="what-is-tidy-text-overskrift-skal-ændres-så-den-ikke-er-så-teknisk"><h2 class="section-heading">What is tidy text (overskrift skal ændres så den ikke er så
+teknisk)<a class="anchor" aria-label="anchor" href="#what-is-tidy-text-overskrift-skal-%C3%A6ndres-s%C3%A5-den-ikke-er-s%C3%A5-teknisk"></a>
+</h2>
+<hr class="half-width">
+<p>In order to be able to use text mining tools on your data it is
+important to have the data in a format that can easily be used by a
+machine.</p>
+<p>In the course we will work with the format tidy text.</p>
+<div id="tidy-text" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="tidy-text" class="callout-inner">
+<h3 class="callout-title">Tidy text<a class="anchor" aria-label="anchor" href="#tidy-text"></a>
+</h3>
+<div class="callout-content">
+<p>The tidy text concept is developed by Silge and Robinson (reference
+tilføjes - <a href="https://www.tidytextmining.com" class="external-link uri">https://www.tidytextmining.com</a>), and applies the
+principles from the tidy data to text.</p>
+<p>The tidy data framework, principles are:</p>
+<p>Each variable forms a column. Each observation forms a row. Each type
+of observational unit forms a table.</p>
+<p>Applying these principles to text data, leads to a format that is
+easy to manipulate, visualize, and analyze using standard data science
+tools.</p>
+</div>
+</div>
+</div>
+</section><section id="introduction-to-tidytext-and-tokenization"><h2 class="section-heading">Introduction to tidytext and tokenization<a class="anchor" aria-label="anchor" href="#introduction-to-tidytext-and-tokenization"></a>
+</h2>
+<hr class="half-width">
+<p>To analyze the speeches we need to make the text tidy. Tidy text
+refers to a dataset where each text has been split up into the
+individual words that make up the speech, and in format where each row
+contains one word. <img src="fig/Tidy_text.png" alt="Tidy text example" class="figure"></p>
+<p>Splitting texts, in our case speeches, into individual words is
+called tokenization <img src="fig/Tokenization.png" alt="Tokenization of example sentence" class="figure"> Hvitfeldt &amp; Silge,
+2021</p>
+<p>Tokenization of text into individual words is necessary for text
+mining because it allows us to analyze the text closely and in detail,
+analyses which can later be visualized to understand the patterns of the
+text. Tokenization is language independent, as long as the language is
+written in an alphabet or syllabary that uses spaces between words. When
+tokenizing our text to make it tidy, the metadata that describe the
+whole speech are carried over to also describe the individual word. Thus
+we can split the text into individual words but still keep track of who
+said that word and when they did.</p>
+<p>We use the tidytext library for tokenization</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">kina_tidy</span> <span class="op">&lt;-</span> <span class="va">kina</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">unnest_tokens</span><span class="op">(</span><span class="va">word</span>, <span class="va">Text</span><span class="op">)</span> <span class="co">#tidytext tokenization</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in kina %&gt;% unnest_tokens(word, Text): could not find function "%&gt;%"</code></pre>
+</div>
+</section><section id="stopwords"><h2 class="section-heading">Stopwords<a class="anchor" aria-label="anchor" href="#stopwords"></a>
+</h2>
+<hr class="half-width">
+<p>In all natural language texts, frequent words that carry little
+meaning by themselves are distributed all across the text <img src="fig/Stopwords.png" alt="”Stopwords examples" class="figure"></p>
+<p>The frequent low-meaning words need to be removed because they do not
+add anything to our understanding of the texts and are just noise</p>
+<p>The tm library contains a list of stopwords for Danish, which we’ll
+make into a tibble. We have to specify that the list of stopwords that
+we want to call is the list for the Danish language. Note that stopword
+lists are also available for most major European languages</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">stopwords_dansk</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>word <span class="op">=</span> <span class="fu">stopwords</span><span class="op">(</span>kind <span class="op">=</span> <span class="st">"danish"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in tibble(word = stopwords(kind = "danish")): could not find function "tibble"</code></pre>
+</div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -372,7 +459,9 @@ of texts and visualize the results.</p>
 </h3>
 <div class="callout-content">
 <ul>
-<li>Know what textmining is</li>
+<li>Know what text mining is</li>
+<li>Know what tidy text is</li>
+<li>Know what stop words is</li>
 </ul>
 </div>
 </div>
@@ -383,7 +472,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-01-getting-ready"><p>Content from <a href="01-getting-ready.html">Loading data</a></p>
 <hr>
-<p>Last updated on 2024-06-04 |
+<p>Last updated on 2024-06-06 |
         
         <a href="https://github.com/KUBDatalab/R-textmining_new/edit/main/episodes/01-getting-ready.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -580,7 +669,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-02-preparing-data"><p>Content from <a href="02-preparing-data.html">Tidytext, stopwords, and sentiment analysis</a></p>
 <hr>
-<p>Last updated on 2024-06-04 |
+<p>Last updated on 2024-06-06 |
         
         <a href="https://github.com/KUBDatalab/R-textmining_new/edit/main/episodes/02-preparing-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -853,7 +942,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-03-frequency-analysis"><p>Content from <a href="03-frequency-analysis.html">Word frequency analysis</a></p>
 <hr>
-<p>Last updated on 2024-06-04 |
+<p>Last updated on 2024-06-06 |
         
         <a href="https://github.com/KUBDatalab/R-textmining_new/edit/main/episodes/03-frequency-analysis.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1174,7 +1263,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-04-sentiment"><p>Content from <a href="04-sentiment.html">Text mining extras</a></p>
 <hr>
-<p>Last updated on 2024-06-04 |
+<p>Last updated on 2024-06-06 |
         
         <a href="https://github.com/KUBDatalab/R-textmining_new/edit/main/episodes/04-sentiment.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1337,7 +1426,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-05-stemming-and-more"><p>Content from <a href="05-stemming-and-more.html">frekvensanalyse</a></p>
 <hr>
-<p>Last updated on 2024-06-04 |
+<p>Last updated on 2024-06-06 |
         
         <a href="https://github.com/KUBDatalab/R-textmining_new/edit/main/episodes/05-stemming-and-more.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1509,7 +1598,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-06-whats-next"><p>Content from <a href="06-whats-next.html">whats_next</a></p>
 <hr>
-<p>Last updated on 2024-06-04 |
+<p>Last updated on 2024-06-06 |
         
         <a href="https://github.com/KUBDatalab/R-textmining_new/edit/main/episodes/06-whats-next.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1727,8 +1816,8 @@ any links that you are not going to use.
   "url": "https://KUBDatalab.github.io/R-textmining_new/aio.html",
   "identifier": "https://KUBDatalab.github.io/R-textmining_new/aio.html",
   "dateCreated": "2024-05-01",
-  "dateModified": "2024-06-04",
-  "datePublished": "2024-06-04"
+  "dateModified": "2024-06-06",
+  "datePublished": "2024-06-06"
 }
 
   </script><script>
