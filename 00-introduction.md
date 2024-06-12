@@ -45,9 +45,9 @@ to text.
 
 The tidy data framework, principles are:
 
-Each variable forms a column.
-Each observation forms a row.
-Each type of observational unit forms a table.
+* Each variable forms a column.
+* Each observation forms a row.
+* Each type of observational unit forms a table.
 
 Applying these principles to text data, leads to a format that is easy to 
 manipulate, visualize, and analyze using standard data science tools.
