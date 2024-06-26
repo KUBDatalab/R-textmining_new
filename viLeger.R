@@ -34,7 +34,7 @@ president_tokenized <- obamaTrump %>%
   unnest_tokens(word, text) %>%
   relocate(word, .after = president)
 
-stopwords <- tibble(word = stopwords(kind = "danish"))
+stopwords <- tibble(word = stopwords(kind = "english"))
 
 
 
