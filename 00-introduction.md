@@ -103,24 +103,15 @@ stopwords_dansk <- tibble(word = stopwords(kind = "danish"))
 Error in tibble(word = stopwords(kind = "danish")): could not find function "tibble"
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
+## Data
+In this
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Know what text mining is
 - Know what tidy text is
 - Know what stop words is
+- What data are we working with
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
