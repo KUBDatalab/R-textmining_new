@@ -23,21 +23,24 @@ exercises: 0
 
 ## What is text mining?
 Text mining is the process of extracting useful information and knowledge from 
-unstructured text. These analyses can enable insight into a collection of text 
+text. These analyses can enable insight into a collection of text 
 that can be difficult to spot with the naked eye. 
 
 Text mining tools allow the user to analyze large samples of texts and 
 visualize the results.
 
-## What is tidy text (overskrift skal ændres så den ikke er så teknisk)
+## Format (overskrift skal ændres)
 In order to be able to use text mining tools on your data it is important to 
-have the data in a format that can easily be used by a machine.
+have the data in a format that can be easily processed by a machine.
 
-In the course we will work with the format tidy text.
+So we need to take our text as we would normally read it, and transform it into 
+something a program can make sence of.
+
+In this course we will work with the format tidy text.
 
 :::: callout
 
-## Tidy text
+### Tidy text
 
 The tidy text concept is developed by Silge and Robinson (reference tilføjes - 
 https://www.tidytextmining.com), and applies the principles from the tidy data 
@@ -54,33 +57,35 @@ manipulate, visualize, and analyze using standard data science tools.
 
 ::::::
 
+### Introduction to tidytext
+So to analyze a text we start with transforming the text into tidy text. Tidy 
+text refers to a dataset where each text has been split up in to smaller units, 
+eg. words, sentences, letters. 
 
+Splitting text, into smaller units is called tokenization.
 
+Tokenization of text into individual token is necessary for text mining because 
+it allows us to analyze the text closely and in detail, analyses which can later 
+be visualized to understand the patterns of the text. 
 
+Tokenization is language  independent, as long as the language is written in an 
+alphabet or syllabary that uses spaces between words. When tokenizing our text 
+to make it tidy, the metadata that describe the whole speech are carried over to 
+also describe the individual word. Thus we can split the text into individual 
+words but still keep track of who said that word and when they did.
 
+In this course we will use words as token
 
-## Introduction to tidytext and tokenization
+:::: callout
 
-To analyze the speeches we need to make the text tidy. Tidy text refers to a dataset where each text has been split up into the individual words that make up the speech, and in format where each row contains one word. ![Tidy text example](../fig/Tidy_text.png)
+### Example of tokenization
 
-Splitting texts, in our case speeches, into individual words is called tokenization ![Tokenization of example sentence](../fig/Tokenization.png)
+![Tokenization of example sentence](../fig/Tokenization.png)
 Hvitfeldt & Silge, 2021
 
-Tokenization of text into individual words is necessary for text mining because it allows us to analyze the text closely and in detail, analyses which can later be visualized to understand the patterns of the text. Tokenization is language independent, as long as the language is written in an alphabet or syllabary that uses spaces between words. When tokenizing our text to make it tidy, the metadata that describe the whole speech are carried over to also describe the individual word. Thus we can split the text into individual words but still keep track of who said that word and when they did.
+(bør man også vise tabel resultatet)
 
-We use the tidytext library for tokenization
-
-
-
-``` r
-kina_tidy <- kina %>% 
-  unnest_tokens(word, Text) #tidytext tokenization
-```
-
-``` error
-Error in kina %>% unnest_tokens(word, Text): could not find function "%>%"
-```
-
+::::::
 
 ## Stopwords
 In all natural language texts, frequent words that carry little meaning by themselves are distributed all across the text ![”Stopwords examples](../fig/Stopwords.png)
