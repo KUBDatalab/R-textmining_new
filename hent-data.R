@@ -21,13 +21,8 @@ obama %>%
                              "media",
                              "travel",
                              "music"))) %>% 
-    select(-c(type, section_name, web_url, api_url, 
-              tags, is_hosted, pillar_id, main, wordcount, 
-              production_office, is_premoderated, 
-              last_modified:show_in_related_content,
-              thumbnail:is_live, char_count:comment_close_date,
-              section_id, web_title, trail_text, body
-              )) %>% 
+    select(c(id, web_publication_date, pillar_name, headline, 
+             standfirst, body_text)) %>% 
   mutate(id = row_number()) %>%
   write_csv("episodes/data/obama.csv")  
 
@@ -56,3 +51,27 @@ trump %>%
    standfirst, body_text)) %>%
   mutate(id = row_number()) %>%
   write_csv("episodes/data/trump.csv")
+
+# read in files -----------------------------------------------------------
+
+trumpOrg <- read_csv("episodes/data/trump.csv")
+obamaOrg <- read_csv("episodes/data/obama.csv")
+
+
+# tilrette datasæt --------------------------------------------------------
+
+trump <- trumpOrg %>% 
+  mutate(president = "trump", .after = id)
+
+obama <- obamaOrg %>% 
+  mutate(president = "obama", .after = id)
+
+obamaTrump <- obama %>% 
+  rbind(trump) %>% 
+  mutate(id = row_number()) %>% 
+  mutate(standfirst = str_replace_na(standfirst, replacement = "")) %>% 
+  mutate(text = str_c(headline, standfirst, body_text, sep = " "), .after = president) %>% 
+  select(-c(headline, standfirst, body_text))
+
+write_csv(obamaTrump, "episodes/data/obamaTrump.csv")
+
