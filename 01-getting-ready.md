@@ -26,7 +26,7 @@ keypoints:
 
 
 ## What is text mining?
-Text mining refers to automated analyses of text data by means of digital tools. Such analyses may provide insigt into a collection that would otherwise be difficult to see with the naked eye. Also, text mining tools allow the user to analyse large samples of text and to visualise the result of the analyses.
+Text mining refers to automated analyses of text data by means of digital tools. Such analyses may provide insigt into a collection that would otherwise be difficult to see with the naked eye. Also, text mining tools allow the user to analyse large samples of text and to visualise the result of the analyses. TEST-SKAL SLETTES
 [dette skal flyttes til introduction.Rmd]
 
 ## Installing packagesand loading relevant libraries
