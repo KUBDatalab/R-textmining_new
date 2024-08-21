@@ -28,37 +28,37 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## What is text mining?
-Text mining refers to automated analyses of text data by means of digital tools. Such analyses may provide insigt into a collection that would otherwise be difficult to see with the naked eye. Also, text mining tools allow the user to analyse large samples of text and to visualise the result of the analyses. TEST-SKAL SLETTES
+Text mining refers to automated analyses of text data by means of digital tools. Such analyses may provide insight into a body of text that would otherwise be difficult to see with the naked eye. Also, text mining tools allow the user to analyse large samples of text and to visualise the result of these analyses.
 [dette skal flyttes til introduction.Rmd]
 
-## Installing packagesand loading relevant libraries
-We need to install some libraries that can perform the various steps in text analysis, because the base functions of R are not enough. Then we need to load them
+## Installing packages and loading relevant libraries
+First thing we have to do is to install the relevant packages. This allows us to carry out the different steps of the analysis. Using the build-in functions of R won't be enough in this case. Then we need to load them
 
 ```{r indlæs_libraries, message = F, warning = F}
 library(tidyverse)
-library(tidytext)
-library(tm)
+library(readr)
+library(guardianapi)
 ```
 
 
 ```{r, eval = FALSE,  message = FALSE, purl = FALSE}
 install.packages("tidyverse")
-install.packages("tidytext")
-install.packages("tm")
+install.packages("readr")
+install.packages("guardianapi")
 library(tidyverse)
-library(tidytext)
-library(tm)
+library(readr)
+library(guardianapi)
 ```
 
 Documentation for each package:
 
 * [tidyverse](https://www.tidyverse.org/packages/)
-* [tidytext](https://cran.r-project.org/web/packages/tidytext/vignettes/tidytext.html)
-* [tm](https://cran.r-project.org/web/packages/tm/tm.pdf)
+* [readr](https://cran.r-project.org/web/packages/readr/vignettes/readr.html)
+* [guardianapi](https://cran.r-project.org/web/packages/guardianapi/index.html)
 
 ## Delimiting and loading dataset
-The dataset that we will load is a collection of articles from The Guardian - BESKRIVELSE AF DATASET.....  
-The dataset was originally retrieved at (LINK TIL Guardian), and has been prepared for today's course. HOW
+The dataset that we will load is a collection of articles from The Guardian that mention either former US presidents Barack Obama or Donald Trump. It was retrieved from theguardian.com by means of an API-key. It was then cleaned and structured in a way that made it suitable for teaching.
+
 
 **The steps for delimiting the dataset were the following:
 We read the dataset into RStudio and saved it as a tibble
