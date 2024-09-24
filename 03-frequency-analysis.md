@@ -36,15 +36,15 @@ Error: '../data/kina.txt' does not exist in current working directory ('/home/ru
 ```
 
 ``` error
-Error in eval(expr, envir, enclos): object 'kina' not found
+Error: object 'kina' not found
 ```
 
 ``` error
-Error in eval(expr, envir, enclos): object 'kina_tidy' not found
+Error: object 'kina_tidy' not found
 ```
 
 ``` error
-Error in eval(expr, envir, enclos): object 'kina_tidy_2' not found
+Error: object 'kina_tidy_2' not found
 ```
 
 ## Word frequency
@@ -64,7 +64,7 @@ kina_top_10_ord <- kina_tidy_blokke %>%
 ```
 
 ``` error
-Error in eval(expr, envir, enclos): object 'kina_tidy_blokke' not found
+Error: object 'kina_tidy_blokke' not found
 ```
 
 Now we want to visualize the result
@@ -80,7 +80,7 @@ kina_top_10_ord %>%
 ```
 
 ``` error
-Error in eval(expr, envir, enclos): object 'kina_top_10_ord' not found
+Error: object 'kina_top_10_ord' not found
 ```
 
 A  more extensive stopword list for Danish is the ISO stopword list. We will use it know, so lets download it from the repository. Then we save it as an object. Then we make it into a tibble to prepare it for `anti_join` with our dataset
@@ -107,7 +107,7 @@ kina_top_10_ord_2 <- kina_tidy_blokke %>%
 ```
 
 ``` error
-Error in eval(expr, envir, enclos): object 'kina_tidy_blokke' not found
+Error: object 'kina_tidy_blokke' not found
 ```
 
 
@@ -125,7 +125,7 @@ kina_top_10_ord_2 %>%
 ```
 
 ``` error
-Error in eval(expr, envir, enclos): object 'kina_top_10_ord_2' not found
+Error: object 'kina_top_10_ord_2' not found
 ```
 
 
@@ -159,7 +159,7 @@ kina_top_10_ord_3 <- kina_top_10_ord_2 %>%
 ```
 
 ``` error
-Error in eval(expr, envir, enclos): object 'kina_top_10_ord_2' not found
+Error: object 'kina_top_10_ord_2' not found
 ```
 
 Let's now calculate the top 10 words from each party and save it as an object
@@ -176,7 +176,7 @@ kina_top_10_ord_4 <- kina_top_10_ord_3 %>%
 ```
 
 ``` error
-Error in eval(expr, envir, enclos): object 'kina_top_10_ord_3' not found
+Error: object 'kina_top_10_ord_3' not found
 ```
 
 Let us now plot the result
@@ -192,7 +192,7 @@ kina_top_10_ord_4 %>%
 ```
 
 ``` error
-Error in eval(expr, envir, enclos): object 'kina_top_10_ord_4' not found
+Error: object 'kina_top_10_ord_4' not found
 ```
 
 ## tf_idf
@@ -210,7 +210,7 @@ kina_tidy_tf_idf <- kina_top_10_ord_3 %>%
 ```
 
 ``` error
-Error in eval(expr, envir, enclos): object 'kina_top_10_ord_3' not found
+Error: object 'kina_top_10_ord_3' not found
 ```
 
 Now we want to select each party's 10 words that have the highest tf_idf
@@ -225,7 +225,7 @@ kina_tidy_tf_idf_top_10 <- kina_tidy_tf_idf %>%
 ```
 
 ``` error
-Error in eval(expr, envir, enclos): object 'kina_tidy_tf_idf' not found
+Error: object 'kina_tidy_tf_idf' not found
 ```
 
 
@@ -242,7 +242,7 @@ kina_tidy_tf_idf_top_10 %>%
 ```
 
 ``` error
-Error in eval(expr, envir, enclos): object 'kina_tidy_tf_idf_top_10' not found
+Error: object 'kina_tidy_tf_idf_top_10' not found
 ```
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
