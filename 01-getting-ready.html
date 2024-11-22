@@ -225,8 +225,11 @@
 
     <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
-        <ul><li><a href="#what-is-text-mining">What is text mining?</a></li>
-<li><a href="#installing-packages-and-loading-relevant-libraries">Installing packages and loading relevant libraries</a></li>
+        <ul><li><a href="#data">Data</a></li>
+<li><a href="#what-is-text-mining">What is text mining?</a></li>
+<li><a href="#noget-om-tokenisation-fra-lesson-0">Noget om tokenisation fra lesson 0</a></li>
+<li><a href="#noget-om-stopwords-flyttet-fra-lesson-0">Noget om stopwords flyttet fra lesson 0</a></li>
+<li><a href="#installing-and-loading-relevant-libraries">Installing and loading relevant libraries</a></li>
 <li><a href="#delimiting-and-loading-dataset">Delimiting and loading dataset</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
@@ -337,7 +340,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Loading data</h1>
-        <p>Last updated on 2024-11-19 |
+        <p>Last updated on 2024-11-22 |
 
         <a href="https://github.com/KUBDatalab/R-textmining_new/edit/main/episodes/01-getting-ready.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -371,47 +374,73 @@
 </div>
 </div>
 </div>
-<section><h2 class="section-heading" id="what-is-text-mining">What is text mining?<a class="anchor" aria-label="anchor" href="#what-is-text-mining"></a></h2>
-<hr class="half-width"><p>Text mining refers to automated analyses of text data by means of
-digital tools. Such analyses may provide insight into a body of text
-that would otherwise be difficult to see with the naked eye. Also, text
-mining tools allow the user to analyse large samples of text and to
-visualise the result of these analyses. [dette skal flyttes til
+<section><h2 class="section-heading" id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a></h2>
+<hr class="half-width"><p>In this</p>
+</section><section><h2 class="section-heading" id="what-is-text-mining">What is text mining?<a class="anchor" aria-label="anchor" href="#what-is-text-mining"></a></h2>
+<hr class="half-width"><p>Text mining refers to the use of digital tools to enable automatized
+analyses of text data. These analyses can enable insight into a
+collection of texts that can be difficult to spot with the naked eye.
+Furthermore, text mining tools allow the user to analyze large samples
+of texts and visualize the results. [dette skal flyttes til
 introduction.Rmd]</p>
-</section><section><h2 class="section-heading" id="installing-packages-and-loading-relevant-libraries">Installing packages and loading relevant libraries<a class="anchor" aria-label="anchor" href="#installing-packages-and-loading-relevant-libraries"></a></h2>
-<hr class="half-width"><p>First thing we have to do is to install the relevant packages. This
-allows us to carry out the different steps of the analysis. Using the
-build-in functions of R won’t be enough in this case. Then we need to
-load them</p>
+</section><section><h2 class="section-heading" id="noget-om-tokenisation-fra-lesson-0">Noget om tokenisation fra lesson 0<a class="anchor" aria-label="anchor" href="#noget-om-tokenisation-fra-lesson-0"></a></h2>
+<hr class="half-width"><p>When tokenizing our text to make it tidy, the metadata that describe
+the whole speech are carried over to also describe the individual word.
+Thus we can split the text into individual words but still keep track of
+who said that word and when they did.</p>
+<p>Tokenization of text into individual tokens is necessary for text
+mining because it allows us to analyze the text closely and in detail,
+analyses which can later be visualized to understand the patterns of the
+text.</p>
+<p>In this course we will use words as token</p>
+</section><section><h2 class="section-heading" id="noget-om-stopwords-flyttet-fra-lesson-0">Noget om stopwords flyttet fra lesson 0<a class="anchor" aria-label="anchor" href="#noget-om-stopwords-flyttet-fra-lesson-0"></a></h2>
+<hr class="half-width"><p>The tm library contains a list of stopwords for Danish, which we’ll
+make into a tibble. We have to specify that the list of stopwords that
+we want to call is the list for the Danish language. Note that stopword
+lists are also available for most major European languages</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">readr</span><span class="op">)</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">guardianapi</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">stopwords_dansk</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>word <span class="op">=</span> <span class="fu">stopwords</span><span class="op">(</span>kind <span class="op">=</span> <span class="st">"danish"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb2">
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in tibble(word = stopwords(kind = "danish")): could not find function "tibble"</code></pre>
+</div>
+</section><section><h2 class="section-heading" id="installing-and-loading-relevant-libraries">Installing and loading relevant libraries<a class="anchor" aria-label="anchor" href="#installing-and-loading-relevant-libraries"></a></h2>
+<hr class="half-width"><p>We need to install some libraries that can perform the various steps
+in text analysis, because the base functions of R are not enough. Then
+we need to load them</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">tidytext</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">tm</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">install.packages</span><span class="op">(</span><span class="st">"tidyverse"</span><span class="op">)</span></span>
-<span><span class="fu">install.packages</span><span class="op">(</span><span class="st">"readr"</span><span class="op">)</span></span>
-<span><span class="fu">install.packages</span><span class="op">(</span><span class="st">"guardianapi"</span><span class="op">)</span></span>
+<span><span class="fu">install.packages</span><span class="op">(</span><span class="st">"tidytext"</span><span class="op">)</span></span>
+<span><span class="fu">install.packages</span><span class="op">(</span><span class="st">"tm"</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">readr</span><span class="op">)</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">guardianapi</span><span class="op">)</span></span></code></pre>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">tidytext</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">tm</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Documentation for each package:</p>
 <ul><li><a href="https://www.tidyverse.org/packages/" class="external-link">tidyverse</a></li>
-<li><a href="https://cran.r-project.org/web/packages/readr/vignettes/readr.html" class="external-link">readr</a></li>
-<li><a href="https://cran.r-project.org/web/packages/guardianapi/index.html" class="external-link">guardianapi</a></li>
+<li><a href="https://cran.r-project.org/web/packages/tidytext/vignettes/tidytext.html" class="external-link">tidytext</a></li>
+<li><a href="https://cran.r-project.org/web/packages/tm/tm.pdf" class="external-link">tm</a></li>
 </ul></section><section><h2 class="section-heading" id="delimiting-and-loading-dataset">Delimiting and loading dataset<a class="anchor" aria-label="anchor" href="#delimiting-and-loading-dataset"></a></h2>
 <hr class="half-width"><p>The dataset that we will load is a collection of articles from The
-Guardian that mention either former US presidents Barack Obama or Donald
-Trump. It was retrieved from theguardian.com by means of an API-key. It
-was then cleaned and structured in a way that made it suitable for
-teaching.</p>
+Guardian - BESKRIVELSE AF DATASET…..<br>
+The dataset was originally retrieved at (LINK TIL Guardian), and has
+been prepared for today’s course. HOW</p>
 <p>**The steps for delimiting the dataset were the following: We read
 the dataset into RStudio and saved it as a tibble</p>
 <p>data &lt;-
@@ -432,7 +461,7 @@ the the name China or its derivative adjectives, compound nouns and
 compound names. str_detect allows us to find instances of speeches about
 China where the name or the adjective appears either on its own or as
 part of other words</p>
-<div class="codewrapper sourceCode" id="cb3">
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -443,7 +472,7 @@ part of other words</p>
 </div>
 <p>To check that all the speeches relate to China, we wanted to have a
 list of all the different `Agenda title`s in the filtered data</p>
-<div class="codewrapper sourceCode" id="cb4">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -452,7 +481,7 @@ list of all the different `Agenda title`s in the filtered data</p>
 <p>We saw that one of the `Agenda title`s had the work “maskinarbejder”
 in it. The speeches on this `Agenda title` obviously don’t relate to
 China, so we filter the speeches on this `Agenda title` away</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -464,7 +493,7 @@ China, so we filter the speeches on this `Agenda title` away</p>
 <p>Now that the dataset was properly filtered to parliament speeches
 about China, we wrote it as a txt.-file, so that it can easily be loaded
 into RStudio by you</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -478,7 +507,7 @@ an RStudio Project. Click on the blue cube to open the
 <ol start="2" style="list-style-type: decimal"><li>Create a working directory by using the RStudio interface by
 clicking on the “New Folder” button in the file pane (bottom right), or
 directly from R by typing at console</li>
-</ol><div class="codewrapper sourceCode" id="cb7">
+</ol><div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -489,7 +518,7 @@ directly from R by typing at console</li>
 Place the downloaded file in the <code>data/</code> you just created.
 This can be done by copying and pasting this in your terminal [picture
 of terminal needed here]</li>
-</ol><div class="codewrapper sourceCode" id="cb8">
+</ol><div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -498,7 +527,7 @@ of terminal needed here]</li>
 <p>The specific path we are using here is dependent on the specific
 setup. If you have followed the recommendations for structuring your
 project-folder, it should be this command:</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -580,8 +609,8 @@ any links that you are not going to use.
   "url": "https://KUBDatalab.github.io/R-textmining_new/01-getting-ready.html",
   "identifier": "https://KUBDatalab.github.io/R-textmining_new/01-getting-ready.html",
   "dateCreated": "2024-05-01",
-  "dateModified": "2024-11-19",
-  "datePublished": "2024-11-19"
+  "dateModified": "2024-11-22",
+  "datePublished": "2024-11-22"
 }
 
   </script><script>

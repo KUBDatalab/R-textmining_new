@@ -217,9 +217,9 @@
     <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#what-is-text-mining">What is text mining?</a></li>
-<li><a href="#format-overskrift-skal-%C3%A6ndres">Format (overskrift skal ændres)</a></li>
+<li><a href="#formatting-the-text">Formatting the text</a></li>
+<li><a href="#introduction-to-tidytext">Introduction to tidytext</a></li>
 <li><a href="#stopwords">Stopwords</a></li>
-<li><a href="#data">Data</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
 
@@ -338,7 +338,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Introduction</h1>
-        <p>Last updated on 2024-11-19 |
+        <p>Last updated on 2024-11-22 |
 
         <a href="https://github.com/KUBDatalab/R-textmining_new/edit/main/episodes/00-introduction.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -377,17 +377,15 @@
 </div>
 <section><h2 class="section-heading" id="what-is-text-mining">What is text mining?<a class="anchor" aria-label="anchor" href="#what-is-text-mining"></a></h2>
 <hr class="half-width"><p>Text mining is the process of extracting useful information and
-knowledge from text. These analyses can enable insight into a collection
-of text that can be difficult to spot with the naked eye.</p>
-<p>Text mining tools allow the user to analyze large samples of texts
-and visualize the results.</p>
-</section><section><h2 class="section-heading" id="format-overskrift-skal-ændres">Format (overskrift skal ændres)<a class="anchor" aria-label="anchor" href="#format-overskrift-skal-%C3%A6ndres"></a></h2>
-<hr class="half-width"><p>In order to be able to use text mining tools on your data it is
-important to have the data in a format that can be easily processed by a
-machine.</p>
-<p>So we need to take our text as we would normally read it, and
-transform it into something a program can make sence of.</p>
-<p>In this course we will work with the format tidy text.</p>
+knowledge from text. Text mining tools allow the user to analyse large
+samples of texts and visualise the results.</p>
+<p>Through these analyses you can gain insights into a collection of
+text to large to read with the naked eye.</p>
+</section><section><h2 class="section-heading" id="formatting-the-text">Formatting the text<a class="anchor" aria-label="anchor" href="#formatting-the-text"></a></h2>
+<hr class="half-width"><p>Before you can carry out your analyses, the text needs to be
+formatted in a way that makes it machine-readable.</p>
+<p>In this course we will formatting the text by means of tidy text
+principles.</p>
 <div id="tidy-text" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
@@ -396,35 +394,26 @@ transform it into something a program can make sence of.</p>
 <h3 class="callout-title">Tidy text</h3>
 <div class="callout-content">
 <p>The tidy text concept is developed by Silge and Robinson (reference
-tilføjes - <a href="https://www.tidytextmining.com" class="external-link uri">https://www.tidytextmining.com</a>), and applies the
+tilføjes - <a href="https://www.tidytextmining.com" class="external-link uri">https://www.tidytextmining.com</a>) and applies the
 principles from the tidy data to text.</p>
 <p>The tidy data framework, principles are:</p>
 <ul><li>Each variable forms a column.</li>
 <li>Each observation forms a row.</li>
 <li>Each type of observational unit forms a table.</li>
-</ul><p>Applying these principles to text data, leads to a format that is
-easy to manipulate, visualize, and analyze using standard data science
+</ul><p>Applying these principles to text data leads to a format that is
+easily manipulated, visualised, and analysed using standard data science
 tools.</p>
 </div>
 </div>
 </div>
-<div class="section level3">
-<h3 id="introduction-to-tidytext">Introduction to tidytext<a class="anchor" aria-label="anchor" href="#introduction-to-tidytext"></a></h3>
-<p>So to analyze a text we start with transforming the text into tidy
-text. Tidy text refers to a dataset where each text has been split up in
-to smaller units, eg. words, sentences, letters.</p>
-<p>Splitting text, into smaller units is called tokenization.</p>
-<p>Tokenization of text into individual token is necessary for text
-mining because it allows us to analyze the text closely and in detail,
-analyses which can later be visualized to understand the patterns of the
-text.</p>
-<p>Tokenization is language independent, as long as the language is
-written in an alphabet or syllabary that uses spaces between words. When
-tokenizing our text to make it tidy, the metadata that describe the
-whole speech are carried over to also describe the individual word. Thus
-we can split the text into individual words but still keep track of who
-said that word and when they did.</p>
-<p>In this course we will use words as token</p>
+</section><section><h2 class="section-heading" id="introduction-to-tidytext">Introduction to tidytext<a class="anchor" aria-label="anchor" href="#introduction-to-tidytext"></a></h2>
+<hr class="half-width"><p>To be able to analyse a text, it must be transformed into tidytext.
+Tidytext represents the text by breaking it down into smaller pieces,
+such as sentences, words and letters. This process is called
+tokenisation.</p>
+<p>Tokenisation is language independent, as long as the language uses
+spaces between words.</p>
+<p>Here is an example of tokenisation on word-level.</p>
 <div id="example-of-tokenization" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
@@ -438,30 +427,13 @@ said that word and when they did.</p>
 </div>
 </div>
 </div>
-</div>
 </section><section><h2 class="section-heading" id="stopwords">Stopwords<a class="anchor" aria-label="anchor" href="#stopwords"></a></h2>
-<hr class="half-width"><p>In all natural language texts, frequent words that carry little
-meaning by themselves are distributed all across the text <img src="fig/Stopwords.png" alt="”Stopwords examples" class="figure"></p>
-<p>The frequent low-meaning words need to be removed because they do not
-add anything to our understanding of the texts and are just noise</p>
-<p>The tm library contains a list of stopwords for Danish, which we’ll
-make into a tibble. We have to specify that the list of stopwords that
-we want to call is the list for the Danish language. Note that stopword
-lists are also available for most major European languages</p>
-<div class="codewrapper sourceCode" id="cb1">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">stopwords_dansk</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>word <span class="op">=</span> <span class="fu">stopwords</span><span class="op">(</span>kind <span class="op">=</span> <span class="st">"danish"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in tibble(word = stopwords(kind = "danish")): could not find function "tibble"</code></pre>
-</div>
-</section><section><h2 class="section-heading" id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a></h2>
-<hr class="half-width"><p>In this</p>
-<div id="keypoints1" class="callout keypoints">
+<hr class="half-width"><p>Text often contains words that hold no particular meaning. These are
+called stop words and are found throughout the text. Since stop words
+rarely contribute to the understanding of the text, it is a good idea to
+remove them before analysing the text.</p>
+<figure><img src="fig/Stopwords.png" alt="”Stopwords examples" class="figure mx-auto d-block"><div class="figcaption">”Stopwords examples</div>
+</figure><div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
 </div>
@@ -537,8 +509,8 @@ any links that you are not going to use.
   "url": "https://KUBDatalab.github.io/R-textmining_new/00-introduction.html",
   "identifier": "https://KUBDatalab.github.io/R-textmining_new/00-introduction.html",
   "dateCreated": "2024-05-01",
-  "dateModified": "2024-11-19",
-  "datePublished": "2024-11-19"
+  "dateModified": "2024-11-22",
+  "datePublished": "2024-11-22"
 }
 
   </script><script>
