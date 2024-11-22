@@ -70,7 +70,13 @@ Hvitfeldt & Silge, 2021
 ## Stopwords
 Text often contains words that hold no particular meaning. These are called stop words and are found throughout the text. Since stop words rarely contribute to the understanding of the text, it is a good idea to remove them before analysing the text.
 
+:::: callout
+
+### Example of removing stopwords
+
 ![”Stopwords examples](../fig/Stopwords.png)
+::::::
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
