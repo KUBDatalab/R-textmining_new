@@ -49,6 +49,16 @@ Applying these principles to text data leads to a format that is easily manipula
 
 ::::::
 
+## Stopwords
+Text often contains words that hold no particular meaning. These are called stop words and are found throughout the text. Since stop words rarely contribute to the understanding of the text, it is a good idea to remove them before analysing the text.
+
+:::: callout
+
+### Example of removing stopwords
+
+![Stopwords examples](./fig/Stopwords.png)
+::::::
+
 ## Introduction to tidytext
 To be able to analyse a text, it must be transformed into tidytext. Tidytext represents the text by breaking it down into smaller pieces, such as sentences, words and letters. This process is called tokenisation.
 
@@ -60,22 +70,14 @@ Here is an example of tokenisation on word-level.
 
 ### Example of tokenization
 
-![Tokenization of example sentence](../fig/Tokenization.png)
+![Tokenization of example sentence](./fig/Tokenization.png)
 Hvitfeldt & Silge, 2021
 
-(bør man også vise tabel resultatet)
+(bør man også vise tabel-resultatet)
 
 ::::::
 
-## Stopwords
-Text often contains words that hold no particular meaning. These are called stop words and are found throughout the text. Since stop words rarely contribute to the understanding of the text, it is a good idea to remove them before analysing the text.
 
-:::: callout
-
-### Example of removing stopwords
-
-![”Stopwords examples](../fig/Stopwords.png)
-::::::
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
@@ -86,4 +88,3 @@ Text often contains words that hold no particular meaning. These are called stop
 - What data are we working with
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
-
