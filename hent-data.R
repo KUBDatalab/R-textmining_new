@@ -1,6 +1,7 @@
 library(tidyverse)
 library(readr)
 library(guardianapi)
+library(tidytext)
 # kør og giv den api-nøglen i console
 guardianapi::gu_api_key()
 
@@ -75,3 +76,7 @@ obamaTrump <- obama %>%
 
 write_csv(obamaTrump, "episodes/data/obamaTrump.csv")
 
+articles <- read_csv("episodes/data/obamaTrump.csv")
+
+articles_tidy <- articles %>% 
+  unnest_tokens(word, text)

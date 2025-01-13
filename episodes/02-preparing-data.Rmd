@@ -16,43 +16,40 @@ exercises: 0
 - "Using specific packages to perform text preparation and sentiment analysis"
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-
-## Loading our libraries and reading our data
-Let us now load our libraries
-```{r, eval = TRUE, message = FALSE}
-library(tidyverse)
-library(tidytext)
-library(tm)
+```{r, include = FALSE}
+# library(tidyverse)
+# library(tidytext)
+# library(tm)
+# articles <- read_csv("data/articles.csv", na = c("NA", "NULL", ""))
 ```
 
 
-```{r, eval = TRUE,  message = FALSE, purl = FALSE, echo = FALSE}
-kina <- read_delim("data/kina.txt")
+## Taking a quick look at the data
+```{r head}
+# head(articles)
+# tail(articles)
 ```
 
-## Understanding our data
-
-We have now successfully loaded in our dataset. Before we start preparing it for analysis, let us inspect the columns to see what the dataset contains
-```{r}
-head(kina)
+```{r glimpse}
+# glimpse()
 ```
 
-We see that we have a lot of metadata, including the date of the speech, the start and end time of the speech, the discussed resolutions/law proposals and their classifications into subjects, as well as various personal information about the speaker. The last column is called `Text` and this contains the speech itself
+```{r names}
+# names()
+```
 
-## Introduction to tidytext and tokenization
 
-To analyze the speeches we need to make the text tidy. Tidy text refers to a dataset where each text has been split up into the individual words that make up the speech, and in format where each row contains one word. ![Tidy text example](../fig/Tidy_text.png)
+## Tokenisation
+We will start out by tokenising the text by using the **tidytext** library.
 
-Splitting texts, in our case speeches, into individual words is called tokenization ![Tokenization of example sentence](../fig/Tokenization.png)
-Hvitfeldt & Silge, 2021
 
-Tokenization of text into individual words is necessary for text mining because it allows us to analyze the text closely and in detail, analyses which can later be visualized to understand the patterns of the text. Tokenization is language independent, as long as the language is written in an alphabet or syllabary that uses spaces between words. When tokenizing our text to make it tidy, the metadata that describe the whole speech are carried over to also describe the individual word. Thus we can split the text into individual words but still keep track of who said that word and when they did.
 
-We use the tidytext library for tokenization
+When tokenising our text to make it tidy, the metadata that describe the whole article are carried over to also describe the individual word. Thus we can split the text into individual words but still keep track of who the article was about.
+
 
 
 ```{r}
-kina_tidy <- kina %>% 
+#articles_tidy <- voresfil %>% 
   unnest_tokens(word, Text) #tidytext tokenization
 ```
 
