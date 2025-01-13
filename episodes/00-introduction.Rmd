@@ -9,6 +9,7 @@ exercises: 0
 - What is text mining?
 - What is tidy text?
 - What is stop words?
+- What is tokenisation?
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -18,6 +19,7 @@ exercises: 0
 - Explain what text mining is
 - Explain what tidy text is
 - Explain what stop words is
+- Explain what tokenisation is
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -27,11 +29,20 @@ Text mining is the process of extracting useful information and knowledge from t
 Through these analyses you can gain insights into a collection of text 
 to large to read with the naked eye.
 
+Before you can carry out your analysis the text need to be transformed into a form that makes it easier to work with for a machine.
 
-## Formatting the text
-Before you can carry out your analyses, the text needs to be formatted in a way that makes it machine-readable.
+## Stopwords
+Text often contains words that hold no particular meaning. These are called stop words and are found throughout the text. Since stop words rarely contribute to the understanding of the text, it is a good idea to remove them before analysing the text.
 
-In this course we will formatting the text by means of tidy text principles.
+:::: callout
+
+### Example of removing stopwords
+
+![Stopwords examples](./fig/Stopwords.png)
+::::::
+
+## Tidytext and tokenisation
+To be able to analyse a text it needs to be machine-readable. In this course we will follow the concepts of tidytext. 
 
 :::: callout
 
@@ -49,18 +60,7 @@ Applying these principles to text data leads to a format that is easily manipula
 
 ::::::
 
-## Stopwords
-Text often contains words that hold no particular meaning. These are called stop words and are found throughout the text. Since stop words rarely contribute to the understanding of the text, it is a good idea to remove them before analysing the text.
-
-:::: callout
-
-### Example of removing stopwords
-
-![Stopwords examples](./fig/Stopwords.png)
-::::::
-
-## Introduction to tidytext
-To be able to analyse a text, it must be transformed into tidytext. Tidytext represents the text by breaking it down into smaller pieces, such as sentences, words and letters. This process is called tokenisation.
+Tidytext represents the text by breaking it down into smaller pieces, such as sentences, words and letters. This process is called tokenisation.
 
 Tokenisation is language  independent, as long as the language uses spaces between words.
 
