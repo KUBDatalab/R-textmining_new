@@ -17,59 +17,43 @@ exercises: 0
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-## Loading our libraries and reading our data
-Let us now load our libraries
+
+
+## Taking a quick look at the data
 
 ``` r
-library(tidyverse)
-library(tidytext)
-library(tm)
+# head(articles)
+# tail(articles)
 ```
 
-
-
-
-## Understanding our data
-
-We have now successfully loaded in our dataset. Before we start preparing it for analysis, let us inspect the columns to see what the dataset contains
 
 ``` r
-head(kina)
+# glimpse()
 ```
 
-``` output
-# A tibble: 6 × 19
-  ID            Date       `Start time` `End time`  Time `Agenda item` `Case no`
-  <chr>         <date>     <time>       <time>     <dbl> <chr>             <dbl>
-1 201001121437… 2010-01-12 14:37:05     14:37:25      20 2010-01-12-7         61
-2 201001121437… 2010-01-12 14:37:25     14:47:59     634 2010-01-12-7         61
-3 201001121447… 2010-01-12 14:47:59     14:48:05       6 2010-01-12-7         61
-4 201001121448… 2010-01-12 14:48:05     14:49:01      56 2010-01-12-7         61
-5 201001121449… 2010-01-12 14:49:01     14:49:03       2 2010-01-12-7         61
-6 201001121449… 2010-01-12 14:49:03     14:49:47      44 2010-01-12-7         61
-# ℹ 12 more variables: `Case type` <chr>, `Agenda title` <chr>,
-#   `Subject 1` <chr>, `Subject 2` <chr>, Name <chr>, Gender <chr>,
-#   Party <chr>, Role <chr>, Title <chr>, Birth <date>, Age <dbl>, Text <chr>
+
+``` r
+# names()
 ```
 
-We see that we have a lot of metadata, including the date of the speech, the start and end time of the speech, the discussed resolutions/law proposals and their classifications into subjects, as well as various personal information about the speaker. The last column is called `Text` and this contains the speech itself
 
-## Introduction to tidytext and tokenization
+## Tokenisation
+We will start out by tokenising the text by using the **tidytext** library.
 
-To analyze the speeches we need to make the text tidy. Tidy text refers to a dataset where each text has been split up into the individual words that make up the speech, and in format where each row contains one word. ![Tidy text example](../fig/Tidy_text.png)
 
-Splitting texts, in our case speeches, into individual words is called tokenization ![Tokenization of example sentence](../fig/Tokenization.png)
-Hvitfeldt & Silge, 2021
 
-Tokenization of text into individual words is necessary for text mining because it allows us to analyze the text closely and in detail, analyses which can later be visualized to understand the patterns of the text. Tokenization is language independent, as long as the language is written in an alphabet or syllabary that uses spaces between words. When tokenizing our text to make it tidy, the metadata that describe the whole speech are carried over to also describe the individual word. Thus we can split the text into individual words but still keep track of who said that word and when they did.
+When tokenising our text to make it tidy, the metadata that describe the whole article are carried over to also describe the individual word. Thus we can split the text into individual words but still keep track of who the article was about.
 
-We use the tidytext library for tokenization
 
 
 
 ``` r
-kina_tidy <- kina %>% 
+#articles_tidy <- voresfil %>% 
   unnest_tokens(word, Text) #tidytext tokenization
+```
+
+``` error
+Error in unnest_tokens(word, Text): could not find function "unnest_tokens"
 ```
 
 
@@ -83,6 +67,10 @@ The tm library contains a list of stopwords for Danish, which we'll make into a 
 
 ``` r
 stopwords_dansk <- tibble(word = stopwords(kind = "danish"))
+```
+
+``` error
+Error in tibble(word = stopwords(kind = "danish")): could not find function "tibble"
 ```
 
 
@@ -99,6 +87,9 @@ download.file("https://raw.githubusercontent.com/KUBDatalab/R-textmining/main/da
 Now we read need to read the AFINN Index into a tibble and rename the columns
 
 
+``` error
+Error in read_csv("data/AFINN_dansk.csv"): could not find function "read_csv"
+```
 
 
 
@@ -131,6 +122,10 @@ kina_tidy_2 <- kina_tidy %>%
   left_join(AFINN_dansk, by = "word") #left join with AFINN Index in Danish
 ```
 
+``` error
+Error in kina_tidy %>% anti_join(stopwords_dansk, by = "word") %>% left_join(AFINN_dansk, : could not find function "%>%"
+```
+
 ## Analyzing the sentiment of parties
 We would like to measure the sentiment of each party when giving speeches on the topic of China
 
@@ -146,6 +141,10 @@ kina_sentiment_value <- kina_tidy_2 %>%
   )
 ```
 
+``` error
+Error in kina_tidy_2 %>% filter(Role != "formand") %>% group_by(Party) %>% : could not find function "%>%"
+```
+
 Now we want to visualize each party's mean sentiment value according to the AFINN-Index
 
 
@@ -156,7 +155,9 @@ kina_sentiment_value %>%
   labs(x= "Party")
 ```
 
-<img src="fig/02-preparing-data-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" />
+``` error
+Error in kina_sentiment_value %>% ggplot(aes(x = Party, y = mean_sentiment_value, : could not find function "%>%"
+```
 
 ## Analyzing the sentiment of rød and blå blok
 We would also like to analyze the sentiment of rød and blå blok as a whole respectively. To do this, we need to add a column to each row that specifies whether the word comes from a member of a party in rød blok or blå blok. We must therefore first define which parties make up rød and blå blok and put that in a tibble, then bind the two tibbles into one tibble, and then make a left_join to the rows in our tidy text
@@ -164,10 +165,35 @@ We would also like to analyze the sentiment of rød and blå blok as a whole res
 
 ``` r
 roed_blok <- tibble(Party = c("ALT", "EL", "SF", "S", "RV"), Blok = c("roed_blok"))
+```
+
+``` error
+Error in tibble(Party = c("ALT", "EL", "SF", "S", "RV"), Blok = c("roed_blok")): could not find function "tibble"
+```
+
+``` r
 blaa_blok <- tibble(Party = c("V", "KF", "LA", "DF"), Blok = c("blaa_blok"))
+```
+
+``` error
+Error in tibble(Party = c("V", "KF", "LA", "DF"), Blok = c("blaa_blok")): could not find function "tibble"
+```
+
+``` r
 blok <- bind_rows(roed_blok, blaa_blok)
+```
+
+``` error
+Error in bind_rows(roed_blok, blaa_blok): could not find function "bind_rows"
+```
+
+``` r
 kina_tidy_blokke <- kina_sentiment_value %>% 
   left_join(blok, by = "Party")
+```
+
+``` error
+Error in kina_sentiment_value %>% left_join(blok, by = "Party"): could not find function "%>%"
 ```
 
 Now we would like to do the same analysis of mean sentiment value, this time for each blok. We also want to specify that the column for roed_bloek should be red and the column for blaa_blok should be blue
@@ -181,6 +207,10 @@ kina_blokke_sentiment_value <- kina_tidy_blokke %>%
   )
 ```
 
+``` error
+Error in kina_tidy_blokke %>% group_by(Blok) %>% summarize(mean_sentiment_value = mean(mean_sentiment_value, : could not find function "%>%"
+```
+
 
 
 ``` r
@@ -191,7 +221,9 @@ kina_blokke_sentiment_value %>%
   labs(x= "Blok")
 ```
 
-<img src="fig/02-preparing-data-rendered-unnamed-chunk-14-1.png" style="display: block; margin: auto;" />
+``` error
+Error in kina_blokke_sentiment_value %>% ggplot(aes(x = Blok, y = mean_sentiment_value, : could not find function "%>%"
+```
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
