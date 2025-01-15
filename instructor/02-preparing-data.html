@@ -234,9 +234,8 @@
 
     <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
-        <ul><li><a href="#loading-our-libraries-and-reading-our-data">Loading our libraries and reading our data</a></li>
-<li><a href="#understanding-our-data">Understanding our data</a></li>
-<li><a href="#introduction-to-tidytext-and-tokenization">Introduction to tidytext and tokenization</a></li>
+        <ul><li><a href="#taking-a-quick-look-at-the-data">Taking a quick look at the data</a></li>
+<li><a href="#tokenisation">Tokenisation</a></li>
 <li><a href="#stopwords">Stopwords</a></li>
 <li><a href="#sentiment-analysis">Sentiment analysis</a></li>
 <li><a href="#bringing-it-all-together-joins">Bringing it all together: joins</a></li>
@@ -342,7 +341,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Tidytext, stopwords, and sentiment analysis</h1>
-        <p>Last updated on 2024-12-03 |
+        <p>Last updated on 2025-01-15 |
 
         <a href="https://github.com/KUBDatalab/R-textmining_new/edit/main/episodes/02-preparing-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -379,71 +378,44 @@ analysis”</li>
 </div>
 </div>
 </div>
-<section><h2 class="section-heading" id="loading-our-libraries-and-reading-our-data">Loading our libraries and reading our data<a class="anchor" aria-label="anchor" href="#loading-our-libraries-and-reading-our-data"></a></h2>
-<hr class="half-width"><p>Let us now load our libraries</p>
-<div class="codewrapper sourceCode" id="cb1">
+<section><h2 class="section-heading" id="taking-a-quick-look-at-the-data">Taking a quick look at the data<a class="anchor" aria-label="anchor" href="#taking-a-quick-look-at-the-data"></a></h2>
+<hr class="half-width"><div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">tidytext</span><span class="op">)</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">tm</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># head(articles)</span></span>
+<span><span class="co"># tail(articles)</span></span></code></pre>
 </div>
-</section><section><h2 class="section-heading" id="understanding-our-data">Understanding our data<a class="anchor" aria-label="anchor" href="#understanding-our-data"></a></h2>
-<hr class="half-width"><p>We have now successfully loaded in our dataset. Before we start
-preparing it for analysis, let us inspect the columns to see what the
-dataset contains</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">kina</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># glimpse()</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code># A tibble: 6 × 19
-  ID            Date       `Start time` `End time`  Time `Agenda item` `Case no`
-  &lt;chr&gt;         &lt;date&gt;     &lt;time&gt;       &lt;time&gt;     &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt;
-1 201001121437… 2010-01-12 14:37:05     14:37:25      20 2010-01-12-7         61
-2 201001121437… 2010-01-12 14:37:25     14:47:59     634 2010-01-12-7         61
-3 201001121447… 2010-01-12 14:47:59     14:48:05       6 2010-01-12-7         61
-4 201001121448… 2010-01-12 14:48:05     14:49:01      56 2010-01-12-7         61
-5 201001121449… 2010-01-12 14:49:01     14:49:03       2 2010-01-12-7         61
-6 201001121449… 2010-01-12 14:49:03     14:49:47      44 2010-01-12-7         61
-# ℹ 12 more variables: `Case type` &lt;chr&gt;, `Agenda title` &lt;chr&gt;,
-#   `Subject 1` &lt;chr&gt;, `Subject 2` &lt;chr&gt;, Name &lt;chr&gt;, Gender &lt;chr&gt;,
-#   Party &lt;chr&gt;, Role &lt;chr&gt;, Title &lt;chr&gt;, Birth &lt;date&gt;, Age &lt;dbl&gt;, Text &lt;chr&gt;</code></pre>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># names()</span></span></code></pre>
 </div>
-<p>We see that we have a lot of metadata, including the date of the
-speech, the start and end time of the speech, the discussed
-resolutions/law proposals and their classifications into subjects, as
-well as various personal information about the speaker. The last column
-is called <code>Text</code> and this contains the speech itself</p>
-</section><section><h2 class="section-heading" id="introduction-to-tidytext-and-tokenization">Introduction to tidytext and tokenization<a class="anchor" aria-label="anchor" href="#introduction-to-tidytext-and-tokenization"></a></h2>
-<hr class="half-width"><p>To analyze the speeches we need to make the text tidy. Tidy text
-refers to a dataset where each text has been split up into the
-individual words that make up the speech, and in format where each row
-contains one word. <img src="../fig/Tidy_text.png" alt="Tidy text example" class="figure"></p>
-<p>Splitting texts, in our case speeches, into individual words is
-called tokenization <img src="../fig/Tokenization.png" alt="Tokenization of example sentence" class="figure"> Hvitfeldt &amp; Silge,
-2021</p>
-<p>Tokenization of text into individual words is necessary for text
-mining because it allows us to analyze the text closely and in detail,
-analyses which can later be visualized to understand the patterns of the
-text. Tokenization is language independent, as long as the language is
-written in an alphabet or syllabary that uses spaces between words. When
-tokenizing our text to make it tidy, the metadata that describe the
-whole speech are carried over to also describe the individual word. Thus
-we can split the text into individual words but still keep track of who
-said that word and when they did.</p>
-<p>We use the tidytext library for tokenization</p>
+</section><section><h2 class="section-heading" id="tokenisation">Tokenisation<a class="anchor" aria-label="anchor" href="#tokenisation"></a></h2>
+<hr class="half-width"><p>We will start out by tokenising the text by using the
+<strong>tidytext</strong> library.</p>
+<p>When tokenising our text to make it tidy, the metadata that describe
+the whole article are carried over to also describe the individual word.
+Thus we can split the text into individual words but still keep track of
+who the article was about.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">kina_tidy</span> <span class="op">&lt;-</span> <span class="va">kina</span> <span class="op">%&gt;%</span> </span>
+<code class="sourceCode R"><span><span class="co">#articles_tidy &lt;- voresfil %&gt;% </span></span>
 <span>  <span class="fu">unnest_tokens</span><span class="op">(</span><span class="va">word</span>, <span class="va">Text</span><span class="op">)</span> <span class="co">#tidytext tokenization</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in unnest_tokens(word, Text): could not find function "unnest_tokens"</code></pre>
 </div>
 </section><section><h2 class="section-heading" id="stopwords">Stopwords<a class="anchor" aria-label="anchor" href="#stopwords"></a></h2>
 <hr class="half-width"><p>In all natural language texts, frequent words that carry little
@@ -454,11 +426,16 @@ add anything to our understanding of the texts and are just noise</p>
 make into a tibble. We have to specify that the list of stopwords that
 we want to call is the list for the Danish language. Note that stopword
 lists are also available for most major European languages</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">stopwords_dansk</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>word <span class="op">=</span> <span class="fu">stopwords</span><span class="op">(</span>kind <span class="op">=</span> <span class="st">"danish"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in tibble(word = stopwords(kind = "danish")): could not find function "tibble"</code></pre>
 </div>
 </section><section><h2 class="section-heading" id="sentiment-analysis">Sentiment analysis<a class="anchor" aria-label="anchor" href="#sentiment-analysis"></a></h2>
 <hr class="half-width"><p>Sentiment analysis is a method for measuring the sentiment of a text.
@@ -471,7 +448,7 @@ approximately 3500 words on a scale from +5 to -5. This will enable us
 to calculate and compare the overall sentiment of the various speeches.
 As a side note, AFINN index is also available in English.</p>
 <p>We need to download the AFINN Index from GitHub</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -479,7 +456,12 @@ As a side note, AFINN index is also available in English.</p>
 </div>
 <p>Now we read need to read the AFINN Index into a tibble and rename the
 columns</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in read_csv("data/AFINN_dansk.csv"): could not find function "read_csv"</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -507,7 +489,7 @@ that is also in the stopword list <img src="../fig/Venn_anti_join.jpg" alt="”a
 section section 13: Relational data</a></p>
 <p>We will use the anti_join first, beause we need to filter away
 stopwords before we analyse the text with sentiment analysis</p>
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -515,13 +497,18 @@ stopwords before we analyse the text with sentiment analysis</p>
 <span>  <span class="fu">anti_join</span><span class="op">(</span><span class="va">stopwords_dansk</span>, by <span class="op">=</span> <span class="st">"word"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co">#stopwords in Danish</span></span>
 <span>  <span class="fu">left_join</span><span class="op">(</span><span class="va">AFINN_dansk</span>, by <span class="op">=</span> <span class="st">"word"</span><span class="op">)</span> <span class="co">#left join with AFINN Index in Danish</span></span></code></pre>
 </div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in kina_tidy %&gt;% anti_join(stopwords_dansk, by = "word") %&gt;% left_join(AFINN_dansk, : could not find function "%&gt;%"</code></pre>
+</div>
 </section><section><h2 class="section-heading" id="analyzing-the-sentiment-of-parties">Analyzing the sentiment of parties<a class="anchor" aria-label="anchor" href="#analyzing-the-sentiment-of-parties"></a></h2>
 <hr class="half-width"><p>We would like to measure the sentiment of each party when giving
 speeches on the topic of China</p>
 <p>First we need to calculate the mean sentiment value for each party.
 We save it as an object so that we can easily recall it for
 visualization</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -532,9 +519,14 @@ visualization</p>
 <span>    mean_sentiment_value <span class="op">=</span> <span class="fu">mean</span><span class="op">(</span><span class="va">sentiment_value</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre>
 </div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in kina_tidy_2 %&gt;% filter(Role != "formand") %&gt;% group_by(Party) %&gt;% : could not find function "%&gt;%"</code></pre>
+</div>
 <p>Now we want to visualize each party’s mean sentiment value according
 to the AFINN-Index</p>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -543,27 +535,67 @@ to the AFINN-Index</p>
 <span>  <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">labs</span><span class="op">(</span>x<span class="op">=</span> <span class="st">"Party"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/02-preparing-data-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="analyzing-the-sentiment-of-rød-and-blå-blok">Analyzing the sentiment of rød and blå blok<a class="anchor" aria-label="anchor" href="#analyzing-the-sentiment-of-r%C3%B8d-and-bl%C3%A5-blok"></a></h2>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in kina_sentiment_value %&gt;% ggplot(aes(x = Party, y = mean_sentiment_value, : could not find function "%&gt;%"</code></pre>
+</div>
+</section><section><h2 class="section-heading" id="analyzing-the-sentiment-of-rød-and-blå-blok">Analyzing the sentiment of rød and blå blok<a class="anchor" aria-label="anchor" href="#analyzing-the-sentiment-of-r%C3%B8d-and-bl%C3%A5-blok"></a></h2>
 <hr class="half-width"><p>We would also like to analyze the sentiment of rød and blå blok as a
 whole respectively. To do this, we need to add a column to each row that
 specifies whether the word comes from a member of a party in rød blok or
 blå blok. We must therefore first define which parties make up rød and
 blå blok and put that in a tibble, then bind the two tibbles into one
 tibble, and then make a left_join to the rows in our tidy text</p>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">roed_blok</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>Party <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"ALT"</span>, <span class="st">"EL"</span>, <span class="st">"SF"</span>, <span class="st">"S"</span>, <span class="st">"RV"</span><span class="op">)</span>, Blok <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"roed_blok"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">blaa_blok</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>Party <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"V"</span>, <span class="st">"KF"</span>, <span class="st">"LA"</span>, <span class="st">"DF"</span><span class="op">)</span>, Blok <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"blaa_blok"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">blok</span> <span class="op">&lt;-</span> <span class="fu">bind_rows</span><span class="op">(</span><span class="va">roed_blok</span>, <span class="va">blaa_blok</span><span class="op">)</span></span>
-<span><span class="va">kina_tidy_blokke</span> <span class="op">&lt;-</span> <span class="va">kina_sentiment_value</span> <span class="op">%&gt;%</span> </span>
+<code class="sourceCode R"><span><span class="va">roed_blok</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>Party <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"ALT"</span>, <span class="st">"EL"</span>, <span class="st">"SF"</span>, <span class="st">"S"</span>, <span class="st">"RV"</span><span class="op">)</span>, Blok <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"roed_blok"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in tibble(Party = c("ALT", "EL", "SF", "S", "RV"), Blok = c("roed_blok")): could not find function "tibble"</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb19">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">blaa_blok</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>Party <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"V"</span>, <span class="st">"KF"</span>, <span class="st">"LA"</span>, <span class="st">"DF"</span><span class="op">)</span>, Blok <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"blaa_blok"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in tibble(Party = c("V", "KF", "LA", "DF"), Blok = c("blaa_blok")): could not find function "tibble"</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb21">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">blok</span> <span class="op">&lt;-</span> <span class="fu">bind_rows</span><span class="op">(</span><span class="va">roed_blok</span>, <span class="va">blaa_blok</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in bind_rows(roed_blok, blaa_blok): could not find function "bind_rows"</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb23">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">kina_tidy_blokke</span> <span class="op">&lt;-</span> <span class="va">kina_sentiment_value</span> <span class="op">%&gt;%</span> </span>
 <span>  <span class="fu">left_join</span><span class="op">(</span><span class="va">blok</span>, by <span class="op">=</span> <span class="st">"Party"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in kina_sentiment_value %&gt;% left_join(blok, by = "Party"): could not find function "%&gt;%"</code></pre>
 </div>
 <p>Now we would like to do the same analysis of mean sentiment value,
 this time for each blok. We also want to specify that the column for
 roed_bloek should be red and the column for blaa_blok should be blue</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -573,7 +605,12 @@ roed_bloek should be red and the column for blaa_blok should be blue</p>
 <span>    mean_sentiment_value <span class="op">=</span> <span class="fu">mean</span><span class="op">(</span><span class="va">mean_sentiment_value</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in kina_tidy_blokke %&gt;% group_by(Blok) %&gt;% summarize(mean_sentiment_value = mean(mean_sentiment_value, : could not find function "%&gt;%"</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -583,7 +620,12 @@ roed_bloek should be red and the column for blaa_blok should be blue</p>
 <span>  <span class="fu">scale_fill_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">labs</span><span class="op">(</span>x<span class="op">=</span> <span class="st">"Blok"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/02-preparing-data-rendered-unnamed-chunk-14-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="keypoints1" class="callout keypoints">
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in kina_blokke_sentiment_value %&gt;% ggplot(aes(x = Blok, y = mean_sentiment_value, : could not find function "%&gt;%"</code></pre>
+</div>
+<div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
 </div>
@@ -656,8 +698,8 @@ any links that you are not going to use.
   "url": "https://KUBDatalab.github.io/R-textmining_new/instructor/02-preparing-data.html",
   "identifier": "https://KUBDatalab.github.io/R-textmining_new/instructor/02-preparing-data.html",
   "dateCreated": "2024-05-01",
-  "dateModified": "2024-12-03",
-  "datePublished": "2024-12-03"
+  "dateModified": "2025-01-15",
+  "datePublished": "2025-01-15"
 }
 
   </script><script>
