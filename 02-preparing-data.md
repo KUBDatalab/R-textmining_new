@@ -22,8 +22,35 @@ exercises: 0
 ## Taking a quick look at the data
 
 ``` r
-# head(articles)
-# tail(articles)
+head(articles)
+```
+
+``` output
+# A tibble: 6 × 5
+     id president text                          web_publication_date pillar_name
+  <dbl> <chr>     <chr>                         <dttm>               <chr>      
+1     1 obama     "Obama inauguration: We will… 2009-01-20 19:16:38  News       
+2     2 obama     "Obama from outer space Whet… 2009-01-20 22:00:00  Opinion    
+3     3 obama     "Obama inauguration: today's… 2009-01-20 10:17:27  News       
+4     4 obama     "Obama inauguration: Countdo… 2009-01-19 23:01:00  News       
+5     5 obama     "Inaugural address of Presid… 2009-01-20 16:07:44  News       
+6     6 obama     "Liveblogging the inaugurati… 2009-01-20 13:56:40  News       
+```
+
+``` r
+tail(articles)
+```
+
+``` output
+# A tibble: 6 × 5
+     id president text                          web_publication_date pillar_name
+  <dbl> <chr>     <chr>                         <dttm>               <chr>      
+1   132 trump     Buy, George? World's largest… 2017-01-20 15:53:41  News       
+2   133 trump     Gove’s ‘snowflake’ tweet is … 2017-01-20 12:44:10  Opinion    
+3   134 trump     Monet, Renoir and a £44.2m M… 2017-01-20 04:00:22  News       
+4   135 trump     El Chapo is not a Robin Hood… 2017-01-20 17:09:54  News       
+5   136 trump     They call it fun, but the di… 2017-01-20 16:19:50  Opinion    
+6   137 trump     Totes annoying: words that s… 2017-01-20 12:00:06  News       
 ```
 
 
@@ -53,7 +80,7 @@ When tokenising our text to make it tidy, the metadata that describe the whole a
 ```
 
 ``` error
-Error in unnest_tokens(word, Text): could not find function "unnest_tokens"
+Error in UseMethod("pull"): no applicable method for 'pull' applied to an object of class "function"
 ```
 
 
@@ -67,10 +94,6 @@ The tm library contains a list of stopwords for Danish, which we'll make into a 
 
 ``` r
 stopwords_dansk <- tibble(word = stopwords(kind = "danish"))
-```
-
-``` error
-Error in tibble(word = stopwords(kind = "danish")): could not find function "tibble"
 ```
 
 
@@ -87,9 +110,6 @@ download.file("https://raw.githubusercontent.com/KUBDatalab/R-textmining/main/da
 Now we read need to read the AFINN Index into a tibble and rename the columns
 
 
-``` error
-Error in read_csv("data/AFINN_dansk.csv"): could not find function "read_csv"
-```
 
 
 
@@ -123,7 +143,7 @@ kina_tidy_2 <- kina_tidy %>%
 ```
 
 ``` error
-Error in kina_tidy %>% anti_join(stopwords_dansk, by = "word") %>% left_join(AFINN_dansk, : could not find function "%>%"
+Error: object 'kina_tidy' not found
 ```
 
 ## Analyzing the sentiment of parties
@@ -142,7 +162,7 @@ kina_sentiment_value <- kina_tidy_2 %>%
 ```
 
 ``` error
-Error in kina_tidy_2 %>% filter(Role != "formand") %>% group_by(Party) %>% : could not find function "%>%"
+Error: object 'kina_tidy_2' not found
 ```
 
 Now we want to visualize each party's mean sentiment value according to the AFINN-Index
@@ -156,7 +176,7 @@ kina_sentiment_value %>%
 ```
 
 ``` error
-Error in kina_sentiment_value %>% ggplot(aes(x = Party, y = mean_sentiment_value, : could not find function "%>%"
+Error: object 'kina_sentiment_value' not found
 ```
 
 ## Analyzing the sentiment of rød and blå blok
@@ -165,35 +185,14 @@ We would also like to analyze the sentiment of rød and blå blok as a whole res
 
 ``` r
 roed_blok <- tibble(Party = c("ALT", "EL", "SF", "S", "RV"), Blok = c("roed_blok"))
-```
-
-``` error
-Error in tibble(Party = c("ALT", "EL", "SF", "S", "RV"), Blok = c("roed_blok")): could not find function "tibble"
-```
-
-``` r
 blaa_blok <- tibble(Party = c("V", "KF", "LA", "DF"), Blok = c("blaa_blok"))
-```
-
-``` error
-Error in tibble(Party = c("V", "KF", "LA", "DF"), Blok = c("blaa_blok")): could not find function "tibble"
-```
-
-``` r
 blok <- bind_rows(roed_blok, blaa_blok)
-```
-
-``` error
-Error in bind_rows(roed_blok, blaa_blok): could not find function "bind_rows"
-```
-
-``` r
 kina_tidy_blokke <- kina_sentiment_value %>% 
   left_join(blok, by = "Party")
 ```
 
 ``` error
-Error in kina_sentiment_value %>% left_join(blok, by = "Party"): could not find function "%>%"
+Error: object 'kina_sentiment_value' not found
 ```
 
 Now we would like to do the same analysis of mean sentiment value, this time for each blok. We also want to specify that the column for roed_bloek should be red and the column for blaa_blok should be blue
@@ -208,7 +207,7 @@ kina_blokke_sentiment_value <- kina_tidy_blokke %>%
 ```
 
 ``` error
-Error in kina_tidy_blokke %>% group_by(Blok) %>% summarize(mean_sentiment_value = mean(mean_sentiment_value, : could not find function "%>%"
+Error: object 'kina_tidy_blokke' not found
 ```
 
 
@@ -222,7 +221,7 @@ kina_blokke_sentiment_value %>%
 ```
 
 ``` error
-Error in kina_blokke_sentiment_value %>% ggplot(aes(x = Blok, y = mean_sentiment_value, : could not find function "%>%"
+Error: object 'kina_blokke_sentiment_value' not found
 ```
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
