@@ -409,14 +409,14 @@ click on the links below.</p>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="getting-data">Getting data<a class="anchor" aria-label="anchor" href="#getting-data"></a></h2>
-<hr class="half-width"><p>Begin by downloading hte dataset called “obamaTrump.csv”. Place the
+<hr class="half-width"><p>Begin by downloading the dataset called “obamaTrump.csv”. Place the
 downloaded file in the data/. You can do this directly from R by copying
 and pasting this in your terminal.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">download.file</span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/KUBDatalab/R-textmining_new/main/episodes/data/obamaTrump.csv"</span>, <span class="st">"data/articles.csv"</span>, mode <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">download.file</span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/KUBDatalab/R-textmining_new/main/episodes/data/articles.csv"</span>, <span class="st">"data/articles.csv"</span>, mode <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span></span></code></pre>
 </div>
 <p>After downloading the data you need to load the data in R’s memory
 using the function read_csv()</p>
@@ -425,11 +425,6 @@ using the function read_csv()</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">articles</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/articles.csv"</span>, na <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"NA"</span>, <span class="st">"NULL"</span>, <span class="st">""</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: 'data/articles.csv' does not exist in current working directory ('/home/runner/work/R-textmining_new/R-textmining_new/site/built').</code></pre>
 </div>
 </section><section><h2 class="section-heading" id="data-description">Data description<a class="anchor" aria-label="anchor" href="#data-description"></a></h2>
 <hr class="half-width"><p>The dataset contains newspaper articles from the Guardian. The
