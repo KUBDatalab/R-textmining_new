@@ -17,17 +17,17 @@ exercises: 0
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ```{r, include = FALSE}
-# library(tidyverse)
-# library(tidytext)
-# library(tm)
-# articles <- read_csv("data/articles.csv", na = c("NA", "NULL", ""))
+library(tidyverse)
+library(tidytext)
+library(tm)
+articles <- read_csv("data/articles.csv", na = c("NA", "NULL", ""))
 ```
 
 
 ## Taking a quick look at the data
 ```{r head}
-# head(articles)
-# tail(articles)
+head(articles)
+tail(articles)
 ```
 
 ```{r glimpse}
