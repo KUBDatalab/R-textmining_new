@@ -27,7 +27,7 @@ keypoints:
 
 
 ## Getting startet
-When performing text analysis in R, the built-in functions in R are not sufficient. It is therefore necessary to install som additional packages. In this course we will be using **`tidyverse`**, **`tidytext`** and **`tm`**.
+When performing text analysis in R, the built-in functions in R are not sufficient. It is therefore necessary to install som additional packages. In this course we will be using `tidyverse`, `tidytext` and `tm`.
 
 
 
@@ -55,14 +55,14 @@ If you would like to know more about the different packages, please click on the
 ::::::
 
 ## Getting data
-Begin by downloading the dataset called "obamaTrump.csv". Place the downloaded file in the data/. You can do this directly from R by copying and pasting this in your terminal.
+Begin by downloading the dataset called `articles.csv`. Place the downloaded file in the data/. You can do this directly from R by copying and pasting this in your terminal.
 
 
 ``` r
 download.file("https://raw.githubusercontent.com/KUBDatalab/R-textmining_new/main/episodes/data/articles.csv", "data/articles.csv", mode = "wb")
 ```
 
-After downloading the data you need to load the data in R's memory using the function read_csv()
+After downloading the data you need to load the data in R's memory using the function `read_csv()`
 
 
 ``` r
@@ -74,11 +74,11 @@ The dataset contains newspaper articles from the Guardian. The harvested article
 
 The original dataset contained lots of variables that are irrelevant within the parameters of this course. The following variables were kept:
 
-* ´id´
-* ´president´
-* ´text´
-* ´web_publication_date´
-* ´pillar_name´
+* `id`
+* `president`
+* `text`
+* `web_publication_date`
+* `pillar_name`
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 

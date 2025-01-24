@@ -37,65 +37,141 @@ head(articles)
 6     6 obama     "Liveblogging the inaugurati… 2009-01-20 13:56:40  News       
 ```
 
+
 ``` r
-tail(articles)
+glimpse(articles)
 ```
 
 ``` output
-# A tibble: 6 × 5
-     id president text                          web_publication_date pillar_name
-  <dbl> <chr>     <chr>                         <dttm>               <chr>      
-1   132 trump     Buy, George? World's largest… 2017-01-20 15:53:41  News       
-2   133 trump     Gove’s ‘snowflake’ tweet is … 2017-01-20 12:44:10  Opinion    
-3   134 trump     Monet, Renoir and a £44.2m M… 2017-01-20 04:00:22  News       
-4   135 trump     El Chapo is not a Robin Hood… 2017-01-20 17:09:54  News       
-5   136 trump     They call it fun, but the di… 2017-01-20 16:19:50  Opinion    
-6   137 trump     Totes annoying: words that s… 2017-01-20 12:00:06  News       
+Rows: 137
+Columns: 5
+$ id                   <dbl> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15…
+$ president            <chr> "obama", "obama", "obama", "obama", "obama", "oba…
+$ text                 <chr> "Obama inauguration: We will remake America, vows…
+$ web_publication_date <dttm> 2009-01-20 19:16:38, 2009-01-20 22:00:00, 2009-0…
+$ pillar_name          <chr> "News", "Opinion", "News", "News", "News", "News"…
 ```
-
-
-``` r
-# glimpse()
-```
-
-
-``` r
-# names()
-```
-
-
 ## Tokenisation
-We will start out by tokenising the text by using the **tidytext** library.
+Since we are working with text mining we focus on the `text` coloumn. We do this because the coloumn contains the text from articles.
 
-
-
-When tokenising our text to make it tidy, the metadata that describe the whole article are carried over to also describe the individual word. Thus we can split the text into individual words but still keep track of who the article was about.
-
-
+To tokenise a coloumn, we use the functions `unnest_tokens()` from the `tidytext`-package. The function gets two arguments. The first one is `word`. This defines that the text should be split up by words. The second argument, `text`, defines the column that we want to tokenise.
 
 
 ``` r
-#articles_tidy <- voresfil %>% 
-  unnest_tokens(word, Text) #tidytext tokenization
+articles_tidy <- articles %>% 
+  unnest_tokens(word, text)
 ```
 
-``` error
-Error in UseMethod("pull"): no applicable method for 'pull' applied to an object of class "function"
-```
+:::: callout
 
+The result is 118,269 rows. The reason is that the `text`-column is replaced by a new column named `word`. This columns contains all words found in all of the articles. The information from the remaining columns are kept. This makes is possible to dermine which article each word belongs to.
+
+::::::
 
 ## Stopwords
-In all natural language texts, frequent words that carry little meaning by themselves are distributed all across the text ![”Stopwords examples](../fig/Stopwords.png)
-
-The frequent low-meaning words need to be removed because they do not add anything to our understanding of the texts and are just noise
-
-The tm library contains a list of stopwords for Danish, which we'll make into a tibble. We have to specify that the list of stopwords that we want to call is the list for the Danish language. Note that stopword lists are also available for most major European languages
+The next step is to remove stopwords. We have chosen to use the stopword list from the package `tidytext`. The list contains 1,149 words that are considered stopwords. Other lists are available, and they differ in terms of how many words they contain.
 
 
 ``` r
-stopwords_dansk <- tibble(word = stopwords(kind = "danish"))
+data(stop_words)
+stop_words
 ```
 
+``` output
+# A tibble: 1,149 × 2
+   word        lexicon
+   <chr>       <chr>  
+ 1 a           SMART  
+ 2 a's         SMART  
+ 3 able        SMART  
+ 4 about       SMART  
+ 5 above       SMART  
+ 6 according   SMART  
+ 7 accordingly SMART  
+ 8 across      SMART  
+ 9 actually    SMART  
+10 after       SMART  
+# ℹ 1,139 more rows
+```
+
+:::: callout
+
+You may find yourself in need of either adding or removing words from the stopwords list.
+
+Here is how you add and remove stopwords to a predefined list.
+
+**Add stopwords**
+First, create a tibble with the word you wish to add to the stop words list
+
+
+``` r
+new_stop_words <- tibble(
+  word = c("cat", "dog"),
+  lexicon = "my_stopwords"
+)
+```
+
+Then make a new stopwords tibble based on the original on, but with the new words added.
+
+
+``` r
+updated_stop_words <- stop_words %>%
+  bind_rows(new_stop_words)
+```
+
+Run the following code to see that the added lexicon `my_stopwords` contains two words.
+
+``` r
+updated_stop_words %>% 
+  count(lexicon)
+```
+
+``` output
+# A tibble: 4 × 2
+  lexicon          n
+  <chr>        <int>
+1 SMART          571
+2 my_stopwords     2
+3 onix           404
+4 snowball       174
+```
+
+
+
+**remove stopword**
+First,  create a vector with the word you wish to remove from the stopwords list
+ 
+
+``` r
+words_to_remove <- c("cat", "dog")
+```
+
+Then remove the rows containing the unwanted words.
+
+``` r
+updated_stop_words <- stop_words %>%
+  filter(!word %in% words_to_remove)
+```
+
+Run the following code to see that the added lexicon `my_stopwords` nolonger exists.
+
+``` r
+updated_stop_words %>% 
+  count(lexicon)
+```
+
+``` output
+# A tibble: 3 × 2
+  lexicon      n
+  <chr>    <int>
+1 SMART      571
+2 onix       404
+3 snowball   174
+```
+
+
+
+::::::
 
 ## Sentiment analysis
 Sentiment analysis is a method for measuring the sentiment of a text. To do this, it is necessary to have a list of words that have been assigned to a certain sentiment. This can be a simple assignation of words into positive and negative, it can be an assignation to one among a multitude of categories, and the word can have a value on a scale. In this course we will use the AFINN index for Danish, which assigns approximately 3500 words on a scale from +5 to -5. This will enable us to calculate and compare the overall sentiment of the various speeches. As a side note, AFINN index is also available in English. 
