@@ -237,10 +237,6 @@
         <ul><li><a href="#taking-a-quick-look-at-the-data">Taking a quick look at the data</a></li>
 <li><a href="#tokenisation">Tokenisation</a></li>
 <li><a href="#stopwords">Stopwords</a></li>
-<li><a href="#sentiment-analysis">Sentiment analysis</a></li>
-<li><a href="#bringing-it-all-together-joins">Bringing it all together: joins</a></li>
-<li><a href="#analyzing-the-sentiment-of-parties">Analyzing the sentiment of parties</a></li>
-<li><a href="#analyzing-the-sentiment-of-r%C3%B8d-and-bl%C3%A5-blok">Analyzing the sentiment of rød and blå blok</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
 
@@ -429,12 +425,12 @@ defines that the text should be split up by words. The second argument,
 <code class="sourceCode R"><span><span class="va">articles_tidy</span> <span class="op">&lt;-</span> <span class="va">articles</span> <span class="op">%&gt;%</span> </span>
 <span>  <span class="fu">unnest_tokens</span><span class="op">(</span><span class="va">word</span>, <span class="va">text</span><span class="op">)</span></span></code></pre>
 </div>
-<div id="callout1" class="callout">
+<div id="tokenisation-1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout</h3>
+<div id="tokenisation-1" class="callout-inner">
+<h3 class="callout-title">Tokenisation</h3>
 <div class="callout-content">
 <p>The result is 118,269 rows. The reason is that the
 <code>text</code>-column is replaced by a new column named
@@ -474,12 +470,12 @@ and they differ in terms of how many words they contain.</p>
 10 after       SMART
 # ℹ 1,139 more rows</code></pre>
 </div>
-<div id="callout2" class="callout">
+<div id="adding-and-removing-stopwords" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout</h3>
+<div id="adding-and-removing-stopwords" class="callout-inner">
+<h3 class="callout-title">Adding and removing stopwords</h3>
 <div class="callout-content">
 <p>You may find yourself in need of either adding or removing words from
 the stopwords list.</p>
@@ -524,8 +520,8 @@ the new words added.</p>
 3 onix           404
 4 snowball       174</code></pre>
 </div>
-<p><strong>remove stopword</strong> First, create a vector with the word
-you wish to remove from the stopwords list</p>
+<p><strong>remove stopword</strong> First, create a vector with the
+word(s) you wish to remove from the stopwords list</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -562,158 +558,28 @@ you wish to remove from the stopwords list</p>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="sentiment-analysis">Sentiment analysis<a class="anchor" aria-label="anchor" href="#sentiment-analysis"></a></h2>
-<hr class="half-width"><p>Sentiment analysis is a method for measuring the sentiment of a text.
-To do this, it is necessary to have a list of words that have been
-assigned to a certain sentiment. This can be a simple assignation of
-words into positive and negative, it can be an assignation to one among
-a multitude of categories, and the word can have a value on a scale. In
-this course we will use the AFINN index for Danish, which assigns
-approximately 3500 words on a scale from +5 to -5. This will enable us
-to calculate and compare the overall sentiment of the various speeches.
-As a side note, AFINN index is also available in English.</p>
-<p>We need to download the AFINN Index from GitHub</p>
+<p>In order to remove the stopwords from <code>articles_tidy</code>, we
+have to use the <code>anti_join</code>-function.</p>
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">download.file</span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/KUBDatalab/R-textmining/main/data/AFINN_dansk.csv"</span>, <span class="st">"data/AFINN_dansk.csv"</span>, mode <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">articles_anti_join</span> <span class="op">&lt;-</span> <span class="va">articles_tidy</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">anti_join</span><span class="op">(</span><span class="va">stop_words</span>, by <span class="op">=</span> <span class="st">"word"</span><span class="op">)</span></span></code></pre>
 </div>
-<p>Now we read need to read the AFINN Index into a tibble and rename the
-columns</p>
-<div class="codewrapper sourceCode" id="cb17">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">AFINN_dansk</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/AFINN_dansk.csv"</span><span class="op">)</span></span></code></pre>
+<div id="join-and-anti_join" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
 </div>
-</section><section><h2 class="section-heading" id="bringing-it-all-together-joins">Bringing it all together: joins<a class="anchor" aria-label="anchor" href="#bringing-it-all-together-joins"></a></h2>
-<hr class="half-width"><p>We have now created tibbles, each with the words appropriate for
-removal of stopwords and application of sentiment analysis respectively.
-Now we need to bring them together in the correct order, and we do this
-by using join-functions. The join functions from the tidyverse library
-allow tibbles to be joined together based on columns that have cells
-where the content is the same in both tibbles.</p>
-<p>There are fundamentally 2 types of joins: * Mutating joins (which add
-columns) * Filtering joins (which filter away rows)</p>
-<p>Mutating joins work by adding new columns to the tibble. We will use
-left_join, which is the most common of the mutating joins <img src="fig/Venn_left_join.jpg" alt="”left_join AFINN Index with tidy text" class="figure"> The left_join joins all
-AFINN sentiment values to those rows that contain a word that is in the
-AFINN Index and adds it as a new column to the tibble. In the new
-column, the rows that contain words that don’t appear in the AFINN Index
-have NA in their cell</p>
-<p>Filtering joins work by filtering away some rows in the tibble. We
-will use the anti_join, which removes those rows that contain a word
-that is also in the stopword list <img src="fig/Venn_anti_join.jpg" alt="”anti_join stopwords with tidy text" class="figure"></p>
-<p>For more info on joins see <a href="https://r4ds.had.co.nz/relational-data.html" class="external-link">R for Data Science
-section section 13: Relational data</a></p>
-<p>We will use the anti_join first, beause we need to filter away
-stopwords before we analyse the text with sentiment analysis</p>
-<div class="codewrapper sourceCode" id="cb18">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<div id="join-and-anti_join" class="callout-inner">
+<h3 class="callout-title">
+<code>Join</code> and
+<code>anti_join</code>
 </h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">kina_tidy_2</span> <span class="op">&lt;-</span> <span class="va">kina_tidy</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">anti_join</span><span class="op">(</span><span class="va">stopwords_dansk</span>, by <span class="op">=</span> <span class="st">"word"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co">#stopwords in Danish</span></span>
-<span>  <span class="fu">left_join</span><span class="op">(</span><span class="va">AFINN_dansk</span>, by <span class="op">=</span> <span class="st">"word"</span><span class="op">)</span> <span class="co">#left join with AFINN Index in Danish</span></span></code></pre>
+<div class="callout-content">
+
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'kina_tidy' not found</code></pre>
 </div>
-</section><section><h2 class="section-heading" id="analyzing-the-sentiment-of-parties">Analyzing the sentiment of parties<a class="anchor" aria-label="anchor" href="#analyzing-the-sentiment-of-parties"></a></h2>
-<hr class="half-width"><p>We would like to measure the sentiment of each party when giving
-speeches on the topic of China</p>
-<p>First we need to calculate the mean sentiment value for each party.
-We save it as an object so that we can easily recall it for
-visualization</p>
-<div class="codewrapper sourceCode" id="cb20">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">kina_sentiment_value</span> <span class="op">&lt;-</span> <span class="va">kina_tidy_2</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">Role</span> <span class="op">!=</span> <span class="st">"formand"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">Party</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">summarize</span><span class="op">(</span></span>
-<span>    mean_sentiment_value <span class="op">=</span> <span class="fu">mean</span><span class="op">(</span><span class="va">sentiment_value</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'kina_tidy_2' not found</code></pre>
-</div>
-<p>Now we want to visualize each party’s mean sentiment value according
-to the AFINN-Index</p>
-<div class="codewrapper sourceCode" id="cb22">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">kina_sentiment_value</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Party</span>, y <span class="op">=</span> <span class="va">mean_sentiment_value</span>, fill <span class="op">=</span> <span class="va">Party</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span>x<span class="op">=</span> <span class="st">"Party"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'kina_sentiment_value' not found</code></pre>
-</div>
-</section><section><h2 class="section-heading" id="analyzing-the-sentiment-of-rød-and-blå-blok">Analyzing the sentiment of rød and blå blok<a class="anchor" aria-label="anchor" href="#analyzing-the-sentiment-of-r%C3%B8d-and-bl%C3%A5-blok"></a></h2>
-<hr class="half-width"><p>We would also like to analyze the sentiment of rød and blå blok as a
-whole respectively. To do this, we need to add a column to each row that
-specifies whether the word comes from a member of a party in rød blok or
-blå blok. We must therefore first define which parties make up rød and
-blå blok and put that in a tibble, then bind the two tibbles into one
-tibble, and then make a left_join to the rows in our tidy text</p>
-<div class="codewrapper sourceCode" id="cb24">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">roed_blok</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>Party <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"ALT"</span>, <span class="st">"EL"</span>, <span class="st">"SF"</span>, <span class="st">"S"</span>, <span class="st">"RV"</span><span class="op">)</span>, Blok <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"roed_blok"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">blaa_blok</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>Party <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"V"</span>, <span class="st">"KF"</span>, <span class="st">"LA"</span>, <span class="st">"DF"</span><span class="op">)</span>, Blok <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"blaa_blok"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">blok</span> <span class="op">&lt;-</span> <span class="fu">bind_rows</span><span class="op">(</span><span class="va">roed_blok</span>, <span class="va">blaa_blok</span><span class="op">)</span></span>
-<span><span class="va">kina_tidy_blokke</span> <span class="op">&lt;-</span> <span class="va">kina_sentiment_value</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">left_join</span><span class="op">(</span><span class="va">blok</span>, by <span class="op">=</span> <span class="st">"Party"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'kina_sentiment_value' not found</code></pre>
-</div>
-<p>Now we would like to do the same analysis of mean sentiment value,
-this time for each blok. We also want to specify that the column for
-roed_bloek should be red and the column for blaa_blok should be blue</p>
-<div class="codewrapper sourceCode" id="cb26">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">kina_blokke_sentiment_value</span> <span class="op">&lt;-</span> <span class="va">kina_tidy_blokke</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">Blok</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">summarize</span><span class="op">(</span></span>
-<span>    mean_sentiment_value <span class="op">=</span> <span class="fu">mean</span><span class="op">(</span><span class="va">mean_sentiment_value</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'kina_tidy_blokke' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb28">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">kina_blokke_sentiment_value</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Blok</span>, y <span class="op">=</span> <span class="va">mean_sentiment_value</span>, fill <span class="op">=</span> <span class="va">Blok</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_fill_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span>x<span class="op">=</span> <span class="st">"Blok"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'kina_blokke_sentiment_value' not found</code></pre>
 </div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
