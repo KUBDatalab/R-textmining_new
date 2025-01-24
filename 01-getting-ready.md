@@ -45,7 +45,7 @@ library(tm)
 
 
 :::: callout
-### Documentation for each package:
+### Documentation for each package
 If you would like to know more about the different packages, please click on the links below.
 
 * [tidyverse](https://www.tidyverse.org/packages/)
