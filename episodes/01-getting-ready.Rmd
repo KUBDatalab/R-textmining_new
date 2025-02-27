@@ -84,6 +84,7 @@ The original dataset contained lots of variables that are irrelevant within the 
 * `pillar_name`
 
 ### Taking a quick look at the data
+
 ```{r head}
 head(articles)
 ```

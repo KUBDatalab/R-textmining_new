@@ -23,15 +23,6 @@ library(tm)
 articles <- read_csv("data/articles.csv", na = c("NA", "NULL", ""))
 ```
 
-
-## Taking a quick look at the data
-```{r head}
-head(articles)
-```
-
-```{r glimpse}
-glimpse(articles)
-```
 ## Tokenisation
 Since we are working with text mining we focus on the `text` coloumn. We do this because the coloumn contains the text from articles.
 
