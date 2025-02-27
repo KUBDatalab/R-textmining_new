@@ -80,6 +80,39 @@ The original dataset contained lots of variables that are irrelevant within the 
 * `web_publication_date`
 * `pillar_name`
 
+### Taking a quick look at the data
+
+``` r
+head(articles)
+```
+
+``` output
+# A tibble: 6 × 5
+     id president text                          web_publication_date pillar_name
+  <dbl> <chr>     <chr>                         <dttm>               <chr>      
+1     1 obama     "Obama inauguration: We will… 2009-01-20 19:16:38  News       
+2     2 obama     "Obama from outer space Whet… 2009-01-20 22:00:00  Opinion    
+3     3 obama     "Obama inauguration: today's… 2009-01-20 10:17:27  News       
+4     4 obama     "Obama inauguration: Countdo… 2009-01-19 23:01:00  News       
+5     5 obama     "Inaugural address of Presid… 2009-01-20 16:07:44  News       
+6     6 obama     "Liveblogging the inaugurati… 2009-01-20 13:56:40  News       
+```
+
+
+``` r
+glimpse(articles)
+```
+
+``` output
+Rows: 137
+Columns: 5
+$ id                   <dbl> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15…
+$ president            <chr> "obama", "obama", "obama", "obama", "obama", "oba…
+$ text                 <chr> "Obama inauguration: We will remake America, vows…
+$ web_publication_date <dttm> 2009-01-20 19:16:38, 2009-01-20 22:00:00, 2009-0…
+$ pillar_name          <chr> "News", "Opinion", "News", "News", "News", "News"…
+```
+
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - "Packages must be installed and loaded in, and dataset must be loaded in by typing commands"

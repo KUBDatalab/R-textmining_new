@@ -194,6 +194,122 @@ articles_anti_join <- articles_tidy %>%
 
 ::::::
 
+## Frequency analyse
+
+
+
+``` r
+articles_anti_join %>% 
+  count(word, sort = TRUE)
+```
+
+``` output
+# A tibble: 12,328 × 2
+   word             n
+   <chr>        <int>
+ 1 obama          513
+ 2 trump          479
+ 3 president      450
+ 4 people         337
+ 5 inauguration   249
+ 6 america        237
+ 7 world          212
+ 8 american       201
+ 9 time           189
+10 day            188
+# ℹ 12,318 more rows
+```
+
+
+``` r
+articles_anti_join %>%
+  filter(!word %in% c("trump", "obama", "inauguration", "president")) %>% 
+  count(word, sort = TRUE)
+```
+
+``` output
+# A tibble: 12,324 × 2
+   word           n
+   <chr>      <int>
+ 1 people       337
+ 2 america      237
+ 3 world        212
+ 4 american     201
+ 5 time         189
+ 6 day          188
+ 7 bush         186
+ 8 speech       183
+ 9 white        180
+10 washington   150
+# ℹ 12,314 more rows
+```
+
+
+
+``` r
+articles_anti_join %>%
+  count(president, word, sort = TRUE)
+```
+
+``` output
+# A tibble: 15,999 × 3
+   president word             n
+   <chr>     <chr>        <int>
+ 1 trump     trump          478
+ 2 obama     obama          434
+ 3 obama     president      240
+ 4 trump     president      210
+ 5 obama     bush           174
+ 6 obama     people         170
+ 7 trump     people         167
+ 8 obama     obama's        146
+ 9 obama     inauguration   139
+10 trump     trump’s        126
+# ℹ 15,989 more rows
+```
+
+
+``` r
+articles_anti_join %>%
+  filter(!word %in% c("trump", "obama", "inauguration", "president")) %>%
+  count(president, word, sort = TRUE) %>% 
+  group_by(president) %>%
+  slice(1:10) %>% 
+  ggplot(mapping = aes(x = n, y = word, colour = president)) +
+  geom_point() 
+```
+
+<img src="fig/02-preparing-data-rendered-unnamed-chunk-14-1.png" style="display: block; margin: auto;" />
+
+
+``` r
+articles_anti_join %>%
+  filter(!word %in% c("trump", "obama", "inauguration", "president")) %>%
+  count(president, pillar_name, word, sort = TRUE) %>% 
+  group_by(president, pillar_name) %>%
+  slice(1:10) %>% 
+  ggplot(mapping = aes(x = n, y = word, colour = pillar_name)) +
+  geom_point() +
+  facet_wrap(~president)
+```
+
+<img src="fig/02-preparing-data-rendered-unnamed-chunk-15-1.png" style="display: block; margin: auto;" />
+
+
+``` r
+articles_anti_join %>%
+  filter(!word %in% c("trump", "obama", "inauguration", "president")) %>%
+  count(pillar_name, word, sort = TRUE) %>% 
+  group_by(pillar_name) %>%
+  slice(1:10) %>% 
+  ggplot(mapping = aes(x = n, y = word)) +
+  geom_col() +
+  facet_wrap(~pillar_name)
+```
+
+<img src="fig/02-preparing-data-rendered-unnamed-chunk-16-1.png" style="display: block; margin: auto;" />
+
+
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - "All natural language texts must be prepared for analysis"
