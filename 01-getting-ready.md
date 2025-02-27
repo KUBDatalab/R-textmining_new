@@ -82,6 +82,7 @@ The original dataset contained lots of variables that are irrelevant within the 
 
 ### Taking a quick look at the data
 
+
 ``` r
 head(articles)
 ```
