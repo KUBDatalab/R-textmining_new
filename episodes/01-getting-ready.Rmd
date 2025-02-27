@@ -83,6 +83,15 @@ The original dataset contained lots of variables that are irrelevant within the 
 * `web_publication_date`
 * `pillar_name`
 
+### Taking a quick look at the data
+```{r head}
+head(articles)
+```
+
+```{r glimpse}
+glimpse(articles)
+```
+
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - "Packages must be installed and loaded in, and dataset must be loaded in by typing commands"

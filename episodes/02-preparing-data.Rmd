@@ -130,6 +130,59 @@ articles_anti_join <- articles_tidy %>%
 
 ::::::
 
+## Frequency analyse
+
+
+```{r}
+articles_anti_join %>% 
+  count(word, sort = TRUE)
+```
+
+```{r}
+articles_anti_join %>%
+  filter(!word %in% c("trump", "obama", "inauguration", "president")) %>% 
+  count(word, sort = TRUE)
+```
+
+
+```{r}
+articles_anti_join %>%
+  count(president, word, sort = TRUE)
+```
+
+```{r}
+articles_anti_join %>%
+  filter(!word %in% c("trump", "obama", "inauguration", "president")) %>%
+  count(president, word, sort = TRUE) %>% 
+  group_by(president) %>%
+  slice(1:10) %>% 
+  ggplot(mapping = aes(x = n, y = word, colour = president)) +
+  geom_point() 
+```
+
+```{r}
+articles_anti_join %>%
+  filter(!word %in% c("trump", "obama", "inauguration", "president")) %>%
+  count(president, pillar_name, word, sort = TRUE) %>% 
+  group_by(president, pillar_name) %>%
+  slice(1:10) %>% 
+  ggplot(mapping = aes(x = n, y = word, colour = pillar_name)) +
+  geom_point() +
+  facet_wrap(~president)
+```
+
+```{r}
+articles_anti_join %>%
+  filter(!word %in% c("trump", "obama", "inauguration", "president")) %>%
+  count(pillar_name, word, sort = TRUE) %>% 
+  group_by(pillar_name) %>%
+  slice(1:10) %>% 
+  ggplot(mapping = aes(x = n, y = word)) +
+  geom_col() +
+  facet_wrap(~pillar_name)
+```
+
+
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - "All natural language texts must be prepared for analysis"
