@@ -337,7 +337,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Loading data</h1>
-        <p>Last updated on 2025-02-18 |
+        <p>Last updated on 2025-02-27 |
 
         <a href="https://github.com/KUBDatalab/R-textmining_new/edit/main/episodes/01-getting-ready.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -438,7 +438,45 @@ kept:</p>
 <li><code>text</code></li>
 <li><code>web_publication_date</code></li>
 <li><code>pillar_name</code></li>
-</ul><div id="keypoints1" class="callout keypoints">
+</ul><div class="section level3">
+<h3 id="taking-a-quick-look-at-the-data">Taking a quick look at the data<a class="anchor" aria-label="anchor" href="#taking-a-quick-look-at-the-data"></a></h3>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">articles</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code># A tibble: 6 × 5
+     id president text                          web_publication_date pillar_name
+  &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;                         &lt;dttm&gt;               &lt;chr&gt;
+1     1 obama     "Obama inauguration: We will… 2009-01-20 19:16:38  News
+2     2 obama     "Obama from outer space Whet… 2009-01-20 22:00:00  Opinion
+3     3 obama     "Obama inauguration: today's… 2009-01-20 10:17:27  News
+4     4 obama     "Obama inauguration: Countdo… 2009-01-19 23:01:00  News
+5     5 obama     "Inaugural address of Presid… 2009-01-20 16:07:44  News
+6     6 obama     "Liveblogging the inaugurati… 2009-01-20 13:56:40  News       </code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">glimpse</span><span class="op">(</span><span class="va">articles</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Rows: 137
+Columns: 5
+$ id                   &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15…
+$ president            &lt;chr&gt; "obama", "obama", "obama", "obama", "obama", "oba…
+$ text                 &lt;chr&gt; "Obama inauguration: We will remake America, vows…
+$ web_publication_date &lt;dttm&gt; 2009-01-20 19:16:38, 2009-01-20 22:00:00, 2009-0…
+$ pillar_name          &lt;chr&gt; "News", "Opinion", "News", "News", "News", "News"…</code></pre>
+</div>
+<div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
 </div>
@@ -454,6 +492,7 @@ loaded in by typing commands”</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
+</div>
 </section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="../instructor/00-introduction.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
@@ -490,7 +529,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.11" class="external-link">sandpaper (0.16.11)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.7" class="external-link">pegboard (0.7.7)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.5" class="external-link">varnish (1.0.5)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.11" class="external-link">sandpaper (0.16.11)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.5" class="external-link">varnish (1.0.5)</a></p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -512,8 +551,8 @@ any links that you are not going to use.
   "url": "https://KUBDatalab.github.io/R-textmining_new/instructor/01-getting-ready.html",
   "identifier": "https://KUBDatalab.github.io/R-textmining_new/instructor/01-getting-ready.html",
   "dateCreated": "2024-05-01",
-  "dateModified": "2025-02-18",
-  "datePublished": "2025-02-18"
+  "dateModified": "2025-02-27",
+  "datePublished": "2025-02-27"
 }
 
   </script><script>
