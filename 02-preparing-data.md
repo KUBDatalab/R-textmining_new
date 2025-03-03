@@ -161,7 +161,9 @@ articles_anti_join <- articles_tidy %>%
 
 ::::::
 
-## Frequency analyse
+## Frequency analysis
+
+A word frequency is a relatively simple analysis. It meassures how often words occur in a text. 
 
 
 
@@ -187,15 +189,21 @@ articles_anti_join %>%
 # ℹ 12,318 more rows
 ```
 
+The previous code chunk resulted in a list containing the most frequent words. The words are from articles about both presidents, and they are sorted based on frequency with the highest number on top.
+
+A closer look at the list may reveal that some words are irrelevant. Given that the articles in the dataset are about the two presidents' respective inaugurations, we consider the words below irrelevant for our analysis. Therefore, we make a new dataset without those words.
+
 
 ``` r
-articles_anti_join %>%
-  filter(!word %in% c("trump", "obama", "inauguration", "president")) %>% 
+articles_filtered <- articles_anti_join %>%
+  filter(!word %in% c("trump", "trump’s", "obama", "obama's", "inauguration", "president"))
+
+articles_filtered %>% 
   count(word, sort = TRUE)
 ```
 
 ``` output
-# A tibble: 12,324 × 2
+# A tibble: 12,322 × 2
    word           n
    <chr>      <int>
  1 people       337
@@ -208,37 +216,40 @@ articles_anti_join %>%
  8 speech       183
  9 white        180
 10 washington   150
-# ℹ 12,314 more rows
+# ℹ 12,312 more rows
 ```
+The words deemed irrelevant are no longer on the list above.
 
+Instead of a general list it may be more interesting to focus on the most frequent words belonging to articles about the two presidents respectively.
 
 
 ``` r
-articles_anti_join %>%
+articles_filtered %>%
   count(president, word, sort = TRUE)
 ```
 
 ``` output
-# A tibble: 15,999 × 3
-   president word             n
-   <chr>     <chr>        <int>
- 1 trump     trump          478
- 2 obama     obama          434
- 3 obama     president      240
- 4 trump     president      210
- 5 obama     bush           174
- 6 obama     people         170
- 7 trump     people         167
- 8 obama     obama's        146
- 9 obama     inauguration   139
-10 trump     trump’s        126
-# ℹ 15,989 more rows
+# A tibble: 15,989 × 3
+   president word         n
+   <chr>     <chr>    <int>
+ 1 obama     bush       174
+ 2 obama     people     170
+ 3 trump     people     167
+ 4 obama     america    123
+ 5 obama     speech     121
+ 6 obama     world      120
+ 7 obama     time       119
+ 8 obama     american   116
+ 9 trump     america    114
+10 trump     it’s       108
+# ℹ 15,979 more rows
 ```
+It can be a bit tricky to keep an overview of the words associated with each president. To that end, a visualisation may help.
+
 
 
 ``` r
-articles_anti_join %>%
-  filter(!word %in% c("trump", "obama", "inauguration", "president")) %>%
+articles_filtered %>%
   count(president, word, sort = TRUE) %>% 
   group_by(president) %>%
   slice(1:10) %>% 
@@ -247,6 +258,72 @@ articles_anti_join %>%
 ```
 
 <img src="fig/02-preparing-data-rendered-unnamed-chunk-14-1.png" style="display: block; margin: auto;" />
+In the above, we have taken a look at how often words are used in association to each president. In these analyses the words were the guiding principles.
+
+Another interesting thing to look at would be the most frequent words used in relation to each president. In this analysis the president is the guiding principle.
+
+
+``` r
+articles_filtered %>%
+  count(president, word, sort = TRUE) %>% 
+  pivot_wider(
+    names_from = president,
+    values_from = n
+  )
+```
+
+``` output
+# A tibble: 12,322 × 3
+   word     obama trump
+   <chr>    <int> <int>
+ 1 bush       174    12
+ 2 people     170   167
+ 3 america    123   114
+ 4 speech     121    62
+ 5 world      120    92
+ 6 time       119    70
+ 7 american   116    85
+ 8 it’s        NA   108
+ 9 day        106    82
+10 donald       1   106
+# ℹ 12,312 more rows
+```
+
+
+``` r
+articles_filtered %>%
+  group_by(president) %>% 
+  count(word, sort = TRUE) %>% 
+  top_n(10) %>% 
+  ungroup() %>% 
+  mutate(word = reorder_within(word, n, president)) %>% 
+  ggplot(aes(n, word, fill = president)) +
+  geom_col() +
+  facet_wrap(~president, scales = "free") +
+  scale_y_reordered() + 
+  labs(x = "word occurrences")
+```
+
+``` output
+Selecting by n
+```
+
+<img src="fig/02-preparing-data-rendered-unnamed-chunk-16-1.png" style="display: block; margin: auto;" />
+
+``` r
+articles_filtered %>%
+  count(pillar_name, word, sort = TRUE) %>% 
+  group_by(pillar_name) %>%
+  slice(1:10) %>% 
+  ggplot(mapping = aes(x = n, y = word, colour = pillar_name)) +
+  geom_point() 
+```
+
+<img src="fig/02-preparing-data-rendered-unnamed-chunk-17-1.png" style="display: block; margin: auto;" />
+
+
+
+
 
 
 ``` r
@@ -260,7 +337,7 @@ articles_anti_join %>%
   facet_wrap(~president)
 ```
 
-<img src="fig/02-preparing-data-rendered-unnamed-chunk-15-1.png" style="display: block; margin: auto;" />
+<img src="fig/02-preparing-data-rendered-unnamed-chunk-18-1.png" style="display: block; margin: auto;" />
 
 
 ``` r
@@ -274,7 +351,7 @@ articles_anti_join %>%
   facet_wrap(~pillar_name)
 ```
 
-<img src="fig/02-preparing-data-rendered-unnamed-chunk-16-1.png" style="display: block; margin: auto;" />
+<img src="fig/02-preparing-data-rendered-unnamed-chunk-19-1.png" style="display: block; margin: auto;" />
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
