@@ -121,7 +121,9 @@ articles_anti_join <- articles_tidy %>%
 
 ::::::
 
-## Frequency analyse
+## Frequency analysis
+
+A word frequency is a relatively simple analysis. It meassures how often words occur in a text. 
 
 
 ```{r}
@@ -129,27 +131,75 @@ articles_anti_join %>%
   count(word, sort = TRUE)
 ```
 
+The previous code chunk resulted in a list containing the most frequent words. The words are from articles about both presidents, and they are sorted based on frequency with the highest number on top.
+
+A closer look at the list may reveal that some words are irrelevant. Given that the articles in the dataset are about the two presidents' respective inaugurations, we consider the words below irrelevant for our analysis. Therefore, we make a new dataset without those words.
+
 ```{r}
-articles_anti_join %>%
-  filter(!word %in% c("trump", "obama", "inauguration", "president")) %>% 
+articles_filtered <- articles_anti_join %>%
+  filter(!word %in% c("trump", "trump’s", "obama", "obama's", "inauguration", "president"))
+
+articles_filtered %>% 
   count(word, sort = TRUE)
 ```
+The words deemed irrelevant are no longer on the list above.
 
+Instead of a general list it may be more interesting to focus on the most frequent words belonging to articles about the two presidents respectively.
 
 ```{r}
-articles_anti_join %>%
+articles_filtered %>%
   count(president, word, sort = TRUE)
 ```
+It can be a bit tricky to keep an overview of the words associated with each president. To that end, a visualisation may help.
+
 
 ```{r}
-articles_anti_join %>%
-  filter(!word %in% c("trump", "obama", "inauguration", "president")) %>%
+articles_filtered %>%
   count(president, word, sort = TRUE) %>% 
   group_by(president) %>%
   slice(1:10) %>% 
   ggplot(mapping = aes(x = n, y = word, colour = president)) +
   geom_point() 
 ```
+In the above, we have taken a look at how often words are used in association to each president. In these analyses the words were the guiding principles.
+
+Another interesting thing to look at would be the most frequent words used in relation to each president. In this analysis the president is the guiding principle.
+
+```{r}
+articles_filtered %>%
+  count(president, word, sort = TRUE) %>% 
+  pivot_wider(
+    names_from = president,
+    values_from = n
+  )
+```
+
+```{r}
+articles_filtered %>%
+  group_by(president) %>% 
+  count(word, sort = TRUE) %>% 
+  top_n(10) %>% 
+  ungroup() %>% 
+  mutate(word = reorder_within(word, n, president)) %>% 
+  ggplot(aes(n, word, fill = president)) +
+  geom_col() +
+  facet_wrap(~president, scales = "free") +
+  scale_y_reordered() + 
+  labs(x = "word occurrences")
+
+```
+```{r}
+articles_filtered %>%
+  count(pillar_name, word, sort = TRUE) %>% 
+  group_by(pillar_name) %>%
+  slice(1:10) %>% 
+  ggplot(mapping = aes(x = n, y = word, colour = pillar_name)) +
+  geom_point() 
+```
+
+
+
+
 
 ```{r}
 articles_anti_join %>%
