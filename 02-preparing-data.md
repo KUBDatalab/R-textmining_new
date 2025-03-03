@@ -244,7 +244,7 @@ articles_filtered %>%
 10 trump     it’s       108
 # ℹ 15,979 more rows
 ```
-It can be a bit tricky to keep an overview of the words associated with each president. To that end, a visualisation may help.
+It can be a bit tricky to keep an overview of the words associated with each president. For instance, the people is associated with both presidents. This is easy to see, as the two words are right next to each other. America, however, are further apart, although this word i also associated with the presidents. To that end, a visualisation may help.
 
 
 
@@ -253,14 +253,14 @@ articles_filtered %>%
   count(president, word, sort = TRUE) %>% 
   group_by(president) %>%
   slice(1:10) %>% 
-  ggplot(mapping = aes(x = n, y = word, colour = president)) +
+  ggplot(mapping = aes(x = n, y = word, colour = president, shape = president)) +
   geom_point() 
 ```
 
 <img src="fig/02-preparing-data-rendered-unnamed-chunk-14-1.png" style="display: block; margin: auto;" />
-In the above, we have taken a look at how often words are used in association to each president. In these analyses the words were the guiding principles.
+The plot above shows the top-ten words associated Obamma and Trump respectively. If a word features on both presidents' top-ten list, it only occures once in the plot. This is why the plot doesn't contain 20 words in total.
 
-Another interesting thing to look at would be the most frequent words used in relation to each president. In this analysis the president is the guiding principle.
+Another interesting aspect to look at would be the most frequent words used in relation to each president. In this analysis the president is the guiding principle.
 
 
 ``` r
@@ -309,13 +309,15 @@ Selecting by n
 ```
 
 <img src="fig/02-preparing-data-rendered-unnamed-chunk-16-1.png" style="display: block; margin: auto;" />
+The analyses just made can easily be ajusted. For instance, if we want look at the words by `pillar_name` instead of by `president`, we just need to replace `president` with `pillar_name` in the code.
+
 
 ``` r
 articles_filtered %>%
   count(pillar_name, word, sort = TRUE) %>% 
   group_by(pillar_name) %>%
   slice(1:10) %>% 
-  ggplot(mapping = aes(x = n, y = word, colour = pillar_name)) +
+  ggplot(mapping = aes(x = n, y = word, colour = pillar_name, shape = pillar_name)) +
   geom_point() 
 ```
 
@@ -326,32 +328,8 @@ articles_filtered %>%
 
 
 
-``` r
-articles_anti_join %>%
-  filter(!word %in% c("trump", "obama", "inauguration", "president")) %>%
-  count(president, pillar_name, word, sort = TRUE) %>% 
-  group_by(president, pillar_name) %>%
-  slice(1:10) %>% 
-  ggplot(mapping = aes(x = n, y = word, colour = pillar_name)) +
-  geom_point() +
-  facet_wrap(~president)
-```
-
-<img src="fig/02-preparing-data-rendered-unnamed-chunk-18-1.png" style="display: block; margin: auto;" />
 
 
-``` r
-articles_anti_join %>%
-  filter(!word %in% c("trump", "obama", "inauguration", "president")) %>%
-  count(pillar_name, word, sort = TRUE) %>% 
-  group_by(pillar_name) %>%
-  slice(1:10) %>% 
-  ggplot(mapping = aes(x = n, y = word)) +
-  geom_col() +
-  facet_wrap(~pillar_name)
-```
-
-<img src="fig/02-preparing-data-rendered-unnamed-chunk-19-1.png" style="display: block; margin: auto;" />
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
