@@ -1,5 +1,5 @@
 ---
-title: "Text mining extras"
+title: "sentiment analysis"
 teaching: 0
 exercises: 0
 ---
