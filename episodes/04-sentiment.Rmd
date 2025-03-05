@@ -17,14 +17,103 @@ exercises: 0
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+```{r, include = FALSE}
+library(tidyverse)
+library(tidytext)
+library(tm)
+articles_filtered <- read_csv("data/articles_filtered.csv", na = c("NA", "NULL", ""))
+```
+
 ## Sentiment analysis
-Sentiment analysis is a method for measuring the sentiment of a text. When humans read a text they can easily find the sentiment of a paragraf/text based on the meaning of the combined written words.
+Sentiment analysis is a method for measuring the sentiment of a text. When humans read a text they can easily find the sentiment of a paragraph or text based on the meaning of the combined written words.
 
-A machine does not have the same abilities, so instead of having it read the text we look at the combined words of the text and look at the sentiment of each word and the sentiment of the text/paragraf would be the sum of the sentiments of the words.
+A machine does not have the same abilities, so instead of having it read the text, we look at the combined words of the text and look at the sentiment of each word and the sentiment of the text/paragraph would be the sum of the sentiments of the words.
 
-Sentiment analysis is a method for measuring the sentiment of a text. To do this, it is necessary to have a list of words that have been assigned to a certain sentiment. This can be a simple assignation of words into positive and negative, it can be an assignation to one among a multitude of categories, and the word can have a value on a scale. In this course we will use the AFINN index for Danish, which assigns approximately 3500 words on a scale from +5 to -5. This will enable us to calculate and compare the overall sentiment of the various speeches. As a side note, AFINN index is also available in English. 
+In the previous section we had a list of words in the text without stopwords. To do a sentiment analysis we can use a so-called lexicon and assign a sentiment to each word. In order to do this we need an list of words and their sentiment. A simple form would be wether they are positive or negative.
 
-We need to download the AFINN Index from GitHub
+There are multiple sentiment lexicons. For a start we will be using the `bing` lexicon. This lexicon categorises words as either positive or negative.
+
+
+```{r}
+get_sentiments("bing")
+```
+
+To be able to use the `bing`-lexicon, we have to save it.
+
+```{r}
+bing <- get_sentiments("bing")
+```
+
+
+```{r}
+articles_filtered %>% 
+  inner_join(bing) 
+```
+
+
+```{r}
+articles_filtered %>% 
+  inner_join(bing) %>% 
+  count(word, sentiment, president, sort = TRUE) %>% 
+  ungroup() %>% 
+  group_by(sentiment, president) %>% 
+  slice_max(n, n = 10) %>% 
+  ungroup() %>% 
+  mutate(word = reorder(word, n)) %>% 
+  ggplot(mapping = aes(n, word, fill = sentiment)) +
+  geom_col(show.legend = FALSE) +
+  facet_grid(president~sentiment, scales = "free") +
+  labs(x = "Contribution to sentiment", 
+       y = NULL)
+
+
+
+
+
+# 
+# articles_filtered %>% 
+#   inner_join(bing) %>% 
+#   group_by(president, sentiment) %>% 
+#   count(word, sort = TRUE) %>% 
+#   slice_max(n, n = 10) %>% 
+#   ggplot(mapping = aes(x = n, y = word)) +
+#   geom_col() +
+#   facet_grid(sentiment~president)
+  
+```
+
+
+
+
+```{r}
+articles_filtered %>% 
+  inner_join(bing) %>% 
+  group_by(president) %>% 
+  summarise(positive = sum(sentiment == "positive"),
+            negative = sum(sentiment == "negative")) %>% 
+  ggplot(mapping = aes(x = president, y = positive)) +
+  geom_col()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ```{r eval = FALSE}
 download.file("https://raw.githubusercontent.com/KUBDatalab/R-textmining/main/data/AFINN_dansk.csv", "data/AFINN_dansk.csv", mode = "wb")
