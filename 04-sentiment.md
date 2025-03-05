@@ -18,6 +18,10 @@ exercises: 0
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Sentiment analysis
+Sentiment analysis is a method for measuring the sentiment of a text. When humans read a text they can easily find the sentiment of a paragraf/text based on the meaning of the combined written words.
+
+A machine does not have the same abilities, so instead of having it read the text we look at the combined words of the text and look at the sentiment of each word and the sentiment of the text/paragraf would be the sum of the sentiments of the words.
+
 Sentiment analysis is a method for measuring the sentiment of a text. To do this, it is necessary to have a list of words that have been assigned to a certain sentiment. This can be a simple assignation of words into positive and negative, it can be an assignation to one among a multitude of categories, and the word can have a value on a scale. In this course we will use the AFINN index for Danish, which assigns approximately 3500 words on a scale from +5 to -5. This will enable us to calculate and compare the overall sentiment of the various speeches. As a side note, AFINN index is also available in English. 
 
 We need to download the AFINN Index from GitHub
