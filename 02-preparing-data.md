@@ -1,5 +1,5 @@
 ---
-title: "Tidytext, stopwords, and sentiment analysis"
+title: "Tokenisation and stopwords"
 teaching: 0
 exercises: 0
 
