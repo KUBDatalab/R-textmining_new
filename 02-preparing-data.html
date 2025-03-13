@@ -555,7 +555,11 @@ have to use the <code>anti_join</code>-function.</p>
 <code class="sourceCode R"><span><span class="va">articles_anti_join</span> <span class="op">&lt;-</span> <span class="va">articles_tidy</span> <span class="op">%&gt;%</span> </span>
 <span>  <span class="fu">anti_join</span><span class="op">(</span><span class="va">stop_words</span>, by <span class="op">=</span> <span class="st">"word"</span><span class="op">)</span></span></code></pre>
 </div>
-<div id="join-and-anti_join" class="callout">
+<p>With the ´anti_join´ function you have a dataset, in this case
+´stop_words´, and the function removes the word from that dataset from
+you original dataset, in this case ´article_tidy´.</p>
+<figure><img src="./fig/Venn_anti_join.jpg" alt="Anti-join examples" class="figure mx-auto d-block"><div class="figcaption">Anti-join examples</div>
+</figure><div id="join-and-anti_join" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -565,7 +569,7 @@ have to use the <code>anti_join</code>-function.</p>
 <code>anti_join</code>
 </h3>
 <div class="callout-content">
-
+<p>There are multiple ways to join dataset in R.</p>
 </div>
 </div>
 </div>
