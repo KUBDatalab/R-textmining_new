@@ -63,7 +63,7 @@ stop_words
 # ℹ 1,139 more rows
 ```
 
-:::: callout
+::::::::::::::::::::::::::::::::::::::: discussion
 
 ### Adding and removing stopwords
 
@@ -71,7 +71,11 @@ You may find yourself in need of either adding or removing words from the stopwo
 
 Here is how you add and remove stopwords to a predefined list.
 
-**Add stopwords**
+::::::
+
+:::::::::::::::: solution
+
+### Add stopwords
 First, create a tibble with the word you wish to add to the stop words list
 
 
@@ -107,9 +111,11 @@ updated_stop_words %>%
 4 snowball       174
 ```
 
+:::::::::::::::
 
+:::::::::::::::: solution
 
-**remove stopword**
+### Remove stopword
 First,  create a vector with the word(s) you wish to remove from the stopwords list
  
 
@@ -140,9 +146,9 @@ updated_stop_words %>%
 3 snowball   174
 ```
 
+::::::::::::::::
 
 
-::::::
 
 In order to remove the stopwords from `articles_tidy`, we have to use the `anti_join`-function. 
 
