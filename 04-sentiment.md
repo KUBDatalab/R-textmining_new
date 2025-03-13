@@ -17,14 +17,174 @@ exercises: 0
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+
+
 ## Sentiment analysis
-Sentiment analysis is a method for measuring the sentiment of a text. When humans read a text they can easily find the sentiment of a paragraf/text based on the meaning of the combined written words.
+Sentiment analysis is a method for measuring the sentiment of a text. When humans read a text they can easily find the sentiment of a paragraph or text based on the meaning of the combined written words.
 
-A machine does not have the same abilities, so instead of having it read the text we look at the combined words of the text and look at the sentiment of each word and the sentiment of the text/paragraf would be the sum of the sentiments of the words.
+A machine does not have the same abilities, so instead of having it read the text, we look at the combined words of the text and look at the sentiment of each word and the sentiment of the text/paragraph would be the sum of the sentiments of the words.
 
-Sentiment analysis is a method for measuring the sentiment of a text. To do this, it is necessary to have a list of words that have been assigned to a certain sentiment. This can be a simple assignation of words into positive and negative, it can be an assignation to one among a multitude of categories, and the word can have a value on a scale. In this course we will use the AFINN index for Danish, which assigns approximately 3500 words on a scale from +5 to -5. This will enable us to calculate and compare the overall sentiment of the various speeches. As a side note, AFINN index is also available in English. 
+In the previous section we had a list of words in the text without stopwords. To do a sentiment analysis we can use a so-called lexicon and assign a sentiment to each word. In order to do this we need an list of words and their sentiment. A simple form would be wether they are positive or negative.
 
-We need to download the AFINN Index from GitHub
+There are multiple sentiment lexicons. For a start we will be using the `bing` lexicon. This lexicon categorises words as either positive or negative.
+
+
+
+``` r
+get_sentiments("bing")
+```
+
+``` output
+# A tibble: 6,786 × 2
+   word        sentiment
+   <chr>       <chr>    
+ 1 2-faces     negative 
+ 2 abnormal    negative 
+ 3 abolish     negative 
+ 4 abominable  negative 
+ 5 abominably  negative 
+ 6 abominate   negative 
+ 7 abomination negative 
+ 8 abort       negative 
+ 9 aborted     negative 
+10 aborts      negative 
+# ℹ 6,776 more rows
+```
+
+To be able to use the `bing`-lexicon, we have to save it.
+
+
+``` r
+bing <- get_sentiments("bing")
+```
+
+
+
+``` r
+articles_filtered %>% 
+  inner_join(bing) 
+```
+
+``` output
+Joining with `by = join_by(word)`
+```
+
+``` warning
+Warning in inner_join(., bing): Detected an unexpected many-to-many relationship between `x` and `y`.
+ℹ Row 48882 of `x` matches multiple rows in `y`.
+ℹ Row 2233 of `y` matches multiple rows in `x`.
+ℹ If a many-to-many relationship is expected, set `relationship =
+  "many-to-many"` to silence this warning.
+```
+
+``` output
+# A tibble: 6,159 × 6
+      id president web_publication_date pillar_name word          sentiment
+   <dbl> <chr>     <dttm>               <chr>       <chr>         <chr>    
+ 1     1 obama     2009-01-20 19:16:38  News        promises      positive 
+ 2     1 obama     2009-01-20 19:16:38  News        promise       positive 
+ 3     1 obama     2009-01-20 19:16:38  News        dust          negative 
+ 4     1 obama     2009-01-20 19:16:38  News        cold          negative 
+ 5     1 obama     2009-01-20 19:16:38  News        dawn          positive 
+ 6     1 obama     2009-01-20 19:16:38  News        celebrate     positive 
+ 7     1 obama     2009-01-20 19:16:38  News        inspirational positive 
+ 8     1 obama     2009-01-20 19:16:38  News        failed        negative 
+ 9     1 obama     2009-01-20 19:16:38  News        resound       positive 
+10     1 obama     2009-01-20 19:16:38  News        attacks       negative 
+# ℹ 6,149 more rows
+```
+
+
+
+``` r
+articles_filtered %>% 
+  inner_join(bing) %>% 
+  count(word, sentiment, president, sort = TRUE) %>% 
+  ungroup() %>% 
+  group_by(sentiment, president) %>% 
+  slice_max(n, n = 10) %>% 
+  ungroup() %>% 
+  mutate(word = reorder(word, n)) %>% 
+  ggplot(mapping = aes(n, word, fill = sentiment)) +
+  geom_col(show.legend = FALSE) +
+  facet_grid(president~sentiment, scales = "free") +
+  labs(x = "Contribution to sentiment", 
+       y = NULL)
+```
+
+``` output
+Joining with `by = join_by(word)`
+```
+
+``` warning
+Warning in inner_join(., bing): Detected an unexpected many-to-many relationship between `x` and `y`.
+ℹ Row 48882 of `x` matches multiple rows in `y`.
+ℹ Row 2233 of `y` matches multiple rows in `x`.
+ℹ If a many-to-many relationship is expected, set `relationship =
+  "many-to-many"` to silence this warning.
+```
+
+<img src="fig/04-sentiment-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" />
+
+``` r
+# 
+# articles_filtered %>% 
+#   inner_join(bing) %>% 
+#   group_by(president, sentiment) %>% 
+#   count(word, sort = TRUE) %>% 
+#   slice_max(n, n = 10) %>% 
+#   ggplot(mapping = aes(x = n, y = word)) +
+#   geom_col() +
+#   facet_grid(sentiment~president)
+```
+
+
+
+
+
+``` r
+articles_filtered %>% 
+  inner_join(bing) %>% 
+  group_by(president) %>% 
+  summarise(positive = sum(sentiment == "positive"),
+            negative = sum(sentiment == "negative")) %>% 
+  ggplot(mapping = aes(x = president, y = positive)) +
+  geom_col()
+```
+
+``` output
+Joining with `by = join_by(word)`
+```
+
+``` warning
+Warning in inner_join(., bing): Detected an unexpected many-to-many relationship between `x` and `y`.
+ℹ Row 48882 of `x` matches multiple rows in `y`.
+ℹ Row 2233 of `y` matches multiple rows in `x`.
+ℹ If a many-to-many relationship is expected, set `relationship =
+  "many-to-many"` to silence this warning.
+```
+
+<img src="fig/04-sentiment-rendered-unnamed-chunk-6-1.png" style="display: block; margin: auto;" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ``` r
@@ -34,9 +194,6 @@ download.file("https://raw.githubusercontent.com/KUBDatalab/R-textmining/main/da
 Now we read need to read the AFINN Index into a tibble and rename the columns
 
 
-``` error
-Error in read_csv("data/AFINN_dansk.csv"): could not find function "read_csv"
-```
 
 
 
@@ -70,7 +227,7 @@ kina_tidy_2 <- kina_tidy %>%
 ```
 
 ``` error
-Error in kina_tidy %>% anti_join(stopwords_dansk, by = "word") %>% left_join(AFINN_dansk, : could not find function "%>%"
+Error: object 'kina_tidy' not found
 ```
 
 ## Analyzing the sentiment of parties
@@ -89,7 +246,7 @@ kina_sentiment_value <- kina_tidy_2 %>%
 ```
 
 ``` error
-Error in kina_tidy_2 %>% filter(Role != "formand") %>% group_by(Party) %>% : could not find function "%>%"
+Error: object 'kina_tidy_2' not found
 ```
 
 Now we want to visualize each party's mean sentiment value according to the AFINN-Index
@@ -103,7 +260,7 @@ kina_sentiment_value %>%
 ```
 
 ``` error
-Error in kina_sentiment_value %>% ggplot(aes(x = Party, y = mean_sentiment_value, : could not find function "%>%"
+Error: object 'kina_sentiment_value' not found
 ```
 
 ## Analyzing the sentiment of rød and blå blok
@@ -112,35 +269,14 @@ We would also like to analyze the sentiment of rød and blå blok as a whole res
 
 ``` r
 roed_blok <- tibble(Party = c("ALT", "EL", "SF", "S", "RV"), Blok = c("roed_blok"))
-```
-
-``` error
-Error in tibble(Party = c("ALT", "EL", "SF", "S", "RV"), Blok = c("roed_blok")): could not find function "tibble"
-```
-
-``` r
 blaa_blok <- tibble(Party = c("V", "KF", "LA", "DF"), Blok = c("blaa_blok"))
-```
-
-``` error
-Error in tibble(Party = c("V", "KF", "LA", "DF"), Blok = c("blaa_blok")): could not find function "tibble"
-```
-
-``` r
 blok <- bind_rows(roed_blok, blaa_blok)
-```
-
-``` error
-Error in bind_rows(roed_blok, blaa_blok): could not find function "bind_rows"
-```
-
-``` r
 kina_tidy_blokke <- kina_sentiment_value %>% 
   left_join(blok, by = "Party")
 ```
 
 ``` error
-Error in kina_sentiment_value %>% left_join(blok, by = "Party"): could not find function "%>%"
+Error: object 'kina_sentiment_value' not found
 ```
 
 Now we would like to do the same analysis of mean sentiment value, this time for each blok. We also want to specify that the column for roed_bloek should be red and the column for blaa_blok should be blue
@@ -155,7 +291,7 @@ kina_blokke_sentiment_value <- kina_tidy_blokke %>%
 ```
 
 ``` error
-Error in kina_tidy_blokke %>% group_by(Blok) %>% summarize(mean_sentiment_value = mean(mean_sentiment_value, : could not find function "%>%"
+Error: object 'kina_tidy_blokke' not found
 ```
 
 
@@ -169,7 +305,7 @@ kina_blokke_sentiment_value %>%
 ```
 
 ``` error
-Error in kina_blokke_sentiment_value %>% ggplot(aes(x = Blok, y = mean_sentiment_value, : could not find function "%>%"
+Error: object 'kina_blokke_sentiment_value' not found
 ```
 
 
