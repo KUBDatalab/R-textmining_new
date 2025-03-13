@@ -158,11 +158,17 @@ articles_anti_join <- articles_tidy %>%
   anti_join(stop_words, by = "word")
 ```
 
+With the ´anti_join´ function you have a dataset, in this case ´stop_words´, and the function removes the word from that dataset from you original dataset, in this case ´article_tidy´.
+
+![Anti-join examples](./fig/Venn_anti_join.jpg)
+
+
+
 :::: callout
 
 ### `Join` and `anti_join`
 
-
+There are multiple ways to join dataset in R. 
 
 
 ::::::
