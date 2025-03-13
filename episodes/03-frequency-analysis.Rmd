@@ -20,12 +20,11 @@ exercises: 0
 
 
 
-## R Markdown
-
-```{r, eval = TRUE, message = FALSE}
+```{r, include = FALSE}
 library(tidyverse)
 library(tidytext)
 library(tm)
+articles_anti_join <- read_csv("data/articles_anti_join.csv", na = c("NA", "NULL", ""))
 ```
 
 ## Frequency analysis
@@ -107,7 +106,9 @@ articles_filtered %>%
 ```
 
 
-
+```{r, include = FALSE}
+write_csv(articles_filtered, "data/articles_filtered.csv")
+```
 
 
 

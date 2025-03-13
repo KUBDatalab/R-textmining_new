@@ -121,7 +121,9 @@ articles_anti_join <- articles_tidy %>%
 
 ::::::
 
-
+```{r, include = FALSE}
+write_csv(articles_anti_join, "data/articles_anti_join.csv")
+```
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
