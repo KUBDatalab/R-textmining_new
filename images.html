@@ -393,9 +393,29 @@
 <hr></section><section id="01-getting-ready"><h2 class="section-heading"><a href="01-getting-ready.html">Loading data</a></h2>
 <hr class="half-width"></section><section id="02-preparing-data"><h2 class="section-heading"><a href="02-preparing-data.html">Tokenisation and stopwords</a></h2>
 <hr class="half-width"></section><section id="03-frequency-analysis"><h2 class="section-heading"><a href="03-frequency-analysis.html">Word frequency analysis</a></h2>
-<hr class="half-width"></section><section id="04-sentiment"><h2 class="section-heading"><a href="04-sentiment.html">sentiment analysis</a></h2>
+<hr class="half-width">
+<h3 id="03-frequency-analysis-figure-1">Figure 1</h3>
+<p><img src="fig/03-frequency-analysis-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" class="figure">
+The plot above shows the top-ten words associated Obamma and Trump
+respectively. If a word features on both presidents’ top-ten list, it
+only occures once in the plot. This is why the plot doesn’t contain 20
+words in total.</p>
+<hr>
+<h3 id="03-frequency-analysis-figure-2">Figure 2</h3>
+<p><img src="fig/03-frequency-analysis-rendered-unnamed-chunk-7-1.png" style="display: block; margin: auto;" class="figure">
+The analyses just made can easily be ajusted. For instance, if we want
+look at the words by <code>pillar_name</code> instead of by
+<code>president</code>, we just need to replace <code>president</code>
+with <code>pillar_name</code> in the code.</p>
+<hr>
+<h3 id="03-frequency-analysis-figure-3">Figure 3</h3>
+<figure><img src="fig/03-frequency-analysis-rendered-unnamed-chunk-8-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr></section><section id="04-sentiment"><h2 class="section-heading"><a href="04-sentiment.html">sentiment analysis</a></h2>
 <hr class="half-width">
 <h3 id="04-sentiment-figure-1">Figure 1</h3>
+<figure><img src="fig/04-sentiment-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<h3 id="04-sentiment-figure-2">Figure 2</h3>
+<figure><img src="fig/04-sentiment-rendered-unnamed-chunk-6-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<h3 id="04-sentiment-figure-3">Figure 3</h3>
 <p aria-hidden="true">Image 1 of 1: ‘”left_join AFINN Index with tidy text’</p>
 <p>Mutating joins work by adding new columns to the tibble. We will use
 left_join, which is the most common of the mutating joins <img src="fig/Venn_left_join.jpg" alt="”left_join AFINN Index with tidy text" class="figure"> The left_join joins all
@@ -404,7 +424,7 @@ AFINN Index and adds it as a new column to the tibble. In the new
 column, the rows that contain words that don’t appear in the AFINN Index
 have NA in their cell</p>
 <hr>
-<h3 id="04-sentiment-figure-2">Figure 2</h3>
+<h3 id="04-sentiment-figure-4">Figure 4</h3>
 <p aria-hidden="true">Image 1 of 1: ‘”anti_join stopwords with tidy text’</p>
 <p>Filtering joins work by filtering away some rows in the tibble. We
 will use the anti_join, which removes those rows that contain a word
@@ -477,8 +497,8 @@ Sun arise each and every morning
   "url": "https://KUBDatalab.github.io/R-textmining_new/images.html",
   "identifier": "https://KUBDatalab.github.io/R-textmining_new/images.html",
   "dateCreated": "2024-05-01",
-  "dateModified": "2025-03-11",
-  "datePublished": "2025-03-11"
+  "dateModified": "2025-03-13",
+  "datePublished": "2025-03-13"
 }
 
   </script><script>
