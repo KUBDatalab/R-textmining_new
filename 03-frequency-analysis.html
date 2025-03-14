@@ -244,8 +244,6 @@
     <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#frequency-analysis">Frequency analysis</a></li>
-<li><a href="#word-frequency">Word frequency</a></li>
-<li><a href="#tf_idf">tf_idf</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
 
@@ -337,7 +335,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Word frequency analysis</h1>
-        <p>Last updated on 2025-03-13 |
+        <p>Last updated on 2025-03-14 |
 
         <a href="https://github.com/KUBDatalab/R-textmining_new/edit/main/episodes/03-frequency-analysis.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -553,261 +551,7 @@ with <code>pillar_name</code> in the code.</p>
 <span>  <span class="fu">ggplot</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">n</span>, y <span class="op">=</span> <span class="va">word</span>, colour <span class="op">=</span> <span class="va">pillar_name</span>, shape <span class="op">=</span> <span class="va">pillar_name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> </span></code></pre>
 </div>
-<figure><img src="fig/03-frequency-analysis-rendered-unnamed-chunk-8-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: '../data/kina.txt' does not exist in current working directory ('/home/runner/work/R-textmining_new/R-textmining_new/site/built').</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'kina' not found</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'kina_tidy' not found</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'kina_tidy_2' not found</code></pre>
-</div>
-</section><section><h2 class="section-heading" id="word-frequency">Word frequency<a class="anchor" aria-label="anchor" href="#word-frequency"></a></h2>
-<hr class="half-width"><p>Now that we have seen the average sentiment of the parties, we want
-to get a deeper understanding of what they talk about when discussing
-China. We can calculate the most frequent words that each party uses,
-and then visualize that to get an impression of what they talk about
-when discussing China.</p>
-<p>First we calculate the 10 most frequent words that each party
-says</p>
-<div class="codewrapper sourceCode" id="cb17">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">kina_top_10_ord</span> <span class="op">&lt;-</span> <span class="va">kina_tidy_blokke</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">Role</span> <span class="op">!=</span> <span class="st">"formand"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">Party</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">count</span><span class="op">(</span><span class="va">word</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">top_n</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">ungroup</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>word <span class="op">=</span> <span class="fu">reorder_within</span><span class="op">(</span><span class="va">word</span>, <span class="va">n</span>, <span class="va">Party</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'kina_tidy_blokke' not found</code></pre>
-</div>
-<p>Now we want to visualize the result</p>
-<div class="codewrapper sourceCode" id="cb19">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">kina_top_10_ord</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">n</span>, <span class="va">word</span>, fill <span class="op">=</span> <span class="va">Party</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">Party</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_y_reordered</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Word occurrences"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'kina_top_10_ord' not found</code></pre>
-</div>
-<p>A more extensive stopword list for Danish is the ISO stopword list.
-We will use it know, so lets download it from the repository. Then we
-save it as an object. Then we make it into a tibble to prepare it for
-<code>anti_join</code> with our dataset</p>
-<div class="codewrapper sourceCode" id="cb21">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">download.file</span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/KUBDatalab/R-textmining/main/data/iso_stopwords.csv"</span>, <span class="st">"data/iso_stopwords.csv"</span>, mode <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb22">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">iso_stopwords</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/iso_stopwords.csv"</span><span class="op">)</span></span></code></pre>
-</div>
-<p>Let us now apply it to the dataset by <code>anti_join</code></p>
-<div class="codewrapper sourceCode" id="cb23">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">kina_top_10_ord_2</span> <span class="op">&lt;-</span> <span class="va">kina_tidy_blokke</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">anti_join</span><span class="op">(</span><span class="va">iso_stopwords</span>, by <span class="op">=</span> <span class="st">"word"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'kina_tidy_blokke' not found</code></pre>
-</div>
-<p>Unfortunately for us, most of the most common words are words that
-act like stopwords, carrying no meaning in themselves. To get around
-this, we can create our own custom list of stopwords as a tibble, and
-then <code>anti_join</code> it with the dataset, just like we did for
-the already existing stopword lists.</p>
-<p>First we look at the top words to find the stopwords for our custom
-stopword list. Here I have printed 10, but I have looked at over 70</p>
-<div class="codewrapper sourceCode" id="cb25">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">kina_top_10_ord_2</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">count</span><span class="op">(</span><span class="va">word</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">top_n</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="va">tbl_df</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">print</span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'kina_top_10_ord_2' not found</code></pre>
-</div>
-<p>Based on this, we select the words that we consider stopwords and
-make them into a tibble. We also want to include among our stopwords the
-word Danmark and its genitive case and derivative adjectives, because
-Denmark of course is frequently named in a Danish parliamentary debate
-and adds little to our analysis and understanding. Let’s also remove the
-name China, its genitive case and derivative adjectives, because we know
-that the debate is about China. Let’s also remove words that state the
-title or role of a member of the parliament. Let’s also remove the words
-spørgsmål and møder, as it relates internal questions and meetings among
-the members of parliament. Let’s also remove the words about
-Folketingets Præsidium, which do not pertain to the content of the
-debate. Upon later examinations some more names have also been added to
-the custom stopword list</p>
-<div class="codewrapper sourceCode" id="cb27">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">custom_stopwords</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>word <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"så"</span>, <span class="st">"kan"</span>, <span class="st">"hr"</span>, <span class="st">"sige"</span>, <span class="st">"synes"</span>, <span class="st">"ved"</span>, <span class="st">"altså"</span>, <span class="st">"søren"</span>, <span class="st">"tror"</span>, </span>
-<span>                                    <span class="st">"få"</span>, <span class="st">"bare"</span>, <span class="st">"derfor"</span>, <span class="st">"godt"</span>, <span class="st">"andre"</span>, <span class="st">"må"</span>, <span class="st">"espersen"</span>, <span class="st">"mener"</span>, <span class="st">"gøre"</span>, <span class="st">"helt"</span>, <span class="st">"dag"</span>, </span>
-<span>                                    <span class="st">"faktisk"</span>, <span class="st">"folkeparti"</span>, <span class="st">"gerne"</span>, <span class="st">"side"</span>, <span class="st">"gør"</span>, <span class="st">"nogen"</span>, <span class="st">"fordi"</span>, <span class="st">"hvordan"</span>, <span class="st">"tak"</span>,</span>
-<span>                                    <span class="st">"måde"</span>, <span class="st">"set"</span>, <span class="st">"siger"</span>, <span class="st">"andet"</span>, <span class="st">"sagt"</span>, <span class="st">"år"</span>, <span class="st">"lige"</span>, <span class="st">"står"</span>, <span class="st">"tage"</span>, <span class="st">"nemlig"</span>, <span class="st">"lidt"</span>,</span>
-<span>                                    <span class="st">"sag"</span>, <span class="st">"går"</span>, <span class="st">"kommer"</span>, <span class="st">"nok"</span>, <span class="st">"danmark"</span>, <span class="st">"danmarks"</span>, <span class="st">"dansk"</span>, <span class="st">"danske"</span>, <span class="st">"danskt"</span>, </span>
-<span>                                    <span class="st">"kina"</span>, <span class="st">"kinas"</span>, <span class="st">"kinesisk"</span>, <span class="st">"kinesiske"</span>, <span class="st">"kinesiskt"</span>, <span class="st">"kineser"</span>, <span class="st">"kineseren"</span>, </span>
-<span>                                    <span class="st">"kinesere"</span>, <span class="st">"kineserne"</span>, <span class="st">"ordfører"</span>, <span class="st">"ordføreren"</span>, <span class="st">"ordførerens"</span>, <span class="st">"ordførere"</span>, <span class="st">"ordførerne"</span>, </span>
-<span>                                    <span class="st">"spørgsmål"</span>, <span class="st">"møder"</span>, <span class="st">"holger"</span>, <span class="st">"k"</span>, <span class="st">"nielsen"</span>, <span class="st">"regering"</span>, <span class="st">"regeringen"</span>, <span class="st">"regeringens"</span>, </span>
-<span>                                    <span class="st">"folketinget"</span>, <span class="st">"folketingets"</span>, <span class="st">"måske"</span>, <span class="st">"forslag"</span>, <span class="st">"egentlig"</span>, <span class="st">"rigtig"</span>, <span class="st">"rigtigt"</span>, <span class="st">"rigtige"</span>, </span>
-<span>                                    <span class="st">"hvert"</span>, <span class="st">"bør"</span>, <span class="st">"grund"</span>, <span class="st">"vigtig"</span>, <span class="st">"vigtigt"</span>, <span class="st">"vigtige"</span>, <span class="st">"ting"</span>, <span class="st">"ønsker"</span>, <span class="st">"fru"</span>, <span class="st">"hr"</span>, </span>
-<span>                                    <span class="st">"selvfølgelig"</span>, <span class="st">"gange"</span>, <span class="st">"præcis"</span>, <span class="st">"sagde"</span>, <span class="st">"hele"</span>, <span class="st">"fald"</span>, <span class="st">"enhedslisten"</span>, <span class="st">"sidste"</span>, </span>
-<span>                                    <span class="st">"forstå"</span>, <span class="st">"betyder"</span>, <span class="st">"alliances"</span>, <span class="st">"fortsat"</span>, <span class="st">"venstre"</span>, <span class="st">"holde"</span>, <span class="st">"præsidium"</span>, <span class="st">"baseret"</span>,</span>
-<span>                                    <span class="st">"lande"</span>, <span class="st">"land"</span>, <span class="st">"gjorde"</span>, <span class="st">"pind"</span>, <span class="st">"simpelt"</span>, <span class="st">"frem"</span>, <span class="st">"præsidiet"</span>, <span class="st">"præsidium"</span>, </span>
-<span>                                    <span class="st">"dokument"</span>, <span class="st">"tale"</span>, <span class="st">"hen"</span>, <span class="st">"o.k"</span>, <span class="st">"alverden"</span>, <span class="st">"angiveligt"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-</div>
-<p>We then do an <code>anti_join</code> of our custom stopword list to
-our tidy text</p>
-<div class="codewrapper sourceCode" id="cb28">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">kina_top_10_ord_3</span> <span class="op">&lt;-</span> <span class="va">kina_top_10_ord_2</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">anti_join</span><span class="op">(</span><span class="va">custom_stopwords</span>, by <span class="op">=</span> <span class="st">"word"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'kina_top_10_ord_2' not found</code></pre>
-</div>
-<p>Let’s now calculate the top 10 words from each party and save it as
-an object</p>
-<div class="codewrapper sourceCode" id="cb30">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">kina_top_10_ord_4</span> <span class="op">&lt;-</span> <span class="va">kina_top_10_ord_3</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">Role</span> <span class="op">!=</span> <span class="st">"formand"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">Party</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">count</span><span class="op">(</span><span class="va">word</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">top_n</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">ungroup</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>word <span class="op">=</span> <span class="fu">reorder_within</span><span class="op">(</span><span class="va">word</span>, <span class="va">n</span>, <span class="va">Party</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'kina_top_10_ord_3' not found</code></pre>
-</div>
-<p>Let us now plot the result</p>
-<div class="codewrapper sourceCode" id="cb32">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">kina_top_10_ord_4</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">n</span>, <span class="va">word</span>, fill <span class="op">=</span> <span class="va">Party</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">Party</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_y_reordered</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Word occurrences"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'kina_top_10_ord_4' not found</code></pre>
-</div>
-</section><section><h2 class="section-heading" id="tf_idf">tf_idf<a class="anchor" aria-label="anchor" href="#tf_idf"></a></h2>
-<hr class="half-width"><p>We see that many words co-occur among the parties. How can we make a
-plot of what each party talks about that the others don’t? We can use
-the tf_idf calculation. Briefly, tf_idf in this case looks at the words
-that occur among each party, and gives a high value to those that
-frequently occur in one party but rarely occur among the other parties.
-This will give us a sense of what each party emphasizes in their
-speeches about China</p>
-<p>First we need to calculate the tf_idf of each word in our tidy
-text</p>
-<div class="codewrapper sourceCode" id="cb34">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">kina_tidy_tf_idf</span> <span class="op">&lt;-</span> <span class="va">kina_top_10_ord_3</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">Role</span> <span class="op">!=</span> <span class="st">"formand"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">count</span><span class="op">(</span><span class="va">Party</span>, <span class="va">word</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">bind_tf_idf</span><span class="op">(</span><span class="va">word</span>, <span class="va">Party</span>, <span class="va">n</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">arrange</span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">tf_idf</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'kina_top_10_ord_3' not found</code></pre>
-</div>
-<p>Now we want to select each party’s 10 words that have the highest
-tf_idf</p>
-<div class="codewrapper sourceCode" id="cb36">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">kina_tidy_tf_idf_top_10</span> <span class="op">&lt;-</span> <span class="va">kina_tidy_tf_idf</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">Party</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">top_n</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">ungroup</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>word <span class="op">=</span> <span class="fu">reorder_within</span><span class="op">(</span><span class="va">word</span>, <span class="va">tf_idf</span>, <span class="va">Party</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'kina_tidy_tf_idf' not found</code></pre>
-</div>
-<p>Now let’s make our plot.</p>
-<div class="codewrapper sourceCode" id="cb38">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">kina_tidy_tf_idf_top_10</span> <span class="op">%&gt;%</span>  </span>
-<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">tf_idf</span>, <span class="va">word</span>, fill <span class="op">=</span> <span class="va">Party</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">Party</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_y_reordered</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"tf_idf"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'kina_tidy_tf_idf_top_10' not found</code></pre>
-</div>
-<div id="keypoints1" class="callout keypoints">
+<figure><img src="fig/03-frequency-analysis-rendered-unnamed-chunk-8-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
 </div>
@@ -881,8 +625,8 @@ any links that you are not going to use.
   "url": "https://KUBDatalab.github.io/R-textmining_new/03-frequency-analysis.html",
   "identifier": "https://KUBDatalab.github.io/R-textmining_new/03-frequency-analysis.html",
   "dateCreated": "2024-05-01",
-  "dateModified": "2025-03-13",
-  "datePublished": "2025-03-13"
+  "dateModified": "2025-03-14",
+  "datePublished": "2025-03-14"
 }
 
   </script><script>
