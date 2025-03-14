@@ -50,50 +50,97 @@ articles_filtered %>%
   inner_join(bing) 
 ```
 
+SKRIVE NOGET OM INNER JOIN
 
 ```{r}
 articles_filtered %>% 
   inner_join(bing) %>% 
-  count(word, sentiment, president, sort = TRUE) %>% 
+  count(word, sentiment, sort = TRUE) %>% 
   ungroup() %>% 
-  group_by(sentiment, president) %>% 
+  group_by(sentiment) %>% 
   slice_max(n, n = 10) %>% 
   ungroup() %>% 
   mutate(word = reorder(word, n)) %>% 
   ggplot(mapping = aes(n, word, fill = sentiment)) +
   geom_col(show.legend = FALSE) +
-  facet_grid(president~sentiment, scales = "free") +
+  facet_wrap(~sentiment, scales = "free_y") +
   labs(x = "Contribution to sentiment", 
        y = NULL)
 
-
-
-
-
-# 
-# articles_filtered %>% 
-#   inner_join(bing) %>% 
-#   group_by(president, sentiment) %>% 
-#   count(word, sort = TRUE) %>% 
-#   slice_max(n, n = 10) %>% 
-#   ggplot(mapping = aes(x = n, y = word)) +
-#   geom_col() +
-#   facet_grid(sentiment~president)
-  
 ```
 
 
 
 
 ```{r}
-articles_filtered %>% 
+articles_filtered %>%
   inner_join(bing) %>% 
   group_by(president) %>% 
   summarise(positive = sum(sentiment == "positive"),
-            negative = sum(sentiment == "negative")) %>% 
-  ggplot(mapping = aes(x = president, y = positive)) +
-  geom_col()
+            negative = sum(sentiment == "negative")) 
 ```
+With ´bing´ we only look at the sentiment in binary fashion - a word is either positive or negative. If we try to do similar analysis with AFINN it looks different.
+
+```{r}
+install.packages("textdata")
+library(textdata)
+```
+
+
+
+
+
+```{r}
+afinn <- get_sentiments("afinn")
+```
+
+
+```{r}
+articles_filtered %>% 
+  inner_join(afinn) 
+```
+
+```{r}
+articles_filtered %>%
+  inner_join(afinn) %>% 
+  group_by(president) %>% 
+  summarise(sentiment = sum(value))
+```
+
+
+
+```{r}
+articles_filtered %>%
+  inner_join(afinn) %>% 
+  group_by(president, value) %>% 
+  summarise(sentiment = sum(value)) %>% 
+  ggplot(mapping = aes(x = value, y = sentiment, fill = value)) +
+  geom_col() + 
+  facet_wrap(~president)
+
+
+
+
+```
+
+```{r}
+articles_filtered %>% 
+  inner_join(afinn) %>% 
+  count(president, word, value, sort = TRUE) %>% 
+  ungroup() %>% 
+  group_by(president, value) %>% 
+  slice_max(n, n = 3) %>% 
+  ungroup() %>% 
+  mutate(word = reorder(word, n)) %>% 
+  ggplot(mapping = aes(n, word, fill = president)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~value, scales = "free_y") +
+  labs(x = "Contribution to sentiment", 
+       y = NULL)
+```
+
+
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
