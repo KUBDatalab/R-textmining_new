@@ -94,20 +94,21 @@ Warning in inner_join(., bing): Detected an unexpected many-to-many relationship
 # ℹ 6,149 more rows
 ```
 
+SKRIVE NOGET OM INNER JOIN
 
 
 ``` r
 articles_filtered %>% 
   inner_join(bing) %>% 
-  count(word, sentiment, president, sort = TRUE) %>% 
+  count(word, sentiment, sort = TRUE) %>% 
   ungroup() %>% 
-  group_by(sentiment, president) %>% 
+  group_by(sentiment) %>% 
   slice_max(n, n = 10) %>% 
   ungroup() %>% 
   mutate(word = reorder(word, n)) %>% 
   ggplot(mapping = aes(n, word, fill = sentiment)) +
   geom_col(show.legend = FALSE) +
-  facet_grid(president~sentiment, scales = "free") +
+  facet_wrap(~sentiment, scales = "free_y") +
   labs(x = "Contribution to sentiment", 
        y = NULL)
 ```
@@ -126,30 +127,16 @@ Warning in inner_join(., bing): Detected an unexpected many-to-many relationship
 
 <img src="fig/04-sentiment-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" />
 
-``` r
-# 
-# articles_filtered %>% 
-#   inner_join(bing) %>% 
-#   group_by(president, sentiment) %>% 
-#   count(word, sort = TRUE) %>% 
-#   slice_max(n, n = 10) %>% 
-#   ggplot(mapping = aes(x = n, y = word)) +
-#   geom_col() +
-#   facet_grid(sentiment~president)
-```
-
 
 
 
 
 ``` r
-articles_filtered %>% 
+articles_filtered %>%
   inner_join(bing) %>% 
   group_by(president) %>% 
   summarise(positive = sum(sentiment == "positive"),
-            negative = sum(sentiment == "negative")) %>% 
-  ggplot(mapping = aes(x = president, y = positive)) +
-  geom_col()
+            negative = sum(sentiment == "negative")) 
 ```
 
 ``` output
@@ -164,7 +151,119 @@ Warning in inner_join(., bing): Detected an unexpected many-to-many relationship
   "many-to-many"` to silence this warning.
 ```
 
-<img src="fig/04-sentiment-rendered-unnamed-chunk-6-1.png" style="display: block; margin: auto;" />
+``` output
+# A tibble: 2 × 3
+  president positive negative
+  <chr>        <int>    <int>
+1 obama         1499     1800
+2 trump         1160     1700
+```
+With ´bing´ we only look at the sentiment in binary fashion - a word is either positive or negative. If we try to do similar analysis with AFINN it looks different.
+
+
+``` r
+install.packages("textdata")
+```
+
+``` output
+The following package(s) will be installed:
+- textdata [0.4.5]
+These packages will be installed into "~/work/R-textmining_new/R-textmining_new/renv/profiles/lesson-requirements/renv/library/linux-ubuntu-jammy/R-4.4/x86_64-pc-linux-gnu".
+
+# Installing packages --------------------------------------------------------
+- Installing textdata ...                       OK [linked from cache]
+Successfully installed 1 package in 7 milliseconds.
+```
+
+``` r
+library(textdata)
+```
+
+
+
+
+
+
+``` r
+afinn <- get_sentiments("afinn")
+```
+
+``` output
+Do you want to download:
+ Name: AFINN-111 
+ URL: http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=6010 
+ License: Open Database License (ODbL) v1.0 
+ Size: 78 KB (cleaned 59 KB) 
+ Download mechanism: https 
+```
+
+``` error
+Error in menu(choices = c("Yes", "No"), title = title): menu() cannot be used non-interactively
+```
+
+
+
+``` r
+articles_filtered %>% 
+  inner_join(afinn) 
+```
+
+``` error
+Error: object 'afinn' not found
+```
+
+
+``` r
+articles_filtered %>%
+  inner_join(afinn) %>% 
+  group_by(president) %>% 
+  summarise(sentiment = sum(value))
+```
+
+``` error
+Error: object 'afinn' not found
+```
+
+
+
+
+``` r
+articles_filtered %>%
+  inner_join(afinn) %>% 
+  group_by(president, value) %>% 
+  summarise(sentiment = sum(value)) %>% 
+  ggplot(mapping = aes(x = value, y = sentiment, fill = value)) +
+  geom_col() + 
+  facet_wrap(~president)
+```
+
+``` error
+Error: object 'afinn' not found
+```
+
+
+``` r
+articles_filtered %>% 
+  inner_join(afinn) %>% 
+  count(president, word, value, sort = TRUE) %>% 
+  ungroup() %>% 
+  group_by(president, value) %>% 
+  slice_max(n, n = 3) %>% 
+  ungroup() %>% 
+  mutate(word = reorder(word, n)) %>% 
+  ggplot(mapping = aes(n, word, fill = president)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~value, scales = "free_y") +
+  labs(x = "Contribution to sentiment", 
+       y = NULL)
+```
+
+``` error
+Error: object 'afinn' not found
+```
+
+
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
