@@ -2,11 +2,7 @@
 title: "Loading data"
 teaching: 0
 exercises: 0
-questions:
 
-objectives:
-
-keypoints:
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -73,18 +69,26 @@ articles <- read_csv("data/articles.csv", na = c("NA", "NULL", ""))
 ```
 
 ## Data description
-The dataset contains newspaper articles from the Guardian. The harvested articles were published on the first inauguration day of each of the two presidents. Inclusion criteria were that the articles had to contain the name of the relevant president, the word "inauguration" and a publication date similar to the inaugration date.
+The dataset contains newspaper articles from the Guardian. The harvested articles were published on the first inauguration day of each of the two presidents. Inclusion criteria were that the articles had to contain the name of the relevant president, the word "inauguration" and a publication date similar to the inauguration date.
 
 The original dataset contained lots of variables that are irrelevant within the parameters of this course. The following variables were kept:
 
-* `id`
-* `president`
-* `text`
-* `web_publication_date`
-* `pillar_name`
+* __id__ - a unique number identifying each article
+* __president__ - the president mentioned in the article
+* __text__ - the full text from the article
+* __web_publication_date__ - the date of publication
+* __pillar_name__ - the section in the newspaper
 
+::::::::::::::::::::::::::::::::::::::: discussion
 
 ### Taking a quick look at the data
+In the following you can see some different functions that allow you to easily take a quick look at the data.
+
+:::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::: solution
+
+### How to show the first / last rows
 
 
 ``` r
@@ -103,6 +107,28 @@ head(articles)
 6     6 obama     "Liveblogging the inaugurati… 2009-01-20 13:56:40  News       
 ```
 
+``` r
+tail(articles)
+```
+
+``` output
+# A tibble: 6 × 5
+     id president text                          web_publication_date pillar_name
+  <dbl> <chr>     <chr>                         <dttm>               <chr>      
+1   132 trump     Buy, George? World's largest… 2017-01-20 15:53:41  News       
+2   133 trump     Gove’s ‘snowflake’ tweet is … 2017-01-20 12:44:10  Opinion    
+3   134 trump     Monet, Renoir and a £44.2m M… 2017-01-20 04:00:22  News       
+4   135 trump     El Chapo is not a Robin Hood… 2017-01-20 17:09:54  News       
+5   136 trump     They call it fun, but the di… 2017-01-20 16:19:50  Opinion    
+6   137 trump     Totes annoying: words that s… 2017-01-20 12:00:06  News       
+```
+
+
+:::::::::::::::: 
+
+:::::::::::::::: solution
+### How to show informations about the columns
+
 
 ``` r
 glimpse(articles)
@@ -117,6 +143,36 @@ $ text                 <chr> "Obama inauguration: We will remake America, vows�
 $ web_publication_date <dttm> 2009-01-20 19:16:38, 2009-01-20 22:00:00, 2009-0…
 $ pillar_name          <chr> "News", "Opinion", "News", "News", "News", "News"…
 ```
+::::::::::::::::
+
+:::::::::::::::: solution
+### Get the names of the variables / columns
+
+``` r
+names(articles)
+```
+
+``` output
+[1] "id"                   "president"            "text"                
+[4] "web_publication_date" "pillar_name"         
+```
+ 
+:::::::::::::::: 
+
+:::::::::::::::: solution
+### Get the dimension of the dataset (number of rows and coloumns)
+
+
+``` r
+dim(articles)
+```
+
+``` output
+[1] 137   5
+```
+
+::::::::::::::::
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 

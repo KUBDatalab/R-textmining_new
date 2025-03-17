@@ -13,8 +13,8 @@ exercises: 0
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Learnn how to find frequent words
-- Learn how to analyse and visualise it"
+- Learn how to find frequent words
+- Learn how to analyse and visualise it
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
