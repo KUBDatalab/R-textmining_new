@@ -118,11 +118,11 @@
   Ny udgave af text mining på engelsk
 </div>
 
-<aside class="col-md-12 lesson-progress"><div style="width: 0%" class="percentage">
-    0%
+<aside class="col-md-12 lesson-progress"><div style="width: NaN%" class="percentage">
+    NaN%
   </div>
   <div class="progress library">
-    <div class="progress-bar library" role="progressbar" style="width: 0%" aria-valuenow="0" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar library" role="progressbar" style="width: NaN%" aria-valuenow="NaN" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
     </div>
   </div>
 </aside><div class="container">
@@ -259,24 +259,6 @@
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
-<div class="accordion accordion-flush" id="accordionFlush7">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading7">
-        <a href="05-stemming-and-more.html">6. frekvensanalyse</a>
-    </div><!--/div.accordion-header-->
-
-  </div><!--/div.accordion-item-->
-</div><!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush8">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading8">
-        <a href="06-whats-next.html">7. whats_next</a>
-    </div><!--/div.accordion-header-->
-
-  </div><!--/div.accordion-item-->
-</div><!--/div.accordion-flush-->
-
                 </div>
               </div>
             </div>
@@ -320,7 +302,7 @@
   <div class="col-xl-8 col-lg-12 primary-content">
     <nav class="lesson-content mx-md-4" aria-label="Previous and Next Chapter"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="../instructor/03-frequency-analysis.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
-        <a class="chapter-link float-end" href="../instructor/05-stemming-and-more.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="../instructor/index.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
@@ -328,14 +310,14 @@
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
           Previous: Word frequency
         </a>
-        <a class="chapter-link float-end" href="../instructor/05-stemming-and-more.html" rel="next">
-          Next: frekvensanalyse...
+        <a class="chapter-link float-end" href="../instructor/index.html" rel="next">
+          Home
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>sentiment analysis</h1>
-        <p>Last updated on 2025-03-14 |
+        <p>Last updated on 2025-03-17 |
 
         <a href="https://github.com/KUBDatalab/R-textmining_new/edit/main/episodes/04-sentiment.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -356,7 +338,7 @@
 <div class="card-body">
 <div class="inner">
 <h3 class="card-title">Questions</h3>
-<ul><li>“More resources”</li>
+<ul><li>How is sentiment analysis conducted?</li>
 </ul></div>
 </div>
 </div>
@@ -364,8 +346,9 @@
 <div class="card-body">
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
-<ul><li>“Learning about extra tools that can aid your text mining
-journey”</li>
+<ul><li>Learn about different lexicon</li>
+<li>Learn how to add sentiment to words</li>
+<li>Analyse and visualise the sentiments in a text</li>
 </ul></div>
 </div>
 </div>
@@ -543,7 +526,7 @@ These packages will be installed into "~/work/R-textmining_new/R-textmining_new/
 
 # Installing packages --------------------------------------------------------
 - Installing textdata ...                       OK [linked from cache]
-Successfully installed 1 package in 7 milliseconds.</code></pre>
+Successfully installed 1 package in 7.9 milliseconds.</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -645,8 +628,9 @@ Successfully installed 1 package in 7 milliseconds.</code></pre>
 <div class="callout-inner">
 <h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
-<ul><li>“Stemming can be useful for Natural Language Processing; Stopword
-lists are available for many languages”</li>
+<ul><li>There are different lexicons</li>
+<li>It is possible to add sentiments to words</li>
+<li>It is possible to visulise the sentiments</li>
 </ul></div>
 </div>
 </div>
@@ -657,7 +641,7 @@ any links that you are not going to use.
 </section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="../instructor/03-frequency-analysis.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
-        <a class="chapter-link float-end" href="../instructor/05-stemming-and-more.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="../instructor/index.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
@@ -665,8 +649,8 @@ any links that you are not going to use.
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
           Previous: Word frequency
         </a>
-        <a class="chapter-link float-end" href="../instructor/05-stemming-and-more.html" rel="next">
-          Next: frekvensanalyse...
+        <a class="chapter-link float-end" href="../instructor/index.html" rel="next">
+          Home
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
@@ -712,8 +696,8 @@ any links that you are not going to use.
   "url": "https://KUBDatalab.github.io/R-textmining_new/instructor/04-sentiment.html",
   "identifier": "https://KUBDatalab.github.io/R-textmining_new/instructor/04-sentiment.html",
   "dateCreated": "2024-05-01",
-  "dateModified": "2025-03-14",
-  "datePublished": "2025-03-14"
+  "dateModified": "2025-03-17",
+  "datePublished": "2025-03-17"
 }
 
   </script><script>
