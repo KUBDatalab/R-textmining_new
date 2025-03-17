@@ -6,13 +6,15 @@ exercises: 0
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- "More resources"
+- How is sentiment analysis conducted?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- "Learning about extra tools that can aid your text mining journey"
+- Learn about different lexicon
+- Learn how to add sentiment to words
+- Analyse and visualise the sentiments in a text
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -144,6 +146,8 @@ articles_filtered %>%
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- "Stemming can be useful for Natural Language Processing; Stopword lists are available for many languages"
+- There are different lexicons
+- It is possible to add sentiments to words
+- It is possible to visulise the sentiments
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
