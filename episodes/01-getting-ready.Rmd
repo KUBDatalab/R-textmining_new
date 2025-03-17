@@ -2,11 +2,7 @@
 title: "Loading data"
 teaching: 0
 exercises: 0
-questions:
 
-objectives:
-
-keypoints:
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -76,26 +72,62 @@ articles <- read_csv("data/articles.csv", na = c("NA", "NULL", ""))
 ```
 
 ## Data description
-The dataset contains newspaper articles from the Guardian. The harvested articles were published on the first inauguration day of each of the two presidents. Inclusion criteria were that the articles had to contain the name of the relevant president, the word "inauguration" and a publication date similar to the inaugration date.
+The dataset contains newspaper articles from the Guardian. The harvested articles were published on the first inauguration day of each of the two presidents. Inclusion criteria were that the articles had to contain the name of the relevant president, the word "inauguration" and a publication date similar to the inauguration date.
 
 The original dataset contained lots of variables that are irrelevant within the parameters of this course. The following variables were kept:
 
-* `id`
-* `president`
-* `text`
-* `web_publication_date`
-* `pillar_name`
+* __id__ - a unique number identifying each article
+* __president__ - the president mentioned in the article
+* __text__ - the full text from the article
+* __web_publication_date__ - the date of publication
+* __pillar_name__ - the section in the newspaper
 
+::::::::::::::::::::::::::::::::::::::: discussion
 
 ### Taking a quick look at the data
+In the following you can see some different functions that allow you to easily take a quick look at the data.
+
+:::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::: solution
+
+### How to show the first / last rows
 
 ```{r head}
 head(articles)
 ```
+```{r}
+tail(articles)
+```
+
+
+:::::::::::::::: 
+
+:::::::::::::::: solution
+### How to show informations about the columns
 
 ```{r glimpse}
 glimpse(articles)
 ```
+::::::::::::::::
+
+:::::::::::::::: solution
+### Get the names of the variables / columns
+```{r}
+names(articles)
+```
+ 
+:::::::::::::::: 
+
+:::::::::::::::: solution
+### Get the dimension of the dataset (number of rows and coloumns)
+
+```{r}
+dim(articles)
+```
+
+::::::::::::::::
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
