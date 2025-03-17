@@ -4,12 +4,12 @@ teaching: 0
 exercises: 0
 ---
 
-:::::::::::::::::::::::::::::::::::::: questions 
+:::::::::::::::::::::::::::::::::::::: questions
 
 - What is text mining?
-- What is tidy text?
 - What is stop words?
 - What is tokenisation?
+- What is tidytext?
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -17,9 +17,9 @@ exercises: 0
 ::::::::::::::::::::::::::::::::::::: objectives
 
 - Explain what text mining is
-- Explain what tidy text is
 - Explain what stop words is
 - Explain what tokenisation is
+- Explain what tidytext is
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -38,7 +38,7 @@ Text often contains words that hold no particular meaning. These are called stop
 
 ### Example of removing stopwords
 
-![Stopwords examples](./fig/Stopwords.png)
+![](./fig/Stopwords.png)
 ::::::
 
 ## Tidytext and tokenisation
@@ -70,10 +70,7 @@ Here is an example of tokenisation on word-level.
 
 ### Example of tokenization
 
-![Tokenization of example sentence](./fig/Tokenization.png)
-Hvitfeldt & Silge, 2021
-
-(bør man også vise tabel-resultatet)
+![](./fig/Tokenization.png)
 
 ::::::
 
@@ -83,8 +80,8 @@ Hvitfeldt & Silge, 2021
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Know what text mining is
-- Know what tidy text is
 - Know what stop words is
 - What data are we working with
+- Know what tidytext is
 
 ::::::::::::::::::::::::::::::::::::::::::::::::

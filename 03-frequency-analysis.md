@@ -7,13 +7,14 @@ exercises: 0
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- "How can we find the most frequent terms from each party?"
+- How is frequency analysis conducted?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- "Learning how to analyze term frequency and visualize it"
+- Learnn how to find frequent words
+- Learn how to analyse and visualise it"
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -190,7 +191,8 @@ articles_filtered %>%
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- "Custom stopword list may be necessary depending on the context"
+- Making a frequency analysis
+- Visualising the results
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::

@@ -7,13 +7,15 @@ exercises: 0
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- "How do we prepare text for analysis and measure the sentiment of the text?"
+- How is text prepared for analysis?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- "Using specific packages to perform text preparation and sentiment analysis"
+- Be able to tokenise a text
+- Be able to remove stopword from text
+
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
@@ -177,6 +179,6 @@ There are multiple ways to join dataset in R.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- "All natural language texts must be prepared for analysis"
+- Know how to prepare text for analysis
 
 ::::::::::::::::::::::::::::::::::::::::::::::::

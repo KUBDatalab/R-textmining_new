@@ -6,13 +6,15 @@ exercises: 0
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- "More resources"
+- How is sentiment analysis conducted?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- "Learning about extra tools that can aid your text mining journey"
+- Learn about different lexicon
+- Learn how to add sentiment to words
+- Analyse and visualise the sentiments in a text
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -172,7 +174,7 @@ These packages will be installed into "~/work/R-textmining_new/R-textmining_new/
 
 # Installing packages --------------------------------------------------------
 - Installing textdata ...                       OK [linked from cache]
-Successfully installed 1 package in 7 milliseconds.
+Successfully installed 1 package in 7.9 milliseconds.
 ```
 
 ``` r
@@ -267,6 +269,8 @@ Error: object 'afinn' not found
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- "Stemming can be useful for Natural Language Processing; Stopword lists are available for many languages"
+- There are different lexicons
+- It is possible to add sentiments to words
+- It is possible to visulise the sentiments
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
