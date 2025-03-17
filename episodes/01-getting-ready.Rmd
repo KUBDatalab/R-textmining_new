@@ -12,15 +12,18 @@ keypoints:
 :::::::::::::::::::::::::::::::::::::: questions 
 
 
-- "How do we load in the dataset?"
-- "Prering data for analysis"
+- Which packages are needed?
+- How to load the dataset?
+- How to inspect the dataset?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- "Be introduced to text mining"
-- "Be introduced to loading in text data"
+- Get to know the packages that are needed
+- Load in the dataset
+- Inspect the dataset
+
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
@@ -96,6 +99,8 @@ glimpse(articles)
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- "Packages must be installed and loaded in, and dataset must be loaded in by typing commands"
+- Packages must be installed and loaded
+- The dataset needs to be loaded
+- The dataset can be inspected with different functions
 
 ::::::::::::::::::::::::::::::::::::::::::::::::

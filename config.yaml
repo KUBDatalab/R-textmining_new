@@ -64,8 +64,6 @@ episodes:
 - 02-preparing-data.Rmd
 - 03-frequency-analysis.Rmd
 - 04-sentiment.Rmd
-- 05-stemming-and-more.Rmd
-- 06-whats-next.Rmd
 
 # Information for Learners
 learners: 
