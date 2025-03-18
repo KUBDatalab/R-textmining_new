@@ -9,16 +9,16 @@ exercises: 0
 
 
 - Which packages are needed?
-- How to load the dataset?
-- How to inspect the dataset?
+- How is the dataset loaded?
+- How is a dataset inspected?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Get to know the packages that are needed
-- Load in the dataset
-- Inspect the dataset
+- Knowledge of the relevant packages
+- Ability to to load the dataset
+- Ability to inspect the dataset
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -28,7 +28,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Getting startet
-When performing text analysis in R, the built-in functions in R are not sufficient. It is therefore necessary to install som additional packages. In this course we will be using `tidyverse`, `tidytext` and `tm`.
+When performing text analysis in R, the built-in functions in R are not sufficient. It is therefore necessary to install som additional packages. In this course we will be using the packages `tidyverse`, `tidytext` and `tm`.
 
 ```{r library, include = FALSE, message = F, warning = F}
 library(tidyverse)
@@ -59,22 +59,22 @@ If you would like to know more about the different packages, please click on the
 ::::::
 
 ## Getting data
-Begin by downloading the dataset called `articles.csv`. Place the downloaded file in the data/. You can do this directly from R by copying and pasting this in your terminal.
+Begin by downloading the dataset called `articles.csv`. Place the downloaded file in the data/ folder. You can do this directly from R by copying and pasting this in your terminal.
 
 ```{r download-data, eval = FALSE}
 download.file("https://raw.githubusercontent.com/KUBDatalab/R-textmining_new/main/episodes/data/articles.csv", "data/articles.csv", mode = "wb")
 ```
 
-After downloading the data you need to load the data in R's memory using the function `read_csv()`
+After downloading the data you need to load the data in R's memory by using the function `read_csv()`
 
 ```{r, eval = TRUE,  message = FALSE, purl = FALSE, echo = TRUE}
 articles <- read_csv("data/articles.csv", na = c("NA", "NULL", ""))
 ```
 
 ## Data description
-The dataset contains newspaper articles from the Guardian. The harvested articles were published on the first inauguration day of each of the two presidents. Inclusion criteria were that the articles had to contain the name of the relevant president, the word "inauguration" and a publication date similar to the inauguration date.
+The dataset contains newspaper articles from the Guardian newspaper. The harvested articles were published on the first inauguration day of each of the two presidents. Inclusion criteria were that the articles had to contain the name of the relevant president, the word "inauguration" and a publication date similar to the inauguration date.
 
-The original dataset contained lots of variables that are irrelevant within the parameters of this course. The following variables were kept:
+The original dataset contained lots of variables considered irrelevant within the parameters of this course. The following variables were kept:
 
 * __id__ - a unique number identifying each article
 * __president__ - the president mentioned in the article
@@ -85,7 +85,7 @@ The original dataset contained lots of variables that are irrelevant within the 
 ::::::::::::::::::::::::::::::::::::::: discussion
 
 ### Taking a quick look at the data
-In the following you can see some different functions that allow you to easily take a quick look at the data.
+The 'tidyverse'-package has some functions that allow you to inspect the dataset. Below, you can see some of these functions and what they do.
 
 :::::::::::::::::::::::::::::::::::::::
 
@@ -104,7 +104,7 @@ tail(articles)
 :::::::::::::::: 
 
 :::::::::::::::: solution
-### How to show informations about the columns
+### How to show information about the columns
 
 ```{r glimpse}
 glimpse(articles)
@@ -133,6 +133,6 @@ dim(articles)
 
 - Packages must be installed and loaded
 - The dataset needs to be loaded
-- The dataset can be inspected with different functions
+- The dataset can be inspected by means of different functions
 
 ::::::::::::::::::::::::::::::::::::::::::::::::

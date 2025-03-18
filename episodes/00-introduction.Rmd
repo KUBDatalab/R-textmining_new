@@ -7,7 +7,7 @@ exercises: 0
 :::::::::::::::::::::::::::::::::::::: questions
 
 - What is text mining?
-- What is stop words?
+- What are stop words?
 - What is tokenisation?
 - What is tidytext?
 
@@ -17,22 +17,21 @@ exercises: 0
 ::::::::::::::::::::::::::::::::::::: objectives
 
 - Explain what text mining is
-- Explain what stop words is
+- Explain what stop words are
 - Explain what tokenisation is
 - Explain what tidytext is
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## What is text mining?
-Text mining is the process of extracting useful information and knowledge from text. Text mining tools allow the user to analyse large samples of texts and visualise the results.
+Text mining is the process of extracting meaningful information and knowledge from text. Text mining tools and methods allow the user to analyse large bodies of texts and to visualise the results.
 
-Through these analyses you can gain insights into a collection of text 
-to large to read with the naked eye.
+By applying text mining principles to to a body of text you can gain insights that would otherwise be impossible to detect with the naked eye.
 
-Before you can carry out your analysis the text need to be transformed into a form that makes it easier to work with for a machine.
+Before carrying out your analysis, the text must be transformed so that it can be read by a machine.
 
 ## Stopwords
-Text often contains words that hold no particular meaning. These are called stop words and are found throughout the text. Since stop words rarely contribute to the understanding of the text, it is a good idea to remove them before analysing the text.
+Text often contains words that hold no particular meaning. These are called stop words and they are found throughout the text. Since stop words rarely contribute to the understanding of the text, it is a good idea to remove them before analysing the text.
 
 :::: callout
 
@@ -42,15 +41,16 @@ Text often contains words that hold no particular meaning. These are called stop
 ::::::
 
 ## Tidytext and tokenisation
-To be able to analyse a text it needs to be machine-readable. In this course we will follow the concepts of tidytext. 
+
+In the following we will be making the text machine-readable by means of the tidy text principles. 
 
 :::: callout
 
 ### Tidy text
 
-The tidy text concept is developed by Silge and Robinson (reference tilføjes - https://www.tidytextmining.com) and applies the principles from the tidy data to text.
+The tidy text princples were developed by Silge and Robinson (reference tilføjes - https://www.tidytextmining.com) and apply the principles from the _tidy data_ on text.
 
-The tidy data framework, principles are:
+The tidy data framework principles are:
 
 * Each variable forms a column.
 * Each observation forms a row.
@@ -60,11 +60,11 @@ Applying these principles to text data leads to a format that is easily manipula
 
 ::::::
 
-Tidytext represents the text by breaking it down into smaller pieces, such as sentences, words and letters. This process is called tokenisation.
+Tidy text represents the text by breaking it down into smaller parts such as sentences, words and letters. This process is called tokenisation.
 
-Tokenisation is language  independent, as long as the language uses spaces between words.
+Tokenisation is language independent, as long as the language uses space between each word.
 
-Here is an example of tokenisation on word-level.
+Here is an example of tokenisation at word-level.
 
 :::: callout
 
@@ -80,8 +80,8 @@ Here is an example of tokenisation on word-level.
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Know what text mining is
-- Know what stop words is
-- What data are we working with
-- Know what tidytext is
+- Know what stop words are
+- Knowledge of the data we are working with
+- Know what tidy text means
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
