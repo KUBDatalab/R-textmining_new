@@ -376,7 +376,7 @@
 <h3 class="card-title">Questions</h3>
 <ul>
 <li>What is text mining?</li>
-<li>What is stop words?</li>
+<li>What are stop words?</li>
 <li>What is tokenisation?</li>
 <li>What is tidytext?</li>
 </ul>
@@ -389,7 +389,7 @@
 <h3 class="card-title">Objectives</h3>
 <ul>
 <li>Explain what text mining is</li>
-<li>Explain what stop words is</li>
+<li>Explain what stop words are</li>
 <li>Explain what tokenisation is</li>
 <li>Explain what tidytext is</li>
 </ul>
@@ -401,21 +401,21 @@
 <section><h2 class="section-heading" id="what-is-text-mining">What is text mining?<a class="anchor" aria-label="anchor" href="#what-is-text-mining"></a>
 </h2>
 <hr class="half-width">
-<p>Text mining is the process of extracting useful information and
-knowledge from text. Text mining tools allow the user to analyse large
-samples of texts and visualise the results.</p>
-<p>Through these analyses you can gain insights into a collection of
-text to large to read with the naked eye.</p>
-<p>Before you can carry out your analysis the text need to be
-transformed into a form that makes it easier to work with for a
-machine.</p>
+<p>Text mining is the process of extracting meaningful information and
+knowledge from text. Text mining tools and methods allow the user to
+analyse large bodies of texts and to visualise the results.</p>
+<p>By applying text mining principles to to a body of text you can gain
+insights that would otherwise be impossible to detect with the naked
+eye.</p>
+<p>Before carrying out your analysis, the text must be transformed so
+that it can be read by a machine.</p>
 </section><section><h2 class="section-heading" id="stopwords">Stopwords<a class="anchor" aria-label="anchor" href="#stopwords"></a>
 </h2>
 <hr class="half-width">
 <p>Text often contains words that hold no particular meaning. These are
-called stop words and are found throughout the text. Since stop words
-rarely contribute to the understanding of the text, it is a good idea to
-remove them before analysing the text.</p>
+called stop words and they are found throughout the text. Since stop
+words rarely contribute to the understanding of the text, it is a good
+idea to remove them before analysing the text.</p>
 <div id="example-of-removing-stopwords" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
@@ -430,8 +430,8 @@ remove them before analysing the text.</p>
 </section><section><h2 class="section-heading" id="tidytext-and-tokenisation">Tidytext and tokenisation<a class="anchor" aria-label="anchor" href="#tidytext-and-tokenisation"></a>
 </h2>
 <hr class="half-width">
-<p>To be able to analyse a text it needs to be machine-readable. In this
-course we will follow the concepts of tidytext.</p>
+<p>In the following we will be making the text machine-readable by means
+of the tidy text principles.</p>
 <div id="tidy-text" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
@@ -439,10 +439,10 @@ course we will follow the concepts of tidytext.</p>
 <div id="tidy-text" class="callout-inner">
 <h3 class="callout-title">Tidy text</h3>
 <div class="callout-content">
-<p>The tidy text concept is developed by Silge and Robinson (reference
-tilføjes - <a href="https://www.tidytextmining.com" class="external-link uri">https://www.tidytextmining.com</a>) and applies the
-principles from the tidy data to text.</p>
-<p>The tidy data framework, principles are:</p>
+<p>The tidy text princples were developed by Silge and Robinson
+(reference tilføjes - <a href="https://www.tidytextmining.com" class="external-link uri">https://www.tidytextmining.com</a>) and apply the principles
+from the <em>tidy data</em> on text.</p>
+<p>The tidy data framework principles are:</p>
 <ul>
 <li>Each variable forms a column.</li>
 <li>Each observation forms a row.</li>
@@ -454,12 +454,12 @@ tools.</p>
 </div>
 </div>
 </div>
-<p>Tidytext represents the text by breaking it down into smaller pieces,
+<p>Tidy text represents the text by breaking it down into smaller parts
 such as sentences, words and letters. This process is called
 tokenisation.</p>
 <p>Tokenisation is language independent, as long as the language uses
-spaces between words.</p>
-<p>Here is an example of tokenisation on word-level.</p>
+space between each word.</p>
+<p>Here is an example of tokenisation at word-level.</p>
 <div id="example-of-tokenization" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
@@ -480,9 +480,9 @@ spaces between words.</p>
 <div class="callout-content">
 <ul>
 <li>Know what text mining is</li>
-<li>Know what stop words is</li>
-<li>What data are we working with</li>
-<li>Know what tidytext is</li>
+<li>Know what stop words are</li>
+<li>Knowledge of the data we are working with</li>
+<li>Know what tidy text means</li>
 </ul>
 </div>
 </div>
@@ -509,8 +509,8 @@ any links that you are not going to use.
 <h3 class="card-title">Questions</h3>
 <ul>
 <li>Which packages are needed?</li>
-<li>How to load the dataset?</li>
-<li>How to inspect the dataset?</li>
+<li>How is the dataset loaded?</li>
+<li>How is a dataset inspected?</li>
 </ul>
 </div>
 </div>
@@ -520,9 +520,9 @@ any links that you are not going to use.
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul>
-<li>Get to know the packages that are needed</li>
-<li>Load in the dataset</li>
-<li>Inspect the dataset</li>
+<li>Knowledge of the relevant packages</li>
+<li>Ability to to load the dataset</li>
+<li>Ability to inspect the dataset</li>
 </ul>
 </div>
 </div>
@@ -534,8 +534,8 @@ any links that you are not going to use.
 <hr class="half-width">
 <p>When performing text analysis in R, the built-in functions in R are
 not sufficient. It is therefore necessary to install som additional
-packages. In this course we will be using <code>tidyverse</code>,
-<code>tidytext</code> and <code>tm</code>.</p>
+packages. In this course we will be using the packages
+<code>tidyverse</code>, <code>tidytext</code> and <code>tm</code>.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -569,15 +569,15 @@ click on the links below.</p>
 </h2>
 <hr class="half-width">
 <p>Begin by downloading the dataset called <code>articles.csv</code>.
-Place the downloaded file in the data/. You can do this directly from R
-by copying and pasting this in your terminal.</p>
+Place the downloaded file in the data/ folder. You can do this directly
+from R by copying and pasting this in your terminal.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">download.file</span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/KUBDatalab/R-textmining_new/main/episodes/data/articles.csv"</span>, <span class="st">"data/articles.csv"</span>, mode <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span></span></code></pre>
 </div>
-<p>After downloading the data you need to load the data in R’s memory
+<p>After downloading the data you need to load the data in R’s memory by
 using the function <code>read_csv()</code></p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -588,14 +588,15 @@ using the function <code>read_csv()</code></p>
 </section><section><h2 class="section-heading" id="data-description">Data description<a class="anchor" aria-label="anchor" href="#data-description"></a>
 </h2>
 <hr class="half-width">
-<p>The dataset contains newspaper articles from the Guardian. The
-harvested articles were published on the first inauguration day of each
-of the two presidents. Inclusion criteria were that the articles had to
-contain the name of the relevant president, the word “inauguration” and
-a publication date similar to the inauguration date.</p>
-<p>The original dataset contained lots of variables that are irrelevant
-within the parameters of this course. The following variables were
-kept:</p>
+<p>The dataset contains newspaper articles from the Guardian newspaper.
+The harvested articles were published on the first inauguration day of
+each of the two presidents. Inclusion criteria were that the articles
+had to contain the name of the relevant president, the word
+“inauguration” and a publication date similar to the inauguration
+date.</p>
+<p>The original dataset contained lots of variables considered
+irrelevant within the parameters of this course. The following variables
+were kept:</p>
 <ul>
 <li>
 <strong>id</strong> - a unique number identifying each article</li>
@@ -616,8 +617,9 @@ article</li>
 <div id="taking-a-quick-look-at-the-data" class="callout-inner">
 <h3 class="callout-title">Taking a quick look at the data</h3>
 <div class="callout-content">
-<p>In the following you can see some different functions that allow you
-to easily take a quick look at the data.</p>
+<p>The ‘tidyverse’-package has some functions that allow you to inspect
+the dataset. Below, you can see some of these functions and what they
+do.</p>
 </div>
 </div>
 </div>
@@ -628,7 +630,7 @@ to easily take a quick look at the data.</p>
   How to show the first / last rows
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -676,10 +678,10 @@ to easily take a quick look at the data.</p>
 <div class="accordion-item">
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">
-  How to show informations about the columns
+  How to show information about the columns
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -709,7 +711,7 @@ $ pillar_name          &lt;chr&gt; "News", "Opinion", "News", "News", "News", "N
   Get the names of the variables / columns
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -734,7 +736,7 @@ $ pillar_name          &lt;chr&gt; "News", "Opinion", "News", "News", "News", "N
   Get the dimension of the dataset (number of rows and coloumns)
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -761,7 +763,7 @@ $ pillar_name          &lt;chr&gt; "News", "Opinion", "News", "News", "News", "N
 <ul>
 <li>Packages must be installed and loaded</li>
 <li>The dataset needs to be loaded</li>
-<li>The dataset can be inspected with different functions</li>
+<li>The dataset can be inspected by means of different functions</li>
 </ul>
 </div>
 </div>
@@ -890,7 +892,7 @@ the stopwords list.</p>
   Add stopwords
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>First, create a tibble with the word you wish to add to the stop
 words list</p>
@@ -943,7 +945,7 @@ the new words added.</p>
   Remove stopword
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>First, create a vector with the word(s) you wish to remove from the
 stopwords list</p>
@@ -1476,7 +1478,7 @@ These packages will be installed into "~/work/R-textmining_new/R-textmining_new/
 
 # Installing packages --------------------------------------------------------
 - Installing textdata ...                       OK [linked from cache]
-Successfully installed 1 package in 7.7 milliseconds.</code></pre>
+Successfully installed 1 package in 5.7 milliseconds.</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
