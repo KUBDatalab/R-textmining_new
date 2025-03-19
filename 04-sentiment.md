@@ -1,5 +1,5 @@
 ---
-title: "sentiment analysis"
+title: "Sentiment analysis"
 teaching: 0
 exercises: 0
 ---
@@ -20,13 +20,21 @@ exercises: 0
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
+``` r
+knitr::opts_chunk$set(warning = FALSE)
+```
+
+
+
 
 ## Sentiment analysis
-Sentiment analysis is a method for measuring the sentiment of a text. When humans read a text they can easily find the sentiment of a paragraph or text based on the meaning of the combined written words.
 
-A machine does not have the same abilities, so instead of having it read the text, we look at the combined words of the text and look at the sentiment of each word and the sentiment of the text/paragraph would be the sum of the sentiments of the words.
+Sentiment refers to the emotion or tone in a piece of text. It is typically categorised as positive, negative or neutral. Sentiment is often used to analyse opinions, attitudes or emotions in written content. In this case the written content is newspaper articles.
 
-In the previous section we had a list of words in the text without stopwords. To do a sentiment analysis we can use a so-called lexicon and assign a sentiment to each word. In order to do this we need an list of words and their sentiment. A simple form would be wether they are positive or negative.
+Sentiment analysis is a method used to identify and classify emotions in textual data. This is often done using word list (lexicons). The goals is to determine whether a given text has a positive, negative or neutral tone.
+
+In order to do a sentiment analysis on our data we 
+From the previous section we have a dataset containing a list of words in the text without stopwords. To do a sentiment analysis we can use a so-called lexicon and assign a sentiment to each word. In order to do this we need an list of words and their sentiment. A simple form would be wether they are positive or negative.
 
 There are multiple sentiment lexicons. For a start we will be using the `bing` lexicon. This lexicon categorises words as either positive or negative.
 
@@ -53,30 +61,27 @@ get_sentiments("bing")
 # ℹ 6,776 more rows
 ```
 
-To be able to use the `bing`-lexicon, we have to save it.
+In order to use the `bing`-lexicon, we have to save it.
 
 
 ``` r
 bing <- get_sentiments("bing")
 ```
 
+We now need to combine the sentiment to the words from our articles. We do this by performing an inner_join.
 
 
 ``` r
-articles_filtered %>% 
-  inner_join(bing) 
+articles_bing <- articles_filtered %>% 
+  inner_join(bing)
 ```
 
 ``` output
 Joining with `by = join_by(word)`
 ```
 
-``` warning
-Warning in inner_join(., bing): Detected an unexpected many-to-many relationship between `x` and `y`.
-ℹ Row 48882 of `x` matches multiple rows in `y`.
-ℹ Row 2233 of `y` matches multiple rows in `x`.
-ℹ If a many-to-many relationship is expected, set `relationship =
-  "many-to-many"` to silence this warning.
+``` r
+articles_bing
 ```
 
 ``` output
@@ -96,12 +101,33 @@ Warning in inner_join(., bing): Detected an unexpected many-to-many relationship
 # ℹ 6,149 more rows
 ```
 
-SKRIVE NOGET OM INNER JOIN
+In R, `inner_join()` is commonly used to combine datasets based on a shared column. In this case it is the `word` column. `inner_join()` matches words from a text dataset, in this case `articles_filtered` with words in the Bing sentiment lexicon to determine whether they are positive or negative.
+
+When we have the combined dataset we can start doing sentiment analysis. A start could be to count the number of positive and negative word used in articles pr president.
 
 
 ``` r
-articles_filtered %>% 
-  inner_join(bing) %>% 
+articles_bing %>% 
+  group_by(president) %>% 
+  summarise(positive = sum(sentiment == "positive"),
+            negative = sum(sentiment == "negative"),
+            difference = positive - negative) 
+```
+
+``` output
+# A tibble: 2 × 4
+  president positive negative difference
+  <chr>        <int>    <int>      <int>
+1 obama         1499     1800       -301
+2 trump         1160     1700       -540
+```
+This shows that with both presidents there are used more negative words than positive words about both presidents, and that there have been used more negative words about Trump than Obama.
+
+Anothere thing to do would be to look at the 10 most positive and negative words used in the articles.
+
+
+``` r
+articles_bing %>% 
   count(word, sentiment, sort = TRUE) %>% 
   ungroup() %>% 
   group_by(sentiment) %>% 
@@ -110,56 +136,15 @@ articles_filtered %>%
   mutate(word = reorder(word, n)) %>% 
   ggplot(mapping = aes(n, word, fill = sentiment)) +
   geom_col(show.legend = FALSE) +
-  facet_wrap(~sentiment, scales = "free_y") +
-  labs(x = "Contribution to sentiment", 
-       y = NULL)
+  facet_wrap(~sentiment, scales = "free_y")
 ```
 
-``` output
-Joining with `by = join_by(word)`
-```
-
-``` warning
-Warning in inner_join(., bing): Detected an unexpected many-to-many relationship between `x` and `y`.
-ℹ Row 48882 of `x` matches multiple rows in `y`.
-ℹ Row 2233 of `y` matches multiple rows in `x`.
-ℹ If a many-to-many relationship is expected, set `relationship =
-  "many-to-many"` to silence this warning.
-```
-
-<img src="fig/04-sentiment-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" />
+<img src="fig/04-sentiment-rendered-unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
+Here we can see the positive and negative words used in articles
 
 
 
 
-
-``` r
-articles_filtered %>%
-  inner_join(bing) %>% 
-  group_by(president) %>% 
-  summarise(positive = sum(sentiment == "positive"),
-            negative = sum(sentiment == "negative")) 
-```
-
-``` output
-Joining with `by = join_by(word)`
-```
-
-``` warning
-Warning in inner_join(., bing): Detected an unexpected many-to-many relationship between `x` and `y`.
-ℹ Row 48882 of `x` matches multiple rows in `y`.
-ℹ Row 2233 of `y` matches multiple rows in `x`.
-ℹ If a many-to-many relationship is expected, set `relationship =
-  "many-to-many"` to silence this warning.
-```
-
-``` output
-# A tibble: 2 × 3
-  president positive negative
-  <chr>        <int>    <int>
-1 obama         1499     1800
-2 trump         1160     1700
-```
 With ´bing´ we only look at the sentiment in binary fashion - a word is either positive or negative. If we try to do similar analysis with AFINN it looks different.
 
 
@@ -174,7 +159,7 @@ These packages will be installed into "~/work/R-textmining_new/R-textmining_new/
 
 # Installing packages --------------------------------------------------------
 - Installing textdata ...                       OK [linked from cache]
-Successfully installed 1 package in 5.5 milliseconds.
+Successfully installed 1 package in 6.3 milliseconds.
 ```
 
 ``` r
@@ -206,7 +191,7 @@ Error in menu(choices = c("Yes", "No"), title = title): menu() cannot be used no
 
 
 ``` r
-articles_filtered %>% 
+articles_afinn <- articles_filtered %>% 
   inner_join(afinn) 
 ```
 
@@ -216,37 +201,34 @@ Error: object 'afinn' not found
 
 
 ``` r
-articles_filtered %>%
-  inner_join(afinn) %>% 
+articles_afinn %>% 
   group_by(president) %>% 
   summarise(sentiment = sum(value))
 ```
 
 ``` error
-Error: object 'afinn' not found
+Error: object 'articles_afinn' not found
 ```
 
 
 
 
 ``` r
-articles_filtered %>%
-  inner_join(afinn) %>% 
+articles_afinn %>% 
   group_by(president, value) %>% 
   summarise(sentiment = sum(value)) %>% 
-  ggplot(mapping = aes(x = value, y = sentiment, fill = value)) +
-  geom_col() + 
-  facet_wrap(~president)
+  ungroup() %>% 
+  ggplot(mapping = aes(x = value, y = sentiment, fill = president)) +
+  geom_col(position = "dodge")
 ```
 
 ``` error
-Error: object 'afinn' not found
+Error: object 'articles_afinn' not found
 ```
 
 
 ``` r
-articles_filtered %>% 
-  inner_join(afinn) %>% 
+articles_afinn %>% 
   count(president, word, value, sort = TRUE) %>% 
   ungroup() %>% 
   group_by(president, value) %>% 
@@ -261,7 +243,7 @@ articles_filtered %>%
 ```
 
 ``` error
-Error: object 'afinn' not found
+Error: object 'articles_afinn' not found
 ```
 
 
