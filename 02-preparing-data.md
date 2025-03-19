@@ -162,7 +162,7 @@ articles_anti_join <- articles_tidy %>%
 
 With the ´anti_join´ function you have a dataset, in this case ´stop_words´, and the function removes the word from that dataset from you original dataset, in this case ´article_tidy´.
 
-![Anti-join examples](./fig/Venn_anti_join.jpg)
+![Anti-join examples](./fig/anti_join.jpg)
 
 
 
