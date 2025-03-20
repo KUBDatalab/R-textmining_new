@@ -26,12 +26,12 @@ exercises: 0
 ## What is text mining?
 Text mining is the process of extracting meaningful information and knowledge from text. Text mining tools and methods allow the user to analyse large bodies of texts and to visualise the results.
 
-By applying text mining principles to to a body of text you can gain insights that would otherwise be impossible to detect with the naked eye.
+By applying text mining principles to to a body of text, you can gain insights that would otherwise be impossible to detect with the naked eye.
 
 Before carrying out your analysis, the text must be transformed so that it can be read by a machine.
 
 ## Stopwords
-Text often contains words that hold no particular meaning. These are called stop words and they are found throughout the text. Since stop words rarely contribute to the understanding of the text, it is a good idea to remove them before analysing the text.
+Text often contains words that hold no particular meaning. These are called stop words and can be found throughout the text. Since stop words rarely contribute to the understanding of the text, it is a good idea to remove them before analysing the text.
 
 :::: callout
 
@@ -56,11 +56,11 @@ The tidy data framework principles are:
 * Each observation forms a row.
 * Each type of observational unit forms a table.
 
-Applying these principles to text data leads to a format that is easily manipulated, visualised, and analysed using standard data science tools.
+Applying these principles to text data leads to a format that is easily manipulated, visualised and analysed using standard data science tools.
 
 ::::::
 
-Tidy text represents the text by breaking it down into smaller parts such as sentences, words and letters. This process is called tokenisation.
+Tidy text represents the text by breaking it down into smaller parts such as sentences, words or letters. This process is called tokenisation.
 
 Tokenisation is language independent, as long as the language uses space between each word.
 
