@@ -9,15 +9,15 @@ exercises: 0
 :::
 
 ::: objectives
--   Be able to tokenise a text
--   Be able to remove stopword from text
+-   Ability to tokenise a text
+-   Ability to remove stopwords from text
 :::
 
 
 
 ## Tokenisation
 
-Since we are working with text mining we focus on the `text` coloumn. We do this because the coloumn contains the text from articles.
+Since we are working with text mining, we focus on the `text` coloumn. We do this because the coloumn contains the text from the articles in question.
 
 To tokenise a coloumn, we use the functions `unnest_tokens()` from the `tidytext`-package. The function gets two arguments. The first one is `word`. This defines that the text should be split up by words. The second argument, `text`, defines the column that we want to tokenise.
 
@@ -30,7 +30,7 @@ articles_tidy <- articles %>%
 ::: callout
 ### Tokenisation
 
-The result is 118,269 rows. The reason is that the `text`-column is replaced by a new column named `word`. This columns contains all words found in all of the articles. The information from the remaining columns are kept. This makes is possible to dermine which article each word belongs to.
+The result of the tokenisation is 118,269 rows. The reason is that the `text`-column has been replaced by a new column named `word`. This columns contains all words found in all of the articles. The information from the remaining columns are kept. This makes is possible to determine which article each word belongs to.
 :::
 
 ## Stopwords
@@ -81,7 +81,7 @@ new_stop_words <- tibble(
 )
 ```
 
-Then make a new stopwords tibble based on the original on, but with the new words added.
+Then make a new stopwords tibble based on the original one, but with the new words added.
 
 
 ``` r
@@ -111,7 +111,7 @@ updated_stop_words %>%
 ::: solution
 ### Remove stopword
 
-First, create a vector with the word(s) you wish to remove from the stopwords list
+First, create a vector with the word(s) you wish to remove from the stopwords list.
 
 
 ``` r
@@ -161,7 +161,7 @@ These words are saved as the object `articles_anti_join`.
 ::: callout
 ### `Join` and `anti_join`
 
-There are multiple ways to join dataset in R.
+There are multiple `join`-functions in R.
 :::
 
 

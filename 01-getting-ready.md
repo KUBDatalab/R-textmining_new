@@ -26,7 +26,7 @@ exercises: 0
 
 
 ## Getting startet
-When performing text analysis in R, the built-in functions in R are not sufficient. It is therefore necessary to install som additional packages. In this course we will be using the packages `tidyverse`, `tidytext` and `tm`.
+When performing text analysis in R, the built-in functions in R are not sufficient. It is therefore necessary to install some additional packages. In this course we will be using the packages `tidyverse`, `tidytext` and `tm`.
 
 
 
@@ -54,14 +54,14 @@ If you would like to know more about the different packages, please click on the
 ::::::
 
 ## Getting data
-Begin by downloading the dataset called `articles.csv`. Place the downloaded file in the data/ folder. You can do this directly from R by copying and pasting this in your terminal.
+Begin by downloading the dataset called `articles.csv`. Place the downloaded file in the data/ folder. You can do this directly from R by copying and pasting this into your terminal. (The terminal is the tab to the right of the console.)
 
 
 ``` r
 download.file("https://raw.githubusercontent.com/KUBDatalab/R-textmining_new/main/episodes/data/articles.csv", "data/articles.csv", mode = "wb")
 ```
 
-After downloading the data you need to load the data in R's memory by using the function `read_csv()`
+After downloading the data you need to load the data in R's memory by using the function `read_csv()`.
 
 
 ``` r
@@ -69,7 +69,7 @@ articles <- read_csv("data/articles.csv", na = c("NA", "NULL", ""))
 ```
 
 ## Data description
-The dataset contains newspaper articles from the Guardian newspaper. The harvested articles were published on the first inauguration day of each of the two presidents. Inclusion criteria were that the articles had to contain the name of the relevant president, the word "inauguration" and a publication date similar to the inauguration date.
+The dataset contains newspaper articles from the Guardian newspaper. The harvested articles were published on the first inauguration day of each of the two presidents. Inclusion criteria were that the articles contained the name of the relevant president, the word "inauguration" and a publication date similar to the inauguration date.
 
 The original dataset contained lots of variables considered irrelevant within the parameters of this course. The following variables were kept:
 

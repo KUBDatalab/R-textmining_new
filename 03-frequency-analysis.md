@@ -7,7 +7,7 @@ exercises: 0
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How is frequency analysis conducted?
+- How is a frequency analysis conducted?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -25,7 +25,7 @@ exercises: 0
 
 ## Frequency analysis
 
-A word frequency is a relatively simple analysis. It meassures how often words occur in a text. 
+A word frequency is a relatively simple analysis. It measures how often words occur in a text. 
 
 
 
@@ -53,7 +53,7 @@ articles_anti_join %>%
 
 The previous code chunk resulted in a list containing the most frequent words. The words are from articles about both presidents, and they are sorted based on frequency with the highest number on top.
 
-A closer look at the list may reveal that some words are irrelevant. Given that the articles in the dataset are about the two presidents' respective inaugurations, we consider the words below irrelevant for our analysis. Therefore, we make a new dataset without those words.
+A closer look at the list may reveal that some words are irrelevant. Given that the articles in the dataset are about the two presidents' respective inaugurations, we consider the words below irrelevant for our analysis. Therefore, we make a new dataset without these words.
 
 
 ``` r
@@ -106,7 +106,7 @@ articles_filtered %>%
 10 trump     it’s       108
 # ℹ 15,979 more rows
 ```
-It can be a bit tricky to keep an overview of the words associated with each president. For instance, the people is associated with both presidents. This is easy to see, as the two words are right next to each other. America, however, are further apart, although this word i also associated with the presidents. To that end, a visualisation may help.
+It can be a bit tricky to keep an overview of the words associated with each president. For instance, the word "people" is associated with both presidents. This is easy to see, as the two words are right next to each other. America, however, are further apart, although this word is also associated with both presidents. A visualisation may solve this problem.
 
 
 
@@ -120,7 +120,7 @@ articles_filtered %>%
 ```
 
 <img src="fig/03-frequency-analysis-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" />
-The plot above shows the top-ten words associated Obamma and Trump respectively. If a word features on both presidents' top-ten list, it only occures once in the plot. This is why the plot doesn't contain 20 words in total.
+The plot above shows the top-ten words associated Obamma and Trump respectively. If a word features on both presidents' top-ten list, it only occurs once in the plot. This is why the plot doesn't contain 20 words in total.
 
 Another interesting aspect to look at would be the most frequent words used in relation to each president. In this analysis the president is the guiding principle.
 
@@ -171,7 +171,7 @@ Selecting by n
 ```
 
 <img src="fig/03-frequency-analysis-rendered-unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
-The analyses just made can easily be ajusted. For instance, if we want look at the words by `pillar_name` instead of by `president`, we just need to replace `president` with `pillar_name` in the code.
+The analyses just made can easily be adjusted. For instance, if we want look at the words by `pillar_name` instead of by `president`, we simply replace `president` with `pillar_name` in the code.
 
 
 ``` r
