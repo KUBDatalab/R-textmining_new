@@ -7,7 +7,7 @@ exercises: 0
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How is frequency analysis conducted?
+- How is a frequency analysis conducted?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -30,7 +30,7 @@ articles_anti_join <- read_csv("data/articles_anti_join.csv", na = c("NA", "NULL
 
 ## Frequency analysis
 
-A word frequency is a relatively simple analysis. It meassures how often words occur in a text. 
+A word frequency is a relatively simple analysis. It measures how often words occur in a text. 
 
 
 ```{r}
@@ -40,7 +40,7 @@ articles_anti_join %>%
 
 The previous code chunk resulted in a list containing the most frequent words. The words are from articles about both presidents, and they are sorted based on frequency with the highest number on top.
 
-A closer look at the list may reveal that some words are irrelevant. Given that the articles in the dataset are about the two presidents' respective inaugurations, we consider the words below irrelevant for our analysis. Therefore, we make a new dataset without those words.
+A closer look at the list may reveal that some words are irrelevant. Given that the articles in the dataset are about the two presidents' respective inaugurations, we consider the words below irrelevant for our analysis. Therefore, we make a new dataset without these words.
 
 ```{r}
 articles_filtered <- articles_anti_join %>%
@@ -57,7 +57,7 @@ Instead of a general list it may be more interesting to focus on the most freque
 articles_filtered %>%
   count(president, word, sort = TRUE)
 ```
-It can be a bit tricky to keep an overview of the words associated with each president. For instance, the people is associated with both presidents. This is easy to see, as the two words are right next to each other. America, however, are further apart, although this word i also associated with the presidents. To that end, a visualisation may help.
+It can be a bit tricky to keep an overview of the words associated with each president. For instance, the word "people" is associated with both presidents. This is easy to see, as the two words are right next to each other. America, however, are further apart, although this word is also associated with both presidents. A visualisation may solve this problem.
 
 
 ```{r}
@@ -68,7 +68,7 @@ articles_filtered %>%
   ggplot(mapping = aes(x = n, y = word, colour = president, shape = president)) +
   geom_point() 
 ```
-The plot above shows the top-ten words associated Obamma and Trump respectively. If a word features on both presidents' top-ten list, it only occures once in the plot. This is why the plot doesn't contain 20 words in total.
+The plot above shows the top-ten words associated Obamma and Trump respectively. If a word features on both presidents' top-ten list, it only occurs once in the plot. This is why the plot doesn't contain 20 words in total.
 
 Another interesting aspect to look at would be the most frequent words used in relation to each president. In this analysis the president is the guiding principle.
 
@@ -95,7 +95,7 @@ articles_filtered %>%
   labs(x = "word occurrences")
 
 ```
-The analyses just made can easily be ajusted. For instance, if we want look at the words by `pillar_name` instead of by `president`, we just need to replace `president` with `pillar_name` in the code.
+The analyses just made can easily be adjusted. For instance, if we want look at the words by `pillar_name` instead of by `president`, we simply replace `president` with `pillar_name` in the code.
 
 ```{r}
 articles_filtered %>%
