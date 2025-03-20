@@ -318,7 +318,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Tokenisation and stopwords</h1>
-        <p>Last updated on 2025-03-19 |
+        <p>Last updated on 2025-03-20 |
 
         <a href="https://github.com/KUBDatalab/R-textmining_new/edit/main/episodes/02-preparing-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -347,17 +347,17 @@
 <div class="card-body">
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
-<ul><li>Be able to tokenise a text</li>
-<li>Be able to remove stopword from text</li>
+<ul><li>Ability to tokenise a text</li>
+<li>Ability to remove stopwords from text</li>
 </ul></div>
 </div>
 </div>
 </div>
 </div>
 <section><h2 class="section-heading" id="tokenisation">Tokenisation<a class="anchor" aria-label="anchor" href="#tokenisation"></a></h2>
-<hr class="half-width"><p>Since we are working with text mining we focus on the
+<hr class="half-width"><p>Since we are working with text mining, we focus on the
 <code>text</code> coloumn. We do this because the coloumn contains the
-text from articles.</p>
+text from the articles in question.</p>
 <p>To tokenise a coloumn, we use the functions
 <code>unnest_tokens()</code> from the <code>tidytext</code>-package. The
 function gets two arguments. The first one is <code>word</code>. This
@@ -377,11 +377,11 @@ defines that the text should be split up by words. The second argument,
 <div id="tokenisation-1" class="callout-inner">
 <h3 class="callout-title">Tokenisation</h3>
 <div class="callout-content">
-<p>The result is 118,269 rows. The reason is that the
-<code>text</code>-column is replaced by a new column named
+<p>The result of the tokenisation is 118,269 rows. The reason is that
+the <code>text</code>-column has been replaced by a new column named
 <code>word</code>. This columns contains all words found in all of the
 articles. The information from the remaining columns are kept. This
-makes is possible to dermine which article each word belongs to.</p>
+makes is possible to determine which article each word belongs to.</p>
 </div>
 </div>
 </div>
@@ -435,7 +435,7 @@ the stopwords list.</p>
   Add stopwords
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>First, create a tibble with the word you wish to add to the stop
 words list</p>
@@ -448,7 +448,7 @@ words list</p>
 <span>  lexicon <span class="op">=</span> <span class="st">"my_stopwords"</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
-<p>Then make a new stopwords tibble based on the original on, but with
+<p>Then make a new stopwords tibble based on the original one, but with
 the new words added.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -488,10 +488,10 @@ the new words added.</p>
   Remove stopword
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>First, create a vector with the word(s) you wish to remove from the
-stopwords list</p>
+stopwords list.</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -554,7 +554,7 @@ left after anti-joining is the dark grey area to the left.</p>
 <code>anti_join</code>
 </h3>
 <div class="callout-content">
-<p>There are multiple ways to join dataset in R.</p>
+<p>There are multiple <code>join</code>-functions in R.</p>
 </div>
 </div>
 </div>
@@ -631,8 +631,8 @@ any links that you are not going to use.
   "url": "https://KUBDatalab.github.io/R-textmining_new/instructor/02-preparing-data.html",
   "identifier": "https://KUBDatalab.github.io/R-textmining_new/instructor/02-preparing-data.html",
   "dateCreated": "2024-05-01",
-  "dateModified": "2025-03-19",
-  "datePublished": "2025-03-19"
+  "dateModified": "2025-03-20",
+  "datePublished": "2025-03-20"
 }
 
   </script><script>

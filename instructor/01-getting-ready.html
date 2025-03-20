@@ -319,7 +319,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Loading data</h1>
-        <p>Last updated on 2025-03-19 |
+        <p>Last updated on 2025-03-20 |
 
         <a href="https://github.com/KUBDatalab/R-textmining_new/edit/main/episodes/01-getting-ready.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -360,7 +360,7 @@
 </div>
 <section><h2 class="section-heading" id="getting-startet">Getting startet<a class="anchor" aria-label="anchor" href="#getting-startet"></a></h2>
 <hr class="half-width"><p>When performing text analysis in R, the built-in functions in R are
-not sufficient. It is therefore necessary to install som additional
+not sufficient. It is therefore necessary to install some additional
 packages. In this course we will be using the packages
 <code>tidyverse</code>, <code>tidytext</code> and <code>tm</code>.</p>
 <div class="codewrapper sourceCode" id="cb1">
@@ -393,7 +393,8 @@ click on the links below.</p>
 </section><section><h2 class="section-heading" id="getting-data">Getting data<a class="anchor" aria-label="anchor" href="#getting-data"></a></h2>
 <hr class="half-width"><p>Begin by downloading the dataset called <code>articles.csv</code>.
 Place the downloaded file in the data/ folder. You can do this directly
-from R by copying and pasting this in your terminal.</p>
+from R by copying and pasting this into your terminal. (The terminal is
+the tab to the right of the console.)</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -401,7 +402,7 @@ from R by copying and pasting this in your terminal.</p>
 <code class="sourceCode R"><span><span class="fu">download.file</span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/KUBDatalab/R-textmining_new/main/episodes/data/articles.csv"</span>, <span class="st">"data/articles.csv"</span>, mode <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span></span></code></pre>
 </div>
 <p>After downloading the data you need to load the data in R’s memory by
-using the function <code>read_csv()</code></p>
+using the function <code>read_csv()</code>.</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -412,9 +413,8 @@ using the function <code>read_csv()</code></p>
 <hr class="half-width"><p>The dataset contains newspaper articles from the Guardian newspaper.
 The harvested articles were published on the first inauguration day of
 each of the two presidents. Inclusion criteria were that the articles
-had to contain the name of the relevant president, the word
-“inauguration” and a publication date similar to the inauguration
-date.</p>
+contained the name of the relevant president, the word “inauguration”
+and a publication date similar to the inauguration date.</p>
 <p>The original dataset contained lots of variables considered
 irrelevant within the parameters of this course. The following variables
 were kept:</p>
@@ -647,8 +647,8 @@ any links that you are not going to use.
   "url": "https://KUBDatalab.github.io/R-textmining_new/instructor/01-getting-ready.html",
   "identifier": "https://KUBDatalab.github.io/R-textmining_new/instructor/01-getting-ready.html",
   "dateCreated": "2024-05-01",
-  "dateModified": "2025-03-19",
-  "datePublished": "2025-03-19"
+  "dateModified": "2025-03-20",
+  "datePublished": "2025-03-20"
 }
 
   </script><script>
