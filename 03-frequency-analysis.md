@@ -106,7 +106,7 @@ articles_filtered %>%
 10 trump     it’s       108
 # ℹ 15,979 more rows
 ```
-It can be a bit tricky to keep an overview of the words associated with each president. For instance, the word "people" is associated with both presidents. This is easy to see, as the two words are right next to each other. America, however, are further apart, although this word is also associated with both presidents. A visualisation may solve this problem.
+Keeping an overview of the words associated with each president can be a bit tricky. For instance, the word "people" is associated with both presidents. This is easy to see, as the two words are right next to each other. The two occurrences of the word America, however, are further apart, although this word is also associated with both presidents. A visualisation may solve this problem.
 
 
 
@@ -120,7 +120,7 @@ articles_filtered %>%
 ```
 
 <img src="fig/03-frequency-analysis-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" />
-The plot above shows the top-ten words associated Obamma and Trump respectively. If a word features on both presidents' top-ten list, it only occurs once in the plot. This is why the plot doesn't contain 20 words in total.
+The plot above shows the top-ten words associated Obama and Trump respectively. If a word features on both presidents' top-ten list, it only occurs once in the plot. This is why the plot doesn't contain 20 words in total.
 
 Another interesting aspect to look at would be the most frequent words used in relation to each president. In this analysis the president is the guiding principle.
 

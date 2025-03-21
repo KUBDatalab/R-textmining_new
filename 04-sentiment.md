@@ -29,14 +29,14 @@ knitr::opts_chunk$set(warning = FALSE)
 
 ## Sentiment analysis
 
-Sentiment refers to the emotion or tone in a piece of text. It is typically categorised as positive, negative or neutral. Sentiment is often used to analyse opinions, attitudes or emotions in written content. In this case the written content is newspaper articles.
+Sentiment refers to the emotion or tone in a text. It is typically categorised as positive, negative or neutral. Sentiment is often used to analyse opinions, attitudes or emotions in written content. In this case the written content is newspaper articles.
 
 Sentiment analysis is a method used to identify and classify emotions in textual data. This is often done using word list (lexicons). The goals is to determine whether a given text has a positive, negative or neutral tone.
 
 In order to do a sentiment analysis on our data we 
 From the previous section we have a dataset containing a list of words in the text without stopwords. To do a sentiment analysis we can use a so-called lexicon and assign a sentiment to each word. In order to do this we need an list of words and their sentiment. A simple form would be wether they are positive or negative.
 
-There are multiple sentiment lexicons. For a start we will be using the `bing` lexicon. This lexicon categorises words as either positive or negative.
+There are multiple sentiment lexicons. For a start we will be using the `bing` lexicon. This lexicon categorizes words as either positive or negative.
 
 
 
@@ -103,7 +103,7 @@ articles_bing
 
 In R, `inner_join()` is commonly used to combine datasets based on a shared column. In this case it is the `word` column. `inner_join()` matches words from a text dataset, in this case `articles_filtered` with words in the Bing sentiment lexicon to determine whether they are positive or negative.
 
-When we have the combined dataset we can start doing sentiment analysis. A start could be to count the number of positive and negative word used in articles pr president.
+When we have the combined dataset we can begin making a sentiment analysis. A start could be to count the number of positive and negative words used in articles, per president.
 
 
 ``` r
@@ -121,9 +121,9 @@ articles_bing %>%
 1 obama         1499     1800       -301
 2 trump         1160     1700       -540
 ```
-This shows that with both presidents there are used more negative words than positive words about both presidents, and that there have been used more negative words about Trump than Obama.
+This shows that more positive than negative words are associated with both presidents. It also shows that Trump is the president with the highest number of associated negative words.
 
-Anothere thing to do would be to look at the 10 most positive and negative words used in the articles.
+Another interesting thing to look at would the 10 most positive and negative words used in the articles.
 
 
 ``` r
@@ -140,12 +140,9 @@ articles_bing %>%
 ```
 
 <img src="fig/04-sentiment-rendered-unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
-Here we can see the positive and negative words used in articles
+Here we can see the positive and negative words used in the articles.
 
-
-
-
-With ´bing´ we only look at the sentiment in binary fashion - a word is either positive or negative. If we try to do similar analysis with AFINN it looks different.
+With ´bing´ we only look at the sentiment in a binary fashion - a word is either positive or negative. If we try to do a similar analysis with AFINN, it looks different.
 
 
 ``` r
@@ -159,7 +156,7 @@ These packages will be installed into "~/work/R-textmining_new/R-textmining_new/
 
 # Installing packages --------------------------------------------------------
 - Installing textdata ...                       OK [linked from cache]
-Successfully installed 1 package in 6.3 milliseconds.
+Successfully installed 1 package in 6.4 milliseconds.
 ```
 
 ``` r
@@ -253,6 +250,6 @@ Error: object 'articles_afinn' not found
 
 - There are different lexicons
 - It is possible to add sentiments to words
-- It is possible to visulise the sentiments
+- It is possible to visualise the sentiments
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
