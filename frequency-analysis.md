@@ -240,18 +240,32 @@ library(quanteda)
 In order to get the context we will use the function `kwic`
 
 ``` r
-articles |> 
+articles_context <- articles |> 
   filter(section == "Sport") |> 
   # filter(str_detect(text, "\\b1\\b")) |> 
   # slice(1) |> 
   pull(text) |> 
   tokens() |>
   kwic(pattern = "1", window = 10)
+
+articles_context |> head()
 ```
 
-``` error
-Error in `kwic()`:
-! could not find function "kwic"
+``` output
+Keyword-in-context with 6 matches.                                                                         
+   [text4, 270] and Emma Raducanu, the men’s and women’s British No | 1 |
+  [text40, 377]                 ), 6-3 win in front of a roaring No | 1 |
+   [text43, 28]               not “ 100% accurate ”. The British No | 1 |
+  [text51, 785]        court, contended Jane Carter, 58, outside No | 1 |
+  [text51, 850]     down the game. Standing beneath the shade of No | 1 |
+ [text52, 2416]                he said. “ I would have been your No | 1 |
+                                                            
+ players, who each criticised the ELC system following their
+ Court crowd. Spectators appeared to boo Jarry when the     
+ said it was “ a shame ” human line judges                  
+ Court. “ I would think that it would improve               
+ Court, Tom Mansell said the technology takes the “         
+ proponent after Joe Biden. ” The former president is       
 ```
 
 So what we are doing is looking for at keyword in context, and that is exactly what the function `kwic` does. It locates the string we write in the argument `pattern` and takes the amout of words before and after the keyword given in the argument `window`.
