@@ -25,6 +25,7 @@ exercises: 0
 library(tidyverse)
 library(tidytext)
 library(tm)
+library(quanteda)
 
 articles_anti_join <- read_csv("data/articles_anti_join.csv", na = c("NA", "NULL", ""))
 articles <- read_csv("data/guardianArticles.csv", na = c("NA", "NULL", ""))
@@ -149,13 +150,15 @@ library(quanteda)
 
 In order to get the context we will use the function `kwic`
 ```{r}
-articles |> 
+articles_context <- articles |> 
   filter(section == "Sport") |> 
   # filter(str_detect(text, "\\b1\\b")) |> 
   # slice(1) |> 
   pull(text) |> 
   tokens() |>
   kwic(pattern = "1", window = 10)
+
+articles_context |> head()
 
 ```
 
