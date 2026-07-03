@@ -201,20 +201,6 @@ In order to use the `AFINN`-lexicon, we have to save it.
 afinn <- get_sentiments("afinn")
 ```
 
-``` output
-Do you want to download:
- Name: AFINN-111 
- URL: http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=6010 
- License: Open Database License (ODbL) v1.0 
- Size: 78 KB (cleaned 59 KB) 
- Download mechanism: https 
-```
-
-``` error
-Error in `menu()`:
-! menu() cannot be used non-interactively
-```
-
 Let's have a look at it.
 
 
@@ -310,19 +296,19 @@ articles_afinn |>
   mutate(proportion = n / sum(n)) |> 
   ungroup() |> 
   select(-n) |> 
-  arrange(desc(proportion)) |> 
+  #arrange(desc(proportion)) |> 
   pivot_wider(names_from = value, values_from = proportion)
 ```
 
 ``` output
 # A tibble: 5 × 11
-  section   `-2`   `2`   `1`  `-1`    `3`   `-3`     `4`    `-4`     `5`    `-5`
-  <chr>    <dbl> <dbl> <dbl> <dbl>  <dbl>  <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-1 Opinion  0.278 0.220 0.181 0.152 0.0440 0.110  0.00934 0.00440 3.66e-4 4.27e-4
-2 Lifesty… 0.172 0.269 0.214 0.148 0.112  0.0602 0.0173  0.00542 1.33e-3 1.25e-4
-3 News     0.264 0.214 0.214 0.168 0.0304 0.0992 0.00673 0.00408 2.61e-4 4.34e-5
-4 Arts     0.241 0.215 0.160 0.136 0.102  0.106  0.0287  0.0102  1.40e-3 7.01e-4
-5 Sport    0.207 0.224 0.167 0.151 0.110  0.0652 0.0693  0.00302 3.95e-3 5.22e-4
+  section     `-5`    `-4`   `-3`  `-2`  `-1`   `1`   `2`    `3`     `4`     `5`
+  <chr>      <dbl>   <dbl>  <dbl> <dbl> <dbl> <dbl> <dbl>  <dbl>   <dbl>   <dbl>
+1 Arts     7.01e-4 0.0102  0.106  0.241 0.136 0.160 0.215 0.102  0.0287  1.40e-3
+2 Lifesty… 1.25e-4 0.00542 0.0602 0.172 0.148 0.214 0.269 0.112  0.0173  1.33e-3
+3 News     4.34e-5 0.00408 0.0992 0.264 0.168 0.214 0.214 0.0304 0.00673 2.61e-4
+4 Opinion  4.27e-4 0.00440 0.110  0.278 0.152 0.181 0.220 0.0440 0.00934 3.66e-4
+5 Sport    5.22e-4 0.00302 0.0652 0.207 0.151 0.167 0.224 0.110  0.0693  3.95e-3
 ```
 
 
@@ -575,6 +561,26 @@ bigrams_united |>
 10 tech companies            155    NA         5      57    18
 # ℹ 347,693 more rows
 ```
+
+We could also have a look at the 10 most used bigrams in the different sections.
+
+``` r
+bigrams_united |> 
+  count(section, bigram, sort = TRUE) |> 
+  #ungroup() |> 
+  group_by(section) |> 
+  slice_max(n, n = 10) |> 
+  ungroup() |> 
+  mutate(bigram = reorder(bigram, n)) |> 
+  ggplot(mapping = aes(x = n, y = bigram, fill = section)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~section, scales = "free", ncol = 2) +
+  labs(x = "Contribution to sentiment", 
+       y = NULL)
+```
+
+<img src="fig/sentiment-rendered-unnamed-chunk-14-1.png" alt="" style="display: block; margin: auto;" />
+
 
 
 
