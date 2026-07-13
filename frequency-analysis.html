@@ -309,7 +309,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Word frequency analysis</h1>
-        <p>Last updated on 2026-07-07 |
+        <p>Last updated on 2026-07-13 |
 
         <a href="https://github.com/KUBDatalab/R-text-analysis/edit/main/episodes/frequency-analysis.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -373,11 +373,13 @@ often words occur in a text.</p>
 </div>
 <p>The previous code chunk resulted in a list containing the most
 frequent words. The words are from articles about both presidents, and
-they are sorted based on frequency with the highest number on top.</p>
+they are ordered by frequency with the highest number on top.</p>
 <p>A closer look at the list may reveal that some words are irrelevant.
 Given that the articles in the dataset are about the two presidents’
 respective inaugurations, we consider the words below irrelevant for our
 analysis. Therefore, we make a new dataset without these words.</p>
+<p>Notice that the we use a “!” as part of the filter function. By doing
+that, we filter on anything but the words inside the parenthesis.</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -408,8 +410,7 @@ analysis. Therefore, we make a new dataset without these words.</p>
 </div>
 <p>The words deemed irrelevant are no longer on the list above.</p>
 <p>Instead of a general list it may be more interesting to focus on the
-most frequent words belonging to articles about the two presidents
-respectively.</p>
+most frequent words in certain sections from The Guardian.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -437,8 +438,8 @@ respectively.</p>
 </div>
 <p>Keeping an overview of the words associated with each section can be
 a bit tricky. For instance, the word “time” is associated with both
-lifestyle and sport. This is easy to see, as the two words are right
-next to each other, but what if the words are further apart.</p>
+lifestyle and sport.
+<!--This is easy to see, as the two words are right next to each other. But what if the words are further apart? --></p>
 <!-- ```{r top_ten_words_pr_president} -->
 <p><!-- articles_filtered |>
    count(section, word, sort = TRUE) |>
@@ -447,10 +448,9 @@ next to each other, but what if the words are further apart.</p>
    ggplot(mapping = aes(x = n, y = word, colour = section, shape = section)) +
    geom_point()  --> <!-- ``` --></p>
 <!-- The plot above shows the top-five words associated with the sections respectively. If a word features on multiple sections' top-five list, it only occurs once in the plot. This is why the plot doesn't contain 35 words in total. -->
-<p>Another way of looking at the words compared with eachother in
-section could be a table where we count the words used pr sections
-easily comparable. In this analysis the section is the guiding
-principle.</p>
+<p>Another way of comparing words across different sections could by
+counting them per section. In the example below, the section is the
+guiding principle.</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -482,12 +482,12 @@ principle.</p>
 </div>
 </section><div class="section level1">
 <h1 id="proportion">Proportion<a class="anchor" aria-label="anchor" href="#proportion"></a></h1>
-<p>It is well enough to count the words, but we do not know wether 3131
-word about AI in the news section is alot compared to 1250 word in the
-opnion section if we compare to the total amount of words used in each
-section.</p>
-<p>So let us have a look at how it looks if we make the same query, but
-with proportion insted of word count.</p>
+<p>Simply counting the words does not give us any information about
+proportional distribution. For instance, in the AI row, we do not know
+if the 3131 ocurrences of AI in the news is a lot compared to the 1250
+ocurrences in the opinion section.</p>
+<p>Therefore, let us have a look at how it looks if we make the same
+query, but with proportion insted of word count.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -524,8 +524,10 @@ with proportion insted of word count.</p>
 </div>
 <div class="section level1">
 <h1 id="visualization">Visualization<a class="anchor" aria-label="anchor" href="#visualization"></a></h1>
-<p>We can also visualize word frequency. In the following we will
-visualize what the top 10 word used in each section is</p>
+<p>We can also visualize word frequency. Below is a visualisation of the
+10 most frequent words in each section. The plots do not contain
+information about proportions, though the x-axis does give us
+information about the size of each section.</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -552,14 +554,15 @@ visualize what the top 10 word used in each section is</p>
   group_by(date) |>
   slice(1:10) |>
   ggplot(mapping = aes(x = n, y = word, colour = date, shape = date)) +
-  geom_point()  --><!-- ``` --><p>Interesting that numbers occurs in the Sports section. Lets have a
-look at where it occurs. In order to do so we have to go back to our
-original object <code>articles</code> where we have the full text of
-articles. It would be nice to see the context in wich for instance 1
-occurs.</p>
-<p>In order to do this we need to use a <code>package</code> named
-<code>quanteda</code>, so lets install the package, and load it in to
-memory.</p>
+  geom_point()  --><!-- ``` --><p>A close look at the plot belonging to the Sport section reveals that
+numbers occur five times. In order to find out what is behind these
+numbers, we have to return to the original dataset
+<code>articles</code>. The reason we have to use the original dataset is
+that it still has the intact text. Below, we investigate which words
+sorround the number “1”.</p>
+<p>For this purpose we need a <code>package</code> named
+<code>quanteda</code>. First, the package is installed, and then it is
+activated.</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -567,8 +570,7 @@ memory.</p>
 <code class="sourceCode R"><span><span class="fu">install.packages</span><span class="op">(</span><span class="st">"quanteda"</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">quanteda</span><span class="op">)</span></span></code></pre>
 </div>
-<p>In order to get the context we will use the function
-<code>kwic</code></p>
+<p>To get the context, we use the function <code>kwic</code>.</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -601,11 +603,13 @@ memory.</p>
  Court, Tom Mansell said the technology takes the “
  proponent after Joe Biden. ” The former president is       </code></pre>
 </div>
-<p>So what we are doing is looking for at keyword in context, and that
-is exactly what the function <code>kwic</code> does. It locates the
-string we write in the argument <code>pattern</code> and takes the amout
-of words before and after the keyword given in the argument
-<code>window</code>.</p>
+<p>We are looking for at keyword in context, and this is exactly what
+the function <code>kwic</code> does. It locates the string we write in
+the argument <code>pattern</code> and takes the amount of words before
+and after the keyword given in the argument <code>window</code>. In this
+case the number of words before and after “1” is set to 10.</p>
+<p>It may be worth saving the result, so that it can be analysed
+further. One way of doing this is by saving it as a csv-file.</p>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -686,8 +690,8 @@ any links that you are not going to use.
   "url": "https://KUBDatalab.github.io/R-text-analysis/frequency-analysis.html",
   "identifier": "https://KUBDatalab.github.io/R-text-analysis/frequency-analysis.html",
   "dateCreated": "2024-05-01",
-  "dateModified": "2026-07-07",
-  "datePublished": "2026-07-07"
+  "dateModified": "2026-07-13",
+  "datePublished": "2026-07-13"
 }
 
   </script><script>

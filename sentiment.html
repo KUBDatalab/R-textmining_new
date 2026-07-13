@@ -309,7 +309,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Sentiment analysis</h1>
-        <p>Last updated on 2026-07-07 |
+        <p>Last updated on 2026-07-13 |
 
         <a href="https://github.com/KUBDatalab/R-text-analysis/edit/main/episodes/sentiment.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -395,8 +395,8 @@ it.</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bing</span> <span class="op">&lt;-</span> <span class="fu">get_sentiments</span><span class="op">(</span><span class="st">"bing"</span><span class="op">)</span></span></code></pre>
 </div>
-<p>We now need to combine the sentiment to the words from our articles.
-We do this by performing an inner_join.</p>
+<p>We now need to combine the sentiment with the words from the
+articles. This is done by performing an inner_join.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -439,9 +439,9 @@ column. <code>inner_join()</code> matches words from a text dataset, in
 this case <code>articles_filtered</code> with words in the Bing
 sentiment lexicon to determine whether they are positive or
 negative.</p>
-<p>When we have the combined dataset we can begin making a sentiment
-analysis. A start could be to count the number of positive and negative
-words used in articles, per president.</p>
+<p>Once we have the combined dataset we can make a sentiment analysis. A
+way to start could be by counting the number of positive and negative
+words used in the articles. This is done per section.</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -464,9 +464,11 @@ words used in articles, per president.</p>
 4 Opinion       8452    11419      -2967
 5 Sport        11350     9770       1580</code></pre>
 </div>
-<p>This shows that more positive than negative words are associated with
-both presidents. It also shows that Trump is the president with the
-highest number of associated negative words.</p>
+<p>The result shows the distribution of positive and negative words
+across sections. It also shows that Lifestyle has the highest number of
+positive words, and that oponion has the highest number of negative
+words. The section with the lowest difference is Arts.</p>
+<p>Another way of presenting this analysis is by visualising it.</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -492,12 +494,13 @@ highest number of associated negative words.</p>
 ℹ Use `summarise(.by = c(section, date))` for per-operation grouping
   (`?dplyr::dplyr_by`) instead.</code></pre>
 </div>
-<figure><img src="fig/sentiment-rendered-articles_bing_group_by_inner_join_graph-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Looking at the graphs we can see that the wording in december in
-sports articles are quite negative compared to february. If we had a
-data set covering more years it would be interesting to see if this was
-a normal thing. For now it might be interesting to read the articles
-from december and februar and compare what they are writing about. So
-how do we get the articles</p>
+<figure><img src="fig/sentiment-rendered-articles_bing_group_by_inner_join_graph-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>By looking at the graphs, we can see that the wording in December in
+sports articles is quite negative compared to February. If we had a data
+set covering more years it would be worth investigating if this was a
+tendency. For now, it might be interesting to read the articles from
+December and Februar in order to compare what they are about. To that
+end we can create a new dataset containing articles from the Sports
+section from December and February.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -506,6 +509,7 @@ how do we get the articles</p>
 <span>  <span class="fu">filter</span><span class="op">(</span><span class="va">section</span> <span class="op">==</span> <span class="st">"Sport"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">filter</span><span class="op">(</span><span class="va">date</span> <span class="op">%in%</span> <span class="fu">c</span><span class="op">(</span><span class="st">"2025-12"</span>, <span class="st">"2026-02"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
+<p>This can be saved as csv-file for further analysis.</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1026,8 +1030,8 @@ any links that you are not going to use.
   "url": "https://KUBDatalab.github.io/R-text-analysis/sentiment.html",
   "identifier": "https://KUBDatalab.github.io/R-text-analysis/sentiment.html",
   "dateCreated": "2024-05-01",
-  "dateModified": "2026-07-07",
-  "datePublished": "2026-07-07"
+  "dateModified": "2026-07-13",
+  "datePublished": "2026-07-13"
 }
 
   </script><script>
