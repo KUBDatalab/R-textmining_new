@@ -49,9 +49,7 @@ articles_tidy
 
 ## Tokenisation
 
-The result of the tokenisation is 2,405,300 rows. The reason is that the `text`-column has been replaced by a new column named `word`. This column contains all words found in all of the articles. The information from the remaining columns are kept. This makes is possible to determine which article each word belongs to.
-
-Note that we can only see part of the word column's content.
+The result of the tokenisation is 2,405,300 rows. The reason is that the `text`-column has been replaced by a new column named `word`. This column contains all words found in all of the articles. The information from the remaining columns is kept. This makes is possible to determine which article each word belongs to. The reason the data set contains so many more rows is that each word is on a row of its own.
 
 ::::
 

@@ -66,7 +66,7 @@ In order to use the `bing`-lexicon, we have to save it.
 bing <- get_sentiments("bing")
 ```
 
-We now need to combine the sentiment to the words from our articles. We do this by performing an inner_join.
+We now need to combine the sentiment with the words from the articles. This is done by performing an inner_join.
 
 
 ``` r
@@ -101,7 +101,7 @@ articles_bing
 
 In R, `inner_join()` is commonly used to combine datasets based on a shared column. In this case it is the `word` column. `inner_join()` matches words from a text dataset, in this case `articles_filtered` with words in the Bing sentiment lexicon to determine whether they are positive or negative.
 
-When we have the combined dataset we can begin making a sentiment analysis. A start could be to count the number of positive and negative words used in articles, per president.
+Once we have the combined dataset we can make a sentiment analysis. A way to start could be by counting the number of positive and negative words used in the articles. This is done per section.
 
 
 ``` r
@@ -123,7 +123,9 @@ articles_bing |>
 5 Sport        11350     9770       1580
 ```
 
-This shows that more positive than negative words are associated with both presidents. It also shows that Trump is the president with the highest number of associated negative words.
+The result shows the distribution of positive and negative words across sections. It also shows that Lifestyle has the highest number of positive words, and that oponion has the highest number of negative words. The section with the lowest difference is Arts.
+
+Another way of presenting this analysis is by visualising it.
 
 
 ``` r
@@ -150,7 +152,7 @@ articles_bing |>
 
 <img src="fig/sentiment-rendered-articles_bing_group_by_inner_join_graph-1.png" alt="" style="display: block; margin: auto;" />
 
-Looking at the graphs we can see that the wording in december in sports articles are quite negative compared to february. If we had a data set covering more years it would be interesting to see if this was a normal thing. For now it might be interesting to read the articles from december and februar and compare what they are writing about. So how do we get the articles
+By looking at the graphs, we can see that the wording in December in sports articles is quite negative compared to February. If we had a data set covering more years it would be worth investigating if this was a tendency. For now, it might be interesting to read the articles from December and Februar in order to compare what they are about. To that end we can create a new dataset containing articles from the Sports section from December and February.
 
 
 ``` r
@@ -158,6 +160,8 @@ interesting_articles <- articles |>
   filter(section == "Sport") |> 
   filter(date %in% c("2025-12", "2026-02"))
 ```
+
+This can be saved as csv-file for further analysis.
 
 
 ``` r

@@ -63,7 +63,7 @@ Applying these principles to text data leads to a format that is easily manipula
 
 Tidy text represents the text by breaking it down into smaller parts such as sentences, words or letters. This process is called tokenisation.
 
-Tokenisation is language independent, as long as the language uses space between each word.
+Tokenisation is language independent, as long as the language uses a space between each word.
 
 Here is an example of tokenisation at word-level.
 

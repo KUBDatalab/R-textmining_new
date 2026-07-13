@@ -52,9 +52,11 @@ articles_anti_join |>
 # ℹ 68,889 more rows
 ```
 
-The previous code chunk resulted in a list containing the most frequent words. The words are from articles about both presidents, and they are sorted based on frequency with the highest number on top.
+The previous code chunk resulted in a list containing the most frequent words. The words are from articles about both presidents, and they are ordered by frequency with the highest number on top.
 
 A closer look at the list may reveal that some words are irrelevant. Given that the articles in the dataset are about the two presidents' respective inaugurations, we consider the words below irrelevant for our analysis. Therefore, we make a new dataset without these words.
+
+Notice that the we use a "!" as part of the filter function. By doing that, we filter on anything but the words inside the parenthesis.
 
 
 ``` r
@@ -83,7 +85,7 @@ articles_filtered |>
 ```
 The words deemed irrelevant are no longer on the list above.
 
-Instead of a general list it may be more interesting to focus on the most frequent words belonging to articles about the two presidents respectively.
+Instead of a general list it may be more interesting to focus on the most frequent words in certain sections from The Guardian.
 
 
 ``` r
@@ -108,7 +110,7 @@ articles_filtered |>
 # ℹ 138,055 more rows
 ```
 
-Keeping an overview of the words associated with each section can be a bit tricky. For instance, the word "time" is associated with both lifestyle and sport. This is easy to see, as the two words are right next to each other, but what if the words are further apart.
+Keeping an overview of the words associated with each section can be a bit tricky. For instance, the word "time" is associated with both lifestyle and sport. <!--This is easy to see, as the two words are right next to each other. But what if the words are further apart? -->
 
 
 <!-- ```{r top_ten_words_pr_president} -->
@@ -122,8 +124,7 @@ Keeping an overview of the words associated with each section can be a bit trick
 
 <!-- The plot above shows the top-five words associated with the sections respectively. If a word features on multiple sections' top-five list, it only occurs once in the plot. This is why the plot doesn't contain 35 words in total. -->
 
-Another way of looking at the words compared with eachother in section could be a table where we count the words used pr sections easily comparable. In this analysis the section is the guiding principle. 
-
+Another way of comparing words across different sections could by counting them per section. In the example below, the section is the guiding principle. 
 
 
 
@@ -154,9 +155,9 @@ articles_filtered |>
 ```
 
 # Proportion
-It is well enough to count the words, but we do not know wether 3131 word about AI in the news section is alot compared to 1250 word in the opnion section if we compare to the total amount of words used in each section.
+Simply counting the words does not give us any information about proportional distribution. For instance, in the AI row, we do not know if the 3131 ocurrences of AI in the news is a lot compared to the 1250 ocurrences in the opinion section.
 
-So let us have a look at how it looks if we make the same query, but with proportion insted of word count.
+Therefore, let us have a look at how it looks if we make the same query, but with proportion insted of word count.
 
 
 ``` r
@@ -192,7 +193,7 @@ articles_filtered |>
 
 # Visualization
 
-We can also visualize word frequency. In the following we will visualize what the top 10 word used in each section is
+We can also visualize word frequency. Below is a visualisation of the 10 most frequent words in each section. The plots do not contain information about proportions, though the x-axis does give us information about the size of each section.
 
 
 ``` r
@@ -227,9 +228,9 @@ Selecting by n
 <!-- ``` -->
 
 
-Interesting that numbers occurs in the Sports section. Lets have a look at where it occurs. In order to do so we have to go back to our original object `articles` where we have the full text of articles. It would be nice to see the context in wich for instance 1 occurs.
+A close look at the plot belonging to the Sport section reveals that numbers occur five times. In order to find out what is behind these numbers, we have to return to the original dataset `articles`. The reason we have to use the original dataset is that it still has the intact text. Below, we investigate which words sorround the number "1".
 
-In order to do this we need to use a `package` named `quanteda`, so lets install the package, and load it in to memory.
+For this purpose we need a `package` named `quanteda`. First, the package is installed, and then it is activated.
 
 
 ``` r
@@ -237,7 +238,8 @@ install.packages("quanteda")
 library(quanteda)
 ```
 
-In order to get the context we will use the function `kwic`
+To get the context, we use the function `kwic`.
+
 
 ``` r
 articles_context <- articles |> 
@@ -268,9 +270,9 @@ Keyword-in-context with 6 matches.
  proponent after Joe Biden. ” The former president is       
 ```
 
-So what we are doing is looking for at keyword in context, and that is exactly what the function `kwic` does. It locates the string we write in the argument `pattern` and takes the amout of words before and after the keyword given in the argument `window`.
+We are looking for at keyword in context, and this is exactly what the function `kwic` does. It locates the string we write in the argument `pattern` and takes the amount of words before and after the keyword given in the argument `window`. In this case the number of words before and after "1" is set to 10.
 
-
+It may be worth saving the result, so that it can be analysed further. One way of doing this is by saving it as a csv-file.
 
 
 

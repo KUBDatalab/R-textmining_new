@@ -26,7 +26,7 @@ exercises: 0
 
 
 ## Getting started
-When performing text analysis in R, the built-in functions in R are not sufficient. It is therefore necessary to install some additional packages. In this course we will be using the packages `tidyverse` and `tidytext`.
+When performing text analysis in R, the built-in functions in R are not sufficient. It is therefore necessary to install some additional packages. In this course we will be using the packages `tidyverse`, `tidytext` and `tm`.
 
 
 
@@ -61,7 +61,7 @@ Begin by downloading the dataset called `articles.csv`. Place the downloaded fil
 download.file("https://raw.githubusercontent.com/KUBDatalab/R-textmining_new/main/episodes/data/guardianArticles.csv", "data/guardianArticles.csv", mode = "wb")
 ```
 
-After downloading the data you need to load the data into R's memory using the function `read_csv()`.
+After downloading the data, it needs to be loaded into R's memory by means of the function `read_csv()`.
 
 
 ``` r
@@ -97,7 +97,7 @@ articles
 ## Data description
 The dataset contains newspaper articles from the Guardian newspaper. The harvested articles were published between June 2025 and May 2026 and contain the word "technology".
 
-The original dataset contained lots of variables considered irrelevant within the parameters of this course. The following variables were kept:
+The original dataset contained some variables considered irrelevant within the parameters of this course. The following variables were kept:
 
 * __id__ - unique number identifying each article
 * __date__ - month and publication year
