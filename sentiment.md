@@ -152,7 +152,9 @@ articles_bing |>
 
 <img src="fig/sentiment-rendered-articles_bing_group_by_inner_join_graph-1.png" alt="" style="display: block; margin: auto;" />
 
-By looking at the graphs, we can see that the wording in December in sports articles is quite negative compared to February. If we had a data set covering more years it would be worth investigating if this was a tendency. For now, it might be interesting to read the articles from December and Februar in order to compare what they are about. To that end we can create a new dataset containing articles from the Sports section from December and February.
+By looking at the graphs, we can see that the wording in December in Sport articles is quite negative compared to February. If we had a data set covering more years it would be worth investigating if this was a tendency or just a coincidence. 
+
+For now, it might be interesting to read the articles from December and February in order to compare their content. To that end we can create a new dataset containing articles from the Sport section from December and February.
 
 
 ``` r
@@ -187,10 +189,9 @@ write_csv(interesting_articles, "data_out/interesting_articles.csv")
 
 <!-- Here we can see the positive and negative words used in the articles. -->
 
-With `bing` we only look at the sentiment in a binary fashion - a word is either positive or negative. If we try to do a similar analysis 
-with `AFINN`, it looks different. `AFINN` is a sentiment lexicon. It consists of a list of words that are assigned sentiment scores ranging from -5 (very negative) to +5 (very positive).
+With `bing` we only look at the sentiment in a binary fashion - a word is either positive or negative. If we do a similar analysis  with `AFINN`, it looks different. Like `bing`, `AFINN` is a sentiment lexicon. It consists of a list of words that are assigned sentiment scores ranging from -5 (very negative) to +5 (very positive). Note that `AFINN` does not contain a 0.
 
-`AFINN` is part of the package `textdata`, so we need to install the package and run library in order to be able to use it in this script.
+`AFINN` is part of the package `textdata`, so we need to install the package and run the library in order to be able to use it in this script.
 
 
 ``` r
@@ -198,14 +199,14 @@ install.packages("textdata")
 library(textdata)
 ```
 
-In order to use the `AFINN`-lexicon, we have to save it.
+So that we can use the `AFINN`-lexicon, we have to save it.
 
 
 ``` r
 afinn <- get_sentiments("afinn")
 ```
 
-Let's have a look at it.
+This is what it looks like.
 
 
 
@@ -250,7 +251,7 @@ articles_afinn <- articles_filtered |>
 Joining with `by = join_by(word)`
 ```
 
-Since the `AFINN` lexicon adds negative and positive numbers to the words (instead of strings as Bing does) we can easily calculate the difference as we did with `bing`. In order to see wether a section is dominated by positive or negative words.
+Since the `AFINN` lexicon ascribes either negative or positive numbers each word (instead of strings, as `bing` does),we can easily calculate the difference as we did with `bing`. 
 
 
 ``` r
@@ -291,6 +292,7 @@ articles_afinn |>
 5 Sport         9    52  1123  3563  2598  2871  3859  1894  1195    68
 ```
 
+This is what it looks like if we add proportions to the calculation.
 
 
 ``` r
@@ -315,6 +317,8 @@ articles_afinn |>
 5 Sport    5.22e-4 0.00302 0.0652 0.207 0.151 0.167 0.224 0.110  0.0693  3.95e-3
 ```
 
+If we focus on the two sections Sport and Opinion, this is what it looks like when we visualise it by means of `ggplot()`.
+
 
 ``` r
 articles_afinn |> 
@@ -328,7 +332,7 @@ articles_afinn |>
   geom_col(position = "dodge")
 ```
 
-<img src="fig/sentiment-rendered-unnamed-chunk-5-1.png" alt="" style="display: block; margin: auto;" />
+<img src="fig/sentiment-rendered-unnamed-chunk-2-1.png" alt="" style="display: block; margin: auto;" />
 
 <!-- ```{r afinn_president_value_geom_col} -->
 <!-- articles_afinn |> 
@@ -360,13 +364,13 @@ articles_afinn |>
 
 # n-grams and correlations
 
-So far we have been looking at words as individual units, and not considered how they are related to the other words around it. It is possible to make analysis where you look at the relationsships between word in our text.
+So far we have been looking at words as individual units and not considered how they are related to the other words around them. It is possible to conduct an analysis that looks at the relationsships between words in our text.
 
-Instead of using the `unnest_tokens` function to by word, as we have done so far, we will tokenize our text in to sequences of words called n-grams. This gives us the possibility to see how often a word is followed by another word, and hereby gives us the chance to look at the relationsship between words.
+Instead of using the `unnest_tokens`-function at singular word level, as we have done so far, we will tokenize our text in to sequences of words. These sequences are called n-grams. They allow us to see how often a word is followed by another word. This gives us a chance to look at the relationsship between words.
 
-We no longer wants to use `articles_filteres` since this is tokenized by word. We have a `dataframe` that contains the articles text in one cell, so we will go back to our orginal object `articles` that contain all the articles.
+We no longer want to use `articles_filteres`, since this has been tokenized word by word. We need a `dataframe` where each article text is in a cell of its own. Therefore, we will go back to our orginal object `articles` that contains all the articles in their original state.
 
-So lets tokenize to 2-words.
+First we tokenise the text so that each cell contains two words.
 
  
  ``` r
@@ -397,7 +401,7 @@ articles_bigrams
 # ℹ 2,403,392 more rows
 ```
 
-It looks much like the result of a tokenisation by word, but the added column is now called bigram and contains two words
+It looks much like the result of a tokenisation at singular word level, but the added column is now called bigram and contains two words
 
 We can now count how many times word pair occurs.
 
@@ -424,11 +428,11 @@ articles_bigrams |>
 # ℹ 923,084 more rows
 ```
 
-Here we can see that the birams that tops the list are pairs of quite common words, much of these words are the once we earlier called stopwords. It would be nice to remove the pair where one of the words are a stopword.
+Here we can see that the birams that tops the list are pairs of quite common words. Many of these are words that were defined as stopwords earlier. By removing pairs that contain at least one stopwords, we get at more meaningful result.
 
-In order to be able to remove these pairs so we have to put each word in it own column. We can do this by using the function `separate`.
+In order to be able to remove these pairs, we have to put each word in its own column. We can do this by using the function `separate`.
 
-First we will separate the pair into two columns by separating the pair around the space between them.
+First we separate each pair into two columns. We to this by using the white space between the words as a separator.
 
 
 ``` r
@@ -455,7 +459,7 @@ bigrams_separated
 # ℹ 2,403,392 more rows
 ```
 
-After that we will remove the rows that contain a stopword in either of the two new columns.
+Once that is done, we remove the rows that contain a stopword in either of the two new columns.
 
 
 ``` r
@@ -485,6 +489,7 @@ bigrams_filtered
 
 Now we can make a new count of word pair.
 
+
 ``` r
 bigram_counts <- bigrams_filtered |> 
   count(word1, word2, sort = TRUE)
@@ -509,9 +514,9 @@ bigram_counts
 # ℹ 347,693 more rows
 ```
 
-Now we get some more meaning full word pairs.
+This gives us a more meaningful set of word pairs.
 
-If we want to combine the colums again to have the words pairs (without stopwords) in one column, it can easily be done by using the function `unite`
+If we want to combine the colums again, so that the words pairs (without stopwords) are back in the same column, it can easily be done by using the function `unite`
 
 
 ``` r
@@ -538,7 +543,7 @@ bigrams_united
 # ℹ 479,603 more rows
 ```
 
-We could have a look at how different word pairs, are used in different sections.
+Now we can seee how different word pairs, are used in different sections.
 
 
 ``` r
@@ -568,6 +573,7 @@ bigrams_united |>
 
 We could also have a look at the 10 most used bigrams in the different sections.
 
+
 ``` r
 bigrams_united |> 
   count(section, bigram, sort = TRUE) |> 
@@ -583,7 +589,7 @@ bigrams_united |>
        y = NULL)
 ```
 
-<img src="fig/sentiment-rendered-unnamed-chunk-14-1.png" alt="" style="display: block; margin: auto;" />
+<img src="fig/sentiment-rendered-top_10_bigrams_sections-1.png" alt="" style="display: block; margin: auto;" />
 
 
 
