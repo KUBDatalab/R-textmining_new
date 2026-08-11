@@ -254,7 +254,8 @@ articles_context |> head()
 ```
 
 ``` output
-Keyword-in-context with 6 matches.                                                                         
+Keyword-in-context with 6 matches.
+                                                                         
    [text4, 270] and Emma Raducanu, the men’s and women’s British No | 1 |
   [text40, 377]                 ), 6-3 win in front of a roaring No | 1 |
    [text43, 28]               not “ 100% accurate ”. The British No | 1 |
